@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-white text-black font-sans;
+  }
+}
+
+@layer components {
+  .hamburger-line {
+    @apply w-6 h-0.5 bg-black transition-all duration-300;
+  }
+  
+  .hamburger-line.open:nth-child(1) {
+    @apply transform rotate-45 translate-y-2;
+  }
+  
+  .hamburger-line.open:nth-child(2) {
+    @apply opacity-0;
+  }
+  
+  .hamburger-line.open:nth-child(3) {
+    @apply transform -rotate-45 -translate-y-2;
+  }
+  
+  .prose h1 {
+    @apply text-3xl font-bold mb-4 text-black;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-semibold mb-3 text-black;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-medium mb-2 text-black;
+  }
+  
+  .prose p {
+    @apply mb-4 text-gray-800 leading-relaxed;
+  }
+  
+  .prose a {
+    @apply text-primary hover:text-primary-dark underline;
+  }
+  
+  .prose ul {
+    @apply list-disc pl-6 mb-4;
+  }
+  
+  .prose ol {
+    @apply list-decimal pl-6 mb-4;
+  }
+  
+  .prose li {
+    @apply mb-1;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-primary-light pl-4 italic text-gray-700 mb-4;
+  }
+  
+  .prose code {
+    @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-mono;
+  }
+  
+  .prose pre {
+    @apply bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent px-0 py-0;
+  }
+}
