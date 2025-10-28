@@ -95,9 +95,9 @@ const processMdxBlogs = async () => {
       metadata[match[1]] = match[2];
     }
     
-    // Compile MDX to function-body format
+    // Compile MDX to program format
     const compiled = await compile(content, {
-      outputFormat: 'function-body',
+      outputFormat: 'program',
       development: CONFIG.isDev,
       jsxImportSource: 'react'
     });
@@ -125,6 +125,10 @@ const createBlogPage = async (blog) => {
   const blogDir = path.join(CONFIG.distDir, 'blogs', blog.slug);
   ensureDir(blogDir);
   
+  // Create temporary MDX component file
+  const tempMdxPath = path.join(CONFIG.distDir, `temp-mdx-${blog.slug}.js`);
+  fs.writeFileSync(tempMdxPath, blog.compiled);
+  
   // Create a temporary component file for the blog
   const tempComponentPath = path.join(CONFIG.distDir, `temp-blog-${blog.slug}.js`);
   
@@ -132,6 +136,7 @@ const createBlogPage = async (blog) => {
 import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import Layout from '../src/components/Layout.jsx';
+import MDXContent from './temp-mdx-${blog.slug}.js';
 
 const mdxComponents = {
   h1: (props) => React.createElement('h1', { className: 'prose text-3xl font-bold mb-6 text-black', ...props }),
@@ -145,16 +150,6 @@ const mdxComponents = {
   blockquote: (props) => React.createElement('blockquote', { className: 'prose border-l-4 border-primary-light pl-4 italic text-gray-700 mb-4', ...props }),
   code: (props) => React.createElement('code', { className: 'prose bg-gray-100 px-1 py-0.5 rounded text-sm font-mono', ...props }),
   pre: (props) => React.createElement('pre', { className: 'prose bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4', ...props }),
-};
-
-function MDXContent(props) {
-  ${blog.compiled}
-}
-
-MDXContent.frontMatter = {
-  title: "${blog.title}",
-  date: "${blog.date}",
-  description: "${blog.description}"
 };
 
 const BlogPage = () => {
@@ -232,9 +227,12 @@ export default BlogPage;
   } catch (error) {
     console.error(`❌ Error creating blog page for ${blog.slug}:`, error);
   } finally {
-    // Clean up temp file
+    // Clean up temp files
     if (fs.existsSync(tempComponentPath)) {
       fs.unlinkSync(tempComponentPath);
+    }
+    if (fs.existsSync(tempMdxPath)) {
+      fs.unlinkSync(tempMdxPath);
     }
   }
 };
