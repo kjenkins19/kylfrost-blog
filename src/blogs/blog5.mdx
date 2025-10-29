@@ -1,432 +1,266 @@
-export const title = "Mastering JavaScript Async/Await: From Promises to Modern Patterns";
-export const date = "2025-10-05";
-export const description = "Deep dive into JavaScript's asynchronous programming evolution. Learn how to effectively use async/await, handle errors, and implement modern patterns for better code readability and maintainability.";
+export const title = "Building Trust in Tech Part 1: The Importance of understanding and living into your own values";
+export const date = "2025-10-29";
+export const description = "Exploring why understanding your personal values is foundational to building trust in the tech industry and creating meaningful relationships with colleagues and users.";
 
-# Mastering JavaScript Async/Await: From Promises to Modern Patterns
+# Building Trust in Tech Part 1: The Importance of understanding and living into your own values
 
-Asynchronous programming is at the heart of modern JavaScript development. From handling API calls to managing user interactions, understanding how to work with asynchronous code effectively is crucial for building responsive applications. In this comprehensive guide, we'll explore the evolution from callbacks to promises to async/await, and learn modern patterns that will make your code more readable and maintainable.
+Trust is the foundation of every meaningful relationship and successful career in technology. Yet in our industry's rush toward innovation and technical excellence, we often overlook the most fundamental building block of trust: knowing and living by our own values. This isn't just about personal development—it's about becoming the kind of professional others want to work with, learn from, and follow.
 
-## The Evolution of Async JavaScript
+## The Trust Crisis in Tech
 
-JavaScript's approach to handling asynchronous operations has evolved significantly over the years, each iteration solving problems of the previous approach.
+The technology industry faces a credibility problem. From data privacy violations to biased algorithms, from toxic workplace cultures to promises that never materialize, public trust in tech has eroded significantly. But this isn't just about corporate responsibility—it starts with individual professionals understanding what they stand for.
 
-### From Callbacks to Promises
+When we don't know our own values, we make inconsistent decisions. We compromise on things that matter, then wonder why people don't trust our judgment. We say yes when we should say no, or advocate for solutions that conflict with our deeper beliefs about how technology should serve humanity.
 
-The original callback pattern, while functional, led to the infamous "callback hell":
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. The path to rebuilding trust begins with each of us becoming clear about our own values and then consistently living them out in our daily work.
 
-```javascript
-// Callback hell example
-getData(function(a) {
-  getMoreData(a, function(b) {
-    getEvenMoreData(b, function(c) {
-      // This nesting can get out of hand quickly
-      getFinalData(c, function(d) {
-        // Finally, we can use our data
-        console.log(d);
-      });
-    });
-  });
-});
-```
+## What Are Values, Really?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Values aren't just feel-good concepts posted on company walls. They are the fundamental beliefs that guide your decisions when no one is watching, when the pressure is high, and when the "right" choice isn't obvious.
 
-Promises provided a much cleaner solution:
+Your values answer questions like:
+- What kind of impact do I want my work to have on the world?
+- How do I want to treat colleagues, especially when we disagree?
+- What am I willing to sacrifice for success, and what am I not?
+- How do I define quality, and what compromises am I willing to make?
 
-```javascript
-// Promise chain example
-getData()
-  .then(a => getMoreData(a))
-  .then(b => getEvenMoreData(b))
-  .then(c => getFinalData(c))
-  .then(d => console.log(d))
-  .catch(error => console.error('Error:', error));
-```
+### Values vs. Principles vs. Preferences
 
-## Understanding Async/Await
+It's important to distinguish between values, principles, and preferences:
 
-Async/await, introduced in ES2017, provides an even more intuitive way to work with asynchronous code by making it look and behave more like synchronous code.
+- **Values** are your core beliefs about what matters most (e.g., "Human dignity should never be compromised for efficiency")
+- **Principles** are the rules you derive from your values (e.g., "Always consider accessibility in design decisions")  
+- **Preferences** are your likes and dislikes (e.g., "I prefer working with Python over Java")
 
-### Basic Async/Await Syntax
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Values run deeper than principles and matter more than preferences when building lasting trust.
+
+## The Professional Cost of Unclear Values
+
+When your values are unclear or unexamined, it shows up in predictable ways:
+
+### Inconsistent Decision-Making
 
 ```javascript
-async function fetchUserData(userId) {
-  try {
-    const user = await getUserById(userId);
-    const posts = await getPostsByUser(user.id);
-    const comments = await getCommentsByPosts(posts);
-    
-    return {
-      user,
-      posts,
-      comments
-    };
-  } catch (error) {
-    console.error('Failed to fetch user data:', error);
-    throw error;
-  }
-}
+// Example: A developer without clear values around code quality
+// Monday: "We need to ship fast, don't worry about tests"
+// Friday: "This code is terrible, we need to refactor everything"
+
+// Result: Team confusion about standards and priorities
 ```
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+### Boundary Violations
 
-### Key Benefits of Async/Await
+Without clear values, you'll say yes to requests that violate your deeper beliefs about good work, then resent the outcomes. You might commit to unrealistic deadlines, compromise on security for speed, or build features you believe are harmful to users.
 
-- **Readability**: Code reads more like synchronous code
-- **Error Handling**: Use familiar try/catch blocks
-- **Debugging**: Easier to set breakpoints and step through code
-- **Less Boilerplate**: No need for `.then()` chaining
+### Loss of Authentic Voice
 
-## Error Handling Strategies
+Teams need diverse perspectives to make good decisions. But if you don't know what you stand for, you'll either stay silent when your voice is needed or echo popular opinions instead of contributing your unique perspective.
 
-Proper error handling is crucial when working with asynchronous operations.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. This inauthenticity is quickly recognized by colleagues and undermines your credibility over time.
 
-### Try/Catch with Async/Await
+## Discovering Your Professional Values
 
-```javascript
-async function robustApiCall(url) {
-  try {
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    if (error instanceof TypeError) {
-      // Network error
-      console.error('Network error:', error.message);
-    } else if (error instanceof SyntaxError) {
-      // JSON parsing error
-      console.error('JSON parsing error:', error.message);
-    } else {
-      // Other errors
-      console.error('API call failed:', error.message);
-    }
-    
-    throw error; // Re-throw if needed
-  }
-}
-```
+Values discovery isn't a one-time exercise—it's an ongoing process of reflection and refinement. Here are practical approaches:
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+### The Peak Moments Analysis
 
-### Creating Custom Error Classes
+Think about the moments in your career when you felt most proud, energized, and aligned. What values were you expressing? 
 
-```javascript
-class APIError extends Error {
-  constructor(message, status, endpoint) {
-    super(message);
-    this.name = 'APIError';
-    this.status = status;
-    this.endpoint = endpoint;
-  }
-}
+- When did you feel most satisfied with your work?
+- What decisions are you most proud of making?
+- When did you feel like you were making a real difference?
 
-async function fetchWithCustomErrors(url) {
-  try {
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new APIError(
-        `Request failed: ${response.statusText}`,
-        response.status,
-        url
-      );
-    }
-    
-    return await response.json();
-  } catch (error) {
-    if (error instanceof APIError) {
-      console.error(`API Error: ${error.message} (${error.status})`);
-    }
-    throw error;
-  }
-}
-```
+### The Regret Analysis
 
-## Advanced Async Patterns
+Equally important are the moments of regret or misalignment:
 
-### Parallel vs Sequential Execution
+- When did you compromise in ways that still bother you?
+- What decisions would you make differently?
+- When did you feel like you were acting against your better judgment?
 
-Understanding when to run operations in parallel versus sequentially is crucial for performance.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. These moments of discomfort often reveal violated values more clearly than positive experiences.
 
-```javascript
-// Sequential execution - slower
-async function sequentialFetch() {
-  const user = await fetchUser();
-  const posts = await fetchPosts();
-  const comments = await fetchComments();
-  
-  return { user, posts, comments };
-}
+### The Role Model Method
 
-// Parallel execution - faster
-async function parallelFetch() {
-  const [user, posts, comments] = await Promise.all([
-    fetchUser(),
-    fetchPosts(),
-    fetchComments()
-  ]);
-  
-  return { user, posts, comments };
-}
-```
+Identify professionals you deeply respect—not just for their technical skills, but for how they approach their work and relationships. What qualities do they embody? What do you admire about their decision-making?
 
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+Often, the values we recognize and appreciate in others are reflections of our own underlying value system.
 
-### Handling Mixed Success/Failure Scenarios
+## Common Professional Values in Tech
 
-```javascript
-// Promise.allSettled for handling mixed results
-async function fetchAllUserData(userIds) {
-  const promises = userIds.map(id => fetchUser(id));
-  const results = await Promise.allSettled(promises);
-  
-  const successful = results
-    .filter(result => result.status === 'fulfilled')
-    .map(result => result.value);
-    
-  const failed = results
-    .filter(result => result.status === 'rejected')
-    .map(result => result.reason);
-    
-  return { successful, failed };
-}
-```
+While values are personal, certain values show up frequently among technology professionals who build lasting trust:
 
-### Racing Promises with Timeout
+### User-Centricity
 
-```javascript
-function withTimeout(promise, timeoutMs) {
-  return Promise.race([
-    promise,
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('Timeout')), timeoutMs)
-    )
-  ]);
-}
+"The people who use our software are real humans with real problems, not just usage statistics or revenue opportunities."
 
-async function fetchWithTimeout(url, timeout = 5000) {
-  try {
-    const response = await withTimeout(fetch(url), timeout);
-    return await response.json();
-  } catch (error) {
-    if (error.message === 'Timeout') {
-      console.error('Request timed out');
-    }
-    throw error;
-  }
-}
-```
+This value shows up as:
+- Prioritizing accessibility and inclusion
+- Questioning feature requests that don't serve real user needs
+- Advocating for privacy and data protection
+- Designing for clarity and usability over impressive complexity
 
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
+### Craftsmanship
 
-## Real-World Use Cases
+"The quality of my work reflects my commitment to excellence and respect for those who depend on it."
 
-### API Client with Retry Logic
+This value manifests as:
+- Writing clean, maintainable code even when deadlines are tight
+- Creating comprehensive documentation
+- Continuous learning and skill development
+- Taking responsibility for the full lifecycle of your work
 
-```javascript
-class APIClient {
-  constructor(baseURL, maxRetries = 3) {
-    this.baseURL = baseURL;
-    this.maxRetries = maxRetries;
-  }
-  
-  async request(endpoint, options = {}, retryCount = 0) {
-    try {
-      const response = await fetch(`${this.baseURL}${endpoint}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          ...options.headers
-        },
-        ...options
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-      
-      return await response.json();
-    } catch (error) {
-      if (retryCount < this.maxRetries) {
-        const delay = Math.pow(2, retryCount) * 1000; // Exponential backoff
-        console.log(`Retrying request in ${delay}ms...`);
-        
-        await new Promise(resolve => setTimeout(resolve, delay));
-        return this.request(endpoint, options, retryCount + 1);
-      }
-      
-      throw error;
-    }
-  }
-}
+### Transparency
 
-// Usage
-const api = new APIClient('https://api.example.com');
-const userData = await api.request('/users/123');
-```
+"Honest communication, even when difficult, builds stronger teams and better outcomes."
 
-### Batch Processing with Concurrency Control
+Transparency-driven professionals:
+- Share both good news and problems early
+- Admit when they don't know something
+- Give credit where credit is due
+- Provide realistic estimates and regular status updates
 
-```javascript
-async function processBatch(items, processor, concurrency = 3) {
-  const results = [];
-  
-  for (let i = 0; i < items.length; i += concurrency) {
-    const batch = items.slice(i, i + concurrency);
-    const batchPromises = batch.map(item => processor(item));
-    const batchResults = await Promise.all(batchPromises);
-    results.push(...batchResults);
-  }
-  
-  return results;
-}
+### Growth Mindset
 
-// Usage
-const imageUrls = ['url1.jpg', 'url2.jpg', 'url3.jpg', /* ... */];
-const processedImages = await processBatch(
-  imageUrls,
-  async (url) => {
-    const response = await fetch(url);
-    return await response.blob();
-  },
-  2 // Process 2 images at a time
-);
-```
+"Everyone, including myself, has potential for growth, and creating opportunities for that growth benefits everyone."
 
-Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore.
+This shows up as:
+- Mentoring junior team members
+- Providing constructive feedback
+- Seeking feedback on your own work
+- Experimenting with new approaches and technologies
 
-## Testing Async Code
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. These values aren't exhaustive, and your personal combination will be unique to you.
 
-Testing asynchronous code requires special considerations to ensure reliability.
+## Living Your Values Under Pressure
 
-### Testing with Jest
+Values are easy to espouse when things are going well. The real test comes under pressure—tight deadlines, difficult stakeholders, technical crises, or organizational changes.
 
-```javascript
-// Testing async functions
-describe('API Client', () => {
-  test('should fetch user data successfully', async () => {
-    const mockUser = { id: 1, name: 'John Doe' };
-    global.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: async () => mockUser
-    });
-    
-    const api = new APIClient('https://api.test.com');
-    const result = await api.request('/users/1');
-    
-    expect(result).toEqual(mockUser);
-    expect(fetch).toHaveBeenCalledWith(
-      'https://api.test.com/users/1',
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          'Content-Type': 'application/json'
-        })
-      })
-    );
-  });
-  
-  test('should handle network errors', async () => {
-    global.fetch = jest.fn().mockRejectedValue(new Error('Network error'));
-    
-    const api = new APIClient('https://api.test.com');
-    
-    await expect(api.request('/users/1')).rejects.toThrow('Network error');
-  });
-});
-```
+### The Values-Based Decision Framework
 
-### Mocking Timers for Testing
+When facing a difficult decision, ask yourself:
 
-```javascript
-// Testing timeout functionality
-test('should timeout after specified time', async () => {
-  jest.useFakeTimers();
-  
-  const slowPromise = new Promise(resolve => 
-    setTimeout(resolve, 10000)
-  );
-  
-  const timeoutPromise = withTimeout(slowPromise, 5000);
-  
-  // Fast-forward time
-  jest.advanceTimersByTime(5000);
-  
-  await expect(timeoutPromise).rejects.toThrow('Timeout');
-  
-  jest.useRealTimers();
-});
-```
+1. **What are my options?** (List them objectively)
+2. **Which of my values are most relevant to this situation?**
+3. **How does each option align with or conflict with these values?**
+4. **What would I choose if I knew I had to explain my reasoning publicly?**
+5. **What decision will I be proud of in five years?**
 
-## Performance Considerations
+### Example: The Feature Request Dilemma
 
-### Avoiding Common Pitfalls
+Imagine your product manager asks you to implement a feature that will increase user engagement but you believe will be addictive and harmful to users' wellbeing.
 
-```javascript
-// Pitfall: Unnecessary sequential execution
-// Bad
-async function inefficientDataFetch(userIds) {
-  const users = [];
-  for (const id of userIds) {
-    const user = await fetchUser(id); // Each waits for previous
-    users.push(user);
-  }
-  return users;
-}
+If one of your core values is user wellbeing, you have several options:
+- Refuse the request (if you have the authority)
+- Propose alternative approaches that serve engagement without harm
+- Implement safeguards that limit potential negative impacts
+- Escalate the concern to leadership with a clear rationale
 
-// Good
-async function efficientDataFetch(userIds) {
-  const userPromises = userIds.map(id => fetchUser(id));
-  return await Promise.all(userPromises);
-}
-```
+The "right" answer depends on your specific values, your role, and your context. But having clear values gives you a framework for making decisions you can stand behind.
 
-### Memory Management
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Values don't make decisions simple, but they make them principled and defensible.
 
-```javascript
-// Be careful with large datasets and async operations
-async function processLargeDataset(items) {
-  const CHUNK_SIZE = 100;
-  const results = [];
-  
-  for (let i = 0; i < items.length; i += CHUNK_SIZE) {
-    const chunk = items.slice(i, i + CHUNK_SIZE);
-    const chunkResults = await Promise.all(
-      chunk.map(item => processItem(item))
-    );
-    results.push(...chunkResults);
-    
-    // Optional: Allow garbage collection between chunks
-    if (i % 1000 === 0) {
-      await new Promise(resolve => setTimeout(resolve, 0));
-    }
-  }
-  
-  return results;
-}
-```
+## Communicating Your Values
 
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+Living your values isn't just about internal decision-making—it's about helping others understand what they can expect from you. This creates predictability, which is a key component of trust.
 
-## Best Practices Summary
+### In Code Reviews
 
-1. **Always handle errors**: Use try/catch blocks or .catch() methods
-2. **Consider performance**: Use parallel execution when possible
-3. **Implement timeouts**: Prevent hanging requests
-4. **Add retry logic**: Handle transient failures gracefully
-5. **Test thoroughly**: Mock external dependencies and test error scenarios
-6. **Use TypeScript**: Get better error checking and intellisense
-7. **Monitor performance**: Track async operation metrics in production
+If you value code quality, your code reviews should consistently reflect that. Provide constructive feedback that helps improve not just the immediate code, but the developer's skills over time.
+
+### In Project Planning
+
+If you value realistic planning, speak up when timelines seem unrealistic. Provide data-backed estimates and advocate for sustainable development practices.
+
+### In Team Interactions
+
+If you value psychological safety, model the behavior you want to see. Ask questions when you don't understand, admit your mistakes openly, and create space for others to do the same.
+
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. Consistency in how you show up builds trust over time.
+
+## Values Conflicts and Navigation
+
+You will face situations where your values conflict with organizational expectations, team dynamics, or project requirements. This is normal and navigable.
+
+### Internal Values Conflicts
+
+Sometimes your own values will be in tension. For example, your commitment to code quality might conflict with your value of being a reliable team player when deadlines are tight.
+
+In these situations:
+- Acknowledge the tension explicitly
+- Look for creative solutions that honor both values
+- Make a conscious choice about which value takes priority in this specific context
+- Communicate your reasoning to affected stakeholders
+
+### Organizational Values Misalignment
+
+When your values consistently conflict with your organization's practices or culture, you have limited options:
+- Work to influence change from within
+- Find ways to honor your values within your sphere of control
+- Seek a role or organization that's better aligned with your values
+
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti. None of these options are easy, but clarity about your values helps you make intentional choices rather than just drift into increasing dissatisfaction.
+
+## The Compound Effect of Values-Driven Work
+
+When you consistently operate from clear, lived values, several things happen over time:
+
+### Reputation and Trust Building
+
+People learn what to expect from you. They know you'll consider user impact, that you'll give honest estimates, that you'll prioritize sustainable solutions, or whatever your specific values drive you toward. This predictability builds trust.
+
+### Decision-Making Confidence
+
+Having a clear value system makes decisions easier and faster. You spend less mental energy on each choice because your framework helps filter options quickly.
+
+### Authentic Leadership Opportunities
+
+As people come to trust your judgment and approach, they'll seek your input on decisions, ask you to lead projects, and look to you for guidance during difficult situations.
+
+### Career Satisfaction
+
+Work becomes more meaningful when it's aligned with your deeper values. You'll find yourself more energized by challenges and more resilient during difficult periods.
+
+Similique sunt in culpa qui officia deserunt mollitia animi. This isn't just about personal satisfaction—values-driven professionals tend to produce better work and create more positive team dynamics.
+
+## Starting Your Values Discovery Journey
+
+If you're ready to begin clarifying your professional values, start with these concrete steps:
+
+### This Week
+
+1. **Reflect on a recent decision** you made at work. What factors influenced your choice? What values were expressed or violated?
+
+2. **Identify one person** you respect professionally. What specific qualities do they demonstrate that you admire?
+
+3. **Notice your energy levels** during different types of work. When do you feel most engaged? What might that tell you about your values?
+
+### This Month
+
+1. **Keep a decision journal** for two weeks. Note significant work decisions and what influenced them.
+
+2. **Seek feedback** from trusted colleagues about what they see as your strengths and consistent patterns.
+
+3. **Experiment with** explicitly stating your reasoning for one or two decisions to see how it affects team dynamics.
+
+### This Quarter
+
+1. **Articulate 3-5 core professional values** based on your reflection and experimentation.
+
+2. **Share these values** with a mentor or trusted colleague and get their perspective.
+
+3. **Identify one area** where your current work practices don't align with your stated values, and make a plan to address it.
+
+Temporibus autem quibusdam et aut officiis debitis. Values clarification is an iterative process that deepens over time.
 
 ## Conclusion
 
-Mastering async/await is essential for modern JavaScript development. By understanding the evolution from callbacks to promises to async/await, you can write more readable, maintainable, and robust asynchronous code.
+Building trust in the technology industry starts with individual professionals who know what they stand for and consistently live those values in their daily work. This isn't about moral superiority or rigid thinking—it's about the practical reality that predictable, principled people are the ones others choose to work with, learn from, and follow.
 
-The key is to start with the basics—understanding how async/await works—and then gradually incorporate more advanced patterns like error handling, parallel execution, and retry logic. With practice and attention to best practices, you'll be able to handle even the most complex asynchronous scenarios with confidence.
+Your values won't be the same as everyone else's, and that's exactly the point. The tech industry needs diverse perspectives and approaches to solve complex problems ethically and effectively. But those perspectives only add value when they're clearly held and consistently expressed.
 
-Remember that async/await is just syntactic sugar over promises, so understanding both concepts will make you a more well-rounded JavaScript developer. Keep experimenting, keep learning, and your async skills will continue to grow.
+In Part 2 of this series, we'll explore how to build trust with others once you're clear on your own values—how to create psychological safety, navigate difficult conversations, and influence positive change in your teams and organizations.
 
-Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+For now, focus on the foundation: understanding what you value, why you value it, and how those values can guide your daily decisions as a technology professional. Trust begins with self-knowledge, and self-knowledge begins with honest reflection on what matters most to you.
+
+Itaque earum rerum hic tenetur a sapiente delectus. The industry needs more professionals who know what they stand for and have the courage to stand for it consistently.

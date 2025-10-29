@@ -1,194 +1,297 @@
-export const title = "The Future of Web Development: Trends and Technologies to Watch";
-export const date = "2025-10-15";
-export const description = "Discover the emerging trends and technologies shaping the future of web development. From AI integration to serverless architecture, explore what's coming next in the web development landscape.";
+export const title = "Why is my merge request ignored? Ways to make your code cleaner and faster to review";
+export const date = "2025-10-29";
+export const description = "Learn how to create merge requests that get reviewed quickly and thoroughly by making your code changes clear, focused, and reviewer-friendly.";
 
-# The Future of Web Development: Trends and Technologies to Watch
+# Why is my merge request ignored? Ways to make your code cleaner and faster to review
 
-The web development landscape is constantly evolving, with new technologies and approaches emerging at a rapid pace. As we look toward the future, several key trends are shaping how we build and interact with web applications. Let's explore the most significant developments that every developer should be aware of.
+Every developer has been there: you submit a merge request, confident in your implementation, only to watch it sit in limbo for days or weeks. Meanwhile, your teammate's smaller change gets approved and merged within hours. The difference often isn't the quality of the code—it's how well the change is presented to reviewers.
 
-## Artificial Intelligence Integration
+Code review is fundamentally a communication challenge. Your job isn't just to write working code; it's to communicate your changes clearly enough that reviewers can understand, validate, and approve them efficiently. Here's how to make your merge requests irresistible to reviewers.
 
-AI is no longer just a buzzword—it's becoming an integral part of modern web development workflows and user experiences.
+## The Psychology of Code Review
 
-### AI-Powered Development Tools
+Before diving into tactics, understand what reviewers are thinking when they see your merge request in their queue. They're likely already context-switching from their own work, possibly reviewing multiple changes, and definitely pressed for time.
 
-- **Code Generation**: Tools like GitHub Copilot and ChatGPT are revolutionizing how we write code
-- **Automated Testing**: AI can generate test cases and identify potential bugs
-- **Performance Optimization**: Machine learning algorithms optimize bundle sizes and loading times
-- **Accessibility Improvements**: AI helps identify and fix accessibility issues automatically
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. When reviewers see a large, poorly described change, their instinct is often to defer it for "when they have more time"—which may never come.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+### The Reviewer's Mental Model
 
-### AI in User Experience
+Reviewers ask themselves three questions, in order:
+1. **What is this change trying to accomplish?** (Purpose)
+2. **How does this change accomplish it?** (Approach)
+3. **Is this change implemented correctly?** (Implementation)
 
-```javascript
-// Example: AI-powered search with semantic understanding
-const useAISearch = (query) => {
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+If they can't answer the first question quickly, they'll often skip your merge request entirely.
 
-  useEffect(() => {
-    if (query.length > 2) {
-      setLoading(true);
-      aiSearchAPI.semanticSearch(query)
-        .then(setResults)
-        .finally(() => setLoading(false));
-    }
-  }, [query]);
+## Start with the Story: Writing Effective Descriptions
 
-  return { results, loading };
-};
+Your merge request description is your elevator pitch. It should tell a complete story that makes the reviewer want to understand your solution.
+
+### The Perfect Description Template
+
+```markdown
+## Problem
+Brief explanation of what was broken or missing
+
+## Solution
+High-level approach to solving the problem
+
+## Changes
+- Bulleted list of specific changes made
+- Focus on the "what" not the "how"
+
+## Testing
+How this was verified to work
+
+## Risks/Considerations
+Any potential issues or trade-offs
 ```
 
-## Serverless and Edge Computing
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Here's a real example:
 
-The shift toward serverless architecture continues to gain momentum, offering developers new ways to build scalable applications.
+```markdown
+## Problem
+Users can't recover their accounts when they forget both their password and security question answers, leading to support tickets and user frustration.
 
-### Benefits of Serverless
+## Solution
+Add alternative recovery method using email verification with temporary recovery codes.
 
-- **Reduced Infrastructure Management**: Focus on code, not servers
-- **Automatic Scaling**: Handle traffic spikes effortlessly
-- **Cost Efficiency**: Pay only for what you use
-- **Faster Time to Market**: Deploy features more quickly
+## Changes
+- Add recovery code generation and validation
+- Create email template for recovery codes
+- Add new recovery flow to login page
+- Update user model to track recovery attempts
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## Testing
+- Manual testing with multiple email providers
+- Added unit tests for code generation/validation
+- Tested rate limiting and expiration
 
-### Edge Computing Revolution
+## Risks/Considerations
+- Recovery codes are single-use and expire after 1 hour
+- Rate limited to 3 attempts per hour per user
+```
 
-Edge computing brings computation closer to users, resulting in:
+## Size Matters: The Goldilocks Principle
 
-- **Lower Latency**: Faster response times globally
-- **Improved Performance**: Better user experiences worldwide
-- **Enhanced Security**: Data processing closer to source
-- **Offline Capabilities**: Better resilience to network issues
+Large merge requests are review killers. The optimal size depends on your team and codebase, but general guidelines apply:
 
-## WebAssembly (WASM) Mainstream Adoption
+### Sweet Spot Metrics
+- **150-400 lines of changes**: Large enough to be meaningful, small enough to review thoroughly
+- **Single logical change**: One feature, one bug fix, one refactor
+- **Reviewable in 15-30 minutes**: Fits into a reviewer's schedule break
 
-WebAssembly is moving from experimental to mainstream, opening new possibilities for web applications.
+### Breaking Down Large Changes
 
-### Use Cases for WebAssembly
+Instead of this monolithic approach:
+```
+feat: Complete user dashboard redesign (2,847 lines changed)
+- New dashboard layout
+- Updated user profile page  
+- Refactored authentication
+- Added analytics tracking
+- Updated tests
+```
 
-```rust
-// Example: High-performance calculations in Rust compiled to WASM
-#[wasm_bindgen]
-pub fn calculate_fibonacci(n: u32) -> u32 {
-    match n {
-        0 => 0,
-        1 => 1,
-        _ => calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2),
-    }
+Break it into focused changes:
+```
+1. refactor: Extract authentication utilities (127 lines)
+2. feat: Add analytics tracking infrastructure (89 lines)
+3. feat: New dashboard layout components (234 lines)
+4. feat: Updated user profile page (198 lines)
+5. test: Update dashboard tests for new layout (156 lines)
+```
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Each change builds on the previous ones and can be reviewed independently.
+
+## Code Organization: Guiding the Review Journey
+
+Structure your changes to tell a story. The order of files in your diff matters because it controls the reviewer's journey through your code.
+
+### Optimal File Order
+1. **Tests first**: Shows what behavior you're implementing
+2. **Interfaces/types**: Establishes contracts
+3. **Core logic**: The main implementation
+4. **Integration points**: How it connects to existing code
+5. **Documentation**: README updates, comments
+
+### Example of Good Organization
+
+```diff
+📁 Changes (8 files):
+├── tests/user-recovery.test.js        (+45, -0)   ← Shows intended behavior
+├── types/recovery.d.ts                (+12, -0)   ← Defines contracts
+├── services/recovery-service.js       (+89, -0)   ← Core implementation  
+├── controllers/auth-controller.js     (+23, -5)   ← Integration point
+├── templates/recovery-email.html      (+15, -0)   ← Supporting files
+├── routes/auth-routes.js              (+8, -0)    ← Configuration
+├── migrations/add-recovery-fields.sql (+12, -0)   ← Database changes
+└── README.md                          (+6, -0)    ← Documentation
+```
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. This organization lets reviewers understand your approach before diving into implementation details.
+
+## Code Quality: Making Review Effortless
+
+Clean, readable code reduces cognitive load on reviewers and speeds up the process.
+
+### Self-Documenting Code
+
+Instead of relying on comments to explain what code does:
+
+```javascript
+// Bad: Needs comments to understand
+function calc(u, days) {
+  // Calculate base rate
+  const base = u.plan === 'premium' ? 0.15 : 0.10;
+  // Apply time discount
+  const discount = days > 30 ? 0.05 : 0;
+  return (u.usage * base) - (u.usage * base * discount);
 }
 ```
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-
-### Performance Benefits
-
-- **Near-Native Performance**: Execute code at near-native speeds
-- **Language Flexibility**: Use languages like C++, Rust, and Go in browsers
-- **Better Resource Utilization**: More efficient memory and CPU usage
-- **Legacy Code Integration**: Bring existing codebases to the web
-
-## Progressive Web Apps (PWAs) Evolution
-
-PWAs continue to evolve, bridging the gap between web and native applications.
-
-### Advanced PWA Features
-
-- **Background Sync**: Synchronize data when connectivity returns
-- **Push Notifications**: Engage users like native apps
-- **Offline-First Design**: Work seamlessly without internet
-- **App Store Distribution**: PWAs can now be distributed through app stores
-
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-
-## Web3 and Decentralized Applications
-
-The rise of blockchain technology is creating new paradigms for web development.
-
-### Web3 Development Stack
+Write code that explains itself:
 
 ```javascript
-// Example: Connecting to a blockchain wallet
-const connectWallet = async () => {
-  if (window.ethereum) {
-    try {
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
+// Good: Self-documenting
+function calculateUsageCost(user, billingPeriodDays) {
+  const baseRatePerUnit = user.plan === 'premium' ? 0.15 : 0.10;
+  const longTermDiscount = billingPeriodDays > 30 ? 0.05 : 0;
+  
+  const baseCost = user.usage * baseRatePerUnit;
+  const discountAmount = baseCost * longTermDiscount;
+  
+  return baseCost - discountAmount;
+}
+```
+
+### Consistent Patterns
+
+Use established patterns from your codebase. If your team uses specific error handling, validation approaches, or architectural patterns, follow them consistently.
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Consistency reduces the mental overhead for reviewers.
+
+## Tests as Documentation
+
+Well-written tests are some of the best documentation you can provide. They show exactly what behavior you're implementing and provide confidence that your changes work correctly.
+
+### Test Structure That Tells a Story
+
+```javascript
+describe('User Account Recovery', () => {
+  describe('when user requests recovery code', () => {
+    it('sends recovery code to verified email', async () => {
+      const user = await createUser({ email: 'test@example.com' });
+      
+      await requestRecoveryCode(user.email);
+      
+      expect(emailService.send).toHaveBeenCalledWith({
+        to: 'test@example.com',
+        template: 'recovery-code',
+        data: { code: expect.stringMatching(/^\d{6}$/) }
       });
-      return accounts[0];
-    } catch (error) {
-      console.error('Failed to connect wallet:', error);
-    }
-  }
-};
+    });
+
+    it('rate limits to 3 attempts per hour', async () => {
+      const user = await createUser();
+      
+      // Make 3 successful requests
+      await requestRecoveryCode(user.email);
+      await requestRecoveryCode(user.email);  
+      await requestRecoveryCode(user.email);
+      
+      // 4th request should be rejected
+      await expect(requestRecoveryCode(user.email))
+        .rejects.toThrow('Rate limit exceeded');
+    });
+  });
+});
 ```
 
-### Key Concepts
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. These tests clearly communicate the intended behavior without requiring reviewers to decipher implementation details.
 
-- **Decentralized Storage**: IPFS and Arweave for distributed file storage
-- **Smart Contracts**: Self-executing contracts on blockchain
-- **Cryptocurrency Integration**: Native payment systems in applications
-- **NFT Marketplaces**: Digital ownership and trading platforms
+## Addressing Feedback Gracefully
 
-## Component-Driven Development
+How you handle review feedback significantly impacts how quickly future merge requests get reviewed.
 
-The trend toward modular, reusable components continues to shape development practices.
+### Responding to Feedback
 
-### Design Systems at Scale
+1. **Acknowledge quickly**: Even if you can't fix it immediately
+2. **Ask clarifying questions**: If feedback isn't clear
+3. **Explain your reasoning**: When you disagree, but respectfully
+4. **Make requested changes**: Don't argue about style preferences
+5. **Thank reviewers**: Even for critical feedback
 
-- **Atomic Design**: Building interfaces from smallest to largest components
-- **Component Libraries**: Shared libraries across teams and projects
-- **Visual Testing**: Automated testing for component appearance
-- **Documentation-Driven Development**: Living style guides and component docs
+### Example of Good Feedback Response
 
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
+```
+> Consider extracting this validation logic into a separate function
 
-## Performance-First Development
+Good point! I extracted it into `validateRecoveryRequest()` in commit abc123. 
+This also makes it easier to test the validation separately.
 
-Web performance continues to be a critical factor for user experience and business success.
+> This error message might be confusing to users
 
-### Core Web Vitals Focus
-
-- **Largest Contentful Paint (LCP)**: Optimizing loading performance
-- **First Input Delay (FID)**: Improving interactivity
-- **Cumulative Layout Shift (CLS)**: Ensuring visual stability
-- **Time to First Byte (TTFB)**: Server response optimization
-
-### Modern Performance Techniques
-
-```javascript
-// Example: Image optimization with next-gen formats
-const OptimizedImage = ({ src, alt, ...props }) => {
-  return (
-    <picture>
-      <source srcSet={`${src}.avif`} type="image/avif" />
-      <source srcSet={`${src}.webp`} type="image/webp" />
-      <img src={`${src}.jpg`} alt={alt} loading="lazy" {...props} />
-    </picture>
-  );
-};
+You're right. I updated it to be more specific about what went wrong. 
+The new message is: "Recovery code has expired. Please request a new one."
 ```
 
-## Developer Experience Evolution
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. This approach shows that you value the reviewer's input and take their suggestions seriously.
 
-The focus on developer experience continues to drive innovation in tooling and workflows.
+## Advanced Techniques
 
-### Modern Development Tools
+### Draft Merge Requests for Early Feedback
 
-- **Instant Hot Reload**: Vite, Parcel for lightning-fast development
-- **Type Safety**: TypeScript adoption continues to grow
-- **Automated Code Quality**: ESLint, Prettier, and advanced static analysis
-- **Cloud Development Environments**: GitHub Codespaces, Gitpod
+Use draft/WIP merge requests to get architectural feedback before implementing everything:
 
-Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore.
+```markdown
+## 🚧 DRAFT: User Account Recovery Implementation
+
+### Approach
+Planning to implement recovery using temporary codes sent via email.
+
+### Questions for reviewers:
+1. Should codes expire after 1 hour or 24 hours?
+2. Rate limiting at 3 attempts/hour or 5 attempts/hour?
+3. Should we track recovery attempts in audit logs?
+
+### TODO:
+- [ ] Implement code generation
+- [ ] Add email templates  
+- [ ] Write tests
+- [ ] Update documentation
+```
+
+### Stack Dependencies Clearly
+
+When merge requests depend on each other, make the relationship explicit:
+
+```markdown
+## Dependencies
+This PR depends on #123 (authentication refactor) being merged first.
+
+## Testing
+To test locally:
+1. Checkout and merge PR #123  
+2. Apply this branch
+3. Run integration tests
+```
+
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint. Clear dependencies help reviewers understand the context and review order.
+
+## Building Review Culture
+
+The best way to get good reviews is to give good reviews. When you review others' code:
+
+- **Review promptly**: Treat others' merge requests as you want yours treated
+- **Be constructive**: Suggest improvements, don't just point out problems
+- **Ask questions**: "Could you help me understand why..." instead of "This is wrong"
+- **Acknowledge good work**: Point out clever solutions or clean implementations
 
 ## Conclusion
 
-The future of web development is exciting and full of possibilities. From AI integration to edge computing, these emerging technologies are not just changing how we build applications—they're transforming what's possible on the web.
+Getting your merge requests reviewed quickly isn't about gaming the system—it's about respecting your reviewers' time and cognitive load. When you make your changes easy to understand and review, everyone benefits: reviewers can do thorough reviews efficiently, and your code gets merged faster with fewer back-and-forth cycles.
 
-As developers, staying informed about these trends and experimenting with new technologies will be crucial for remaining competitive and building the next generation of web experiences. The key is to balance innovation with practical application, choosing the right tools and approaches for each specific project and user need.
+Remember that code review is a collaborative process. The goal isn't just to get your code approved; it's to improve the codebase, share knowledge, and maintain quality standards. By focusing on clear communication, appropriate sizing, and respectful collaboration, you'll find your merge requests moving through the review process much more smoothly.
 
-The web platform continues to evolve, and these trends represent just the beginning of what promises to be an transformative period in web development history.
-
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+Similique sunt in culpa qui officia deserunt mollitia animi. Treat every merge request as an opportunity to demonstrate not just your technical skills, but your ability to work effectively with your team.
