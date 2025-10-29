@@ -13,22 +13,6 @@
 }
 
 @layer components {
-  .hamburger-line {
-    @apply w-6 h-0.5 bg-black transition-all duration-300;
-  }
-  
-  .hamburger-line.open:nth-child(1) {
-    @apply transform rotate-45 translate-y-2;
-  }
-  
-  .hamburger-line.open:nth-child(2) {
-    @apply opacity-0;
-  }
-  
-  .hamburger-line.open:nth-child(3) {
-    @apply transform -rotate-45 -translate-y-2;
-  }
-  
   .prose h1 {
     @apply text-3xl font-bold mb-4 text-black;
   }
