@@ -310,59 +310,104 @@ export default Page;
   }
 };
 
+// Global variables for development server
+let devServer = null;
+let devWatcher = null;
+
 // Development server
 const startDevServer = () => {
   console.log('🚀 Starting development server...');
   
-  const watcher = chokidar.watch([CONFIG.srcDir], {
+  // Close existing watcher if it exists
+  if (devWatcher) {
+    devWatcher.close();
+  }
+  
+  devWatcher = chokidar.watch([CONFIG.srcDir], {
     ignored: /node_modules/,
     persistent: true
   });
   
-  watcher.on('change', async (filePath) => {
+  devWatcher.on('change', async (filePath) => {
     console.log(`📁 File changed: ${filePath}`);
-    await build();
+    await buildStatic(); // Only rebuild static files, don't restart server
   });
   
-  // Simple HTTP server
-  const http = require('http');
-  const url = require('url');
-  
-  const server = http.createServer((req, res) => {
-    const parsedUrl = url.parse(req.url);
-    let pathname = parsedUrl.pathname;
+  // Only start server if it's not already running
+  if (!devServer) {
+    // Simple HTTP server
+    const http = require('http');
+    const url = require('url');
     
-    // Default to index.html for directories
-    if (pathname.endsWith('/')) {
-      pathname += 'index.html';
-    }
-    
-    const filePath = path.join(CONFIG.distDir, pathname);
-    
-    if (fs.existsSync(filePath)) {
-      const ext = path.extname(filePath);
-      const contentType = {
-        '.html': 'text/html',
-        '.css': 'text/css',
-        '.js': 'application/javascript',
-        '.json': 'application/json',
-        '.png': 'image/png',
-        '.jpg': 'image/jpeg',
-        '.ico': 'image/x-icon'
-      }[ext] || 'text/plain';
+    devServer = http.createServer((req, res) => {
+      const parsedUrl = url.parse(req.url);
+      let pathname = parsedUrl.pathname;
       
-      res.writeHead(200, { 'Content-Type': contentType });
-      fs.createReadStream(filePath).pipe(res);
-    } else {
-      res.writeHead(404);
-      res.end('Not Found');
-    }
-  });
+      // Default to index.html for directories
+      if (pathname.endsWith('/')) {
+        pathname += 'index.html';
+      }
+      
+      const filePath = path.join(CONFIG.distDir, pathname);
+      
+      if (fs.existsSync(filePath)) {
+        const ext = path.extname(filePath);
+        const contentType = {
+          '.html': 'text/html',
+          '.css': 'text/css',
+          '.js': 'application/javascript',
+          '.json': 'application/json',
+          '.png': 'image/png',
+          '.jpg': 'image/jpeg',
+          '.ico': 'image/x-icon'
+        }[ext] || 'text/plain';
+        
+        res.writeHead(200, { 'Content-Type': contentType });
+        fs.createReadStream(filePath).pipe(res);
+      } else {
+        res.writeHead(404);
+        res.end('Not Found');
+      }
+    });
+    
+    const PORT = 3000;
+    devServer.listen(PORT, () => {
+      console.log(`✅ Dev server running at http://localhost:${PORT}`);
+    });
+  }
+};
+
+// Build static files only (for file watcher)
+const buildStatic = async () => {
+  console.log('🔄 Rebuilding static files...');
   
-  const PORT = 3000;
-  server.listen(PORT, () => {
-    console.log(`✅ Dev server running at http://localhost:${PORT}`);
-  });
+  // Clean dist directory
+  if (fs.existsSync(CONFIG.distDir)) {
+    fs.rmSync(CONFIG.distDir, { recursive: true });
+  }
+  ensureDir(CONFIG.distDir);
+  
+  // Copy public files
+  if (fs.existsSync(CONFIG.publicDir)) {
+    copyDir(CONFIG.publicDir, CONFIG.distDir);
+    console.log('📁 Public files copied');
+  }
+  
+  try {
+    // Process CSS
+    await processCss();
+    
+    // Process blogs
+    const blogs = await processMdxBlogs();
+    
+    // Create static pages
+    await createStaticPages(blogs);
+    
+    console.log('✅ Static files rebuilt successfully!');
+    
+  } catch (error) {
+    console.error('❌ Static rebuild failed:', error);
+  }
 };
 
 // Main build function
