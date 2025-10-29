@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Monolith is not an anti-pattern, it is a strategy - Kyle Jenkins</title><meta name="description" content="Exploring why monolithic architecture remains a valid and strategic choice for many applications, debunking the myth that it is an outdated anti-pattern."/><meta name="author" content="Kyle Jenkins"/><link rel="stylesheet" href="/styles.css"/><link rel="icon" href="/favicon.ico"/></head><body><div class="min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16"><div class="flex-shrink-0"><a href="/" class="text-xl font-bold text-primary hover:text-primary-dark">Kyle Jenkins</a></div><nav class="hidden md:block" role="navigation" aria-label="Main navigation"><div class="ml-10 flex items-baseline space-x-8"><a href="/" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Home</a><a href="/blogs/" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Blogs</a><a href="/speaking/" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Speaking</a><a href="/about/" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">About Me</a></div></nav><div class="md:hidden"><button class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" aria-expanded="false" aria-label="Toggle navigation menu"><div class="w-6 h-6 flex flex-col justify-center items-center space-y-1"><div class="hamburger-line "></div><div class="hamburger-line "></div><div class="hamburger-line "></div></div></button></div></div></div></header><div class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 md:hidden -translate-x-full"><div class="p-6"><div class="flex items-center justify-between mb-8"><h2 class="text-lg font-semibold text-primary">Navigation</h2><button class="p-1 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100" aria-label="Close navigation menu"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div><nav role="navigation" aria-label="Mobile navigation"><div class="space-y-4"><a href="/" class="block px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors duration-200">Home</a><a href="/blogs/" class="block px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors duration-200">Blogs</a><a href="/speaking/" class="block px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors duration-200">Speaking</a><a href="/about/" class="block px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors duration-200">About Me</a></div></nav></div></div><main class="flex-1 pt-16"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><article class="prose max-w-4xl mx-auto"><header class="mb-8 pb-8 border-b border-gray-200"><h1 class="text-3xl md:text-4xl font-bold text-black mb-4">Monolith is not an anti-pattern, it is a strategy</h1><div class="flex items-center text-gray-600"><time dateTime="2025-10-29">October 29, 2025</time></div></header><div class="prose max-w-none"><h1>Monolith is not an anti-pattern, it&#x27;s a strategy</h1>
+<p>The software development community has been caught in a false dichotomy for years: monolith bad, microservices good. This oversimplified narrative has led many teams to prematurely adopt complex distributed architectures when a well-designed monolith would serve them better. It&#x27;s time to reconsider monoliths not as a relic of the past, but as a deliberate architectural strategy.</p>
+<h2>The Anti-Pattern Myth</h2>
+<p>The term &quot;anti-pattern&quot; gets thrown around carelessly in our industry, often applied to anything that doesn&#x27;t align with the latest trends. A true anti-pattern is a commonly used solution that appears beneficial but ultimately creates more problems than it solves. Monolithic architecture, when properly implemented, doesn&#x27;t fit this definition.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. The misconception arises from conflating monoliths with poorly structured, tightly coupled codebases—what we might call &quot;big balls of mud.&quot;</p>
+<h3>What Makes a Good Monolith?</h3>
+<ul>
+<li><strong>Clear module boundaries</strong>: Well-defined interfaces between components</li>
+<li><strong>Separation of concerns</strong>: Each module has a single, well-defined responsibility</li>
+<li><strong>Testable architecture</strong>: Easy to unit test, integration test, and end-to-end test</li>
+<li><strong>Deployable simplicity</strong>: Single deployment artifact with straightforward rollback procedures</li>
+</ul>
+<h2>Strategic Advantages of Monoliths</h2>
+<h3>Development Velocity</h3>
+<p>In the early stages of a project, monoliths offer unparalleled development speed. You can iterate quickly, refactor boldly, and pivot without the overhead of managing multiple services. There&#x27;s no network latency to debug, no service discovery to configure, and no distributed transaction complexities to navigate.</p>
+<pre><code class="language-javascript">// Simple monolithic service call
+const user = userService.getUserById(userId);
+const orders = orderService.getOrdersByUser(userId);
+
+// vs distributed service calls with error handling
+try {
+  const user = await userServiceClient.getUserById(userId);
+  const orders = await orderServiceClient.getOrdersByUser(userId);
+} catch (networkError) {
+  // Handle service unavailability, timeouts, retries...
+}
+</code></pre>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. The complexity difference is stark when you consider real-world scenarios with circuit breakers, retries, and fallback mechanisms.</p>
+<h3>Operational Simplicity</h3>
+<p>Monoliths are operationally straightforward. You have one application to deploy, one set of logs to monitor, and one database to backup. This simplicity translates to faster incident resolution and lower operational overhead.</p>
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Consider the cognitive load on your operations team when they need to trace a request through dozens of microservices versus debugging within a single application boundary.</p>
+<h3>Data Consistency</h3>
+<p>ACID transactions are built into monolithic architectures. You don&#x27;t need to implement complex saga patterns or eventual consistency models for operations that span multiple business domains within your application.</p>
+<h2>When Monoliths Make Strategic Sense</h2>
+<h3>Early-Stage Products</h3>
+<p>For startups and new product development, monoliths are often the optimal choice. You&#x27;re still discovering your domain boundaries, and premature service extraction can lead to poor interface design and increased complexity.</p>
+<h3>Small to Medium Teams</h3>
+<p>Conway&#x27;s Law tells us that organizations design systems that mirror their communication structure. If you have a small, cohesive team, a monolith aligns perfectly with your organizational structure.</p>
+<pre><code class="language-bash"># Team communication overhead
+# Monolith team: n people = n(n-1)/2 communication paths
+# Microservices: n services × m people per service = exponential complexity
+</code></pre>
+<h3>Domain Uncertainty</h3>
+<p>When you&#x27;re not yet sure about your domain boundaries, extracting services prematurely can create artificial seams in your architecture. It&#x27;s easier to split a well-designed monolith than to merge poorly designed microservices.</p>
+<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam. The cost of getting service boundaries wrong is significantly higher than the cost of refactoring within a monolith.</p>
+<h2>The Microservices Trade-off</h2>
+<p>Microservices aren&#x27;t inherently superior—they&#x27;re a different set of trade-offs. They excel when you have:</p>
+<ul>
+<li><strong>Large, autonomous teams</strong> that need to work independently</li>
+<li><strong>Well-understood domain boundaries</strong> that are unlikely to change</li>
+<li><strong>Diverse technology requirements</strong> across different parts of your system</li>
+<li><strong>Independent scaling needs</strong> for different components</li>
+</ul>
+<p>But these benefits come with costs: distributed system complexity, operational overhead, and potential performance penalties.</p>
+<h2>Evolution Strategy</h2>
+<p>The beauty of starting with a monolith is that you can evolve. As your system and team grow, you can extract services strategically, armed with real-world usage patterns and a deep understanding of your domain boundaries.</p>
+<pre><code class="language-mermaid">graph LR
+    A[Monolith] --&gt; B[Modular Monolith]
+    B --&gt; C[Service-Oriented Architecture]
+    C --&gt; D[Microservices]
+</code></pre>
+<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This evolutionary approach reduces risk and ensures that your service boundaries reflect actual business needs rather than premature optimization.</p>
+<h2>Conclusion</h2>
+<p>Monolithic architecture is not a stepping stone to microservices—it&#x27;s a legitimate architectural choice that can serve many applications throughout their entire lifecycle. The key is building a well-structured monolith with clear boundaries and good separation of concerns.</p>
+<p>Before defaulting to microservices, ask yourself: Do you have the team size, operational maturity, and well-understood domain boundaries to justify the additional complexity? If not, embrace the monolith as a strategic choice, not a temporary compromise.</p>
+<p>The goal isn&#x27;t to choose the most fashionable architecture—it&#x27;s to choose the architecture that best serves your users, your team, and your business objectives. Sometimes, that&#x27;s a monolith.</p></div><footer class="mt-12 pt-8 border-t border-gray-200"><div class="text-center"><a href="/blogs/" class="inline-flex items-center text-primary hover:text-primary-dark font-medium transition-colors duration-200"><svg class="mr-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>Back to All Posts</a></div></footer></article></div></main><footer class="bg-gray-50 border-t border-gray-200"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><div class="text-center text-gray-600"><p>© 2025 Kyle Jenkins. All rights reserved.</p><div class="mt-2 space-x-4"><a href="https://sessionize.com/kyle-jenkins" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-dark underline">Sessionize</a><a href="https://github.com/kjenkins19/presentations" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-dark underline">GitHub</a></div></div></div></footer></div></body></html>
