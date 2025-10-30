@@ -24,16 +24,16 @@ const BlogsPage = ({ blogs = [] }) => {
         </header>
 
         {/* Blog Stats */}
-        {sortedBlogs.length > 0 && (
-          <div className="bg-gray-50 rounded-lg p-6">
-            <div className="text-center">
-              <p className="text-gray-600">
-                <span className="font-semibold text-primary">{sortedBlogs.length}</span> 
-                {sortedBlogs.length === 1 ? ' post' : ' posts'} published
-              </p>
-            </div>
-          </div>
-        )}
+        {/*{sortedBlogs.length > 0 && (*/}
+        {/*  <div className="bg-gray-50 rounded-lg p-6">*/}
+        {/*    <div className="text-center">*/}
+        {/*      <p className="text-gray-600">*/}
+        {/*        <span className="font-semibold text-primary">{sortedBlogs.length}</span> */}
+        {/*        {sortedBlogs.length === 1 ? ' post' : ' posts'} published*/}
+        {/*      </p>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*)}*/}
 
         {/* Blog List */}
         <section>

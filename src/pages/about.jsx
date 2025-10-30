@@ -23,15 +23,16 @@ const AboutPage = () => {
           <div className="bg-white rounded-lg border-2 border-gray-200 p-8">
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div className="md:col-span-1">
-                <div className="w-48 h-48 bg-gradient-to-br from-primary to-primary-dark rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center">
-                    <span className="text-4xl font-bold text-primary">KJ</span>
-                  </div>
-                </div>
+                <img src="/me.png" alt="Kyle Jenkins Headshot" className="rounded-lg"/>
+                {/*<div className="w-48 h-48 bg-gradient-to-br from-primary to-primary-dark rounded-full mx-auto mb-6 flex items-center justify-center">*/}
+                  {/*<div className="w-32 h-32 bg-white rounded-full flex items-center justify-center">*/}
+                    {/*<span className="text-4xl font-bold text-primary">KJ</span>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
               </div>
               <div className="md:col-span-2">
                 <h2 className="text-2xl font-bold text-black mb-4">
-                  Hello, I'm Kyle Jenkins
+                  Hello, I'm Kyle
                 </h2>
                 <p className="text-gray-700 mb-4">
                   I am driven to help you ease the pain of work, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.
