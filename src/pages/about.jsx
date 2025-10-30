@@ -13,8 +13,8 @@ const AboutPage = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">
             About Me
           </h1>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Passionate web developer, technology enthusiast, and knowledge sharer
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto italic">
+            Trust Changes Everything
           </p>
         </header>
 
@@ -34,18 +34,11 @@ const AboutPage = () => {
                   Hello, I'm Kyle Jenkins
                 </h2>
                 <p className="text-gray-700 mb-4">
-                  I'm a passionate web developer with a love for creating efficient, scalable applications 
-                  and sharing knowledge with the developer community. My journey in technology has been 
-                  driven by curiosity and a desire to build solutions that make a difference.
-                </p>
-                <p className="text-gray-700 mb-4">
-                  When I'm not coding, you can find me speaking at conferences and meetups, 
-                  exploring new technologies, or mentoring other developers. I believe in the power 
-                  of community and continuous learning.
+                  I am driven to help you ease the pain of work, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.
                 </p>
                 <p className="text-gray-700">
                   This blog is where I share my thoughts on web development, technology trends, 
-                  best practices, and lessons learned throughout my career.
+                  best practices, and lessons learned throughout my career, all for the purpose of helping people.
                 </p>
               </div>
             </div>
@@ -55,16 +48,16 @@ const AboutPage = () => {
           <section className="grid md:grid-cols-2 gap-8">
             <div className="bg-primary-lightest rounded-lg p-6">
               <h3 className="text-xl font-bold text-black mb-4">
-                Technical Skills
+                Primary Technical Skills
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-3 scroll-auto">
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
                   <span className="text-gray-700">JavaScript & TypeScript</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">React & Modern Frontend</span>
+                  <span className="text-gray-700">React & Modern Frontends</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
@@ -76,7 +69,7 @@ const AboutPage = () => {
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">Database Design & Optimization</span>
+                  <span className="text-gray-700">Agile Software Development and Coaching</span>
                 </div>
               </div>
             </div>
@@ -88,23 +81,19 @@ const AboutPage = () => {
               <div className="space-y-3">
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">Open Source Contributions</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
                   <span className="text-gray-700">Public Speaking & Teaching</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">Technology Innovation</span>
+                  <span className="text-gray-700">Business Solutions with AI</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">Community Building</span>
+                  <span className="text-gray-700">Community Building through Conferences and Meetups</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">Mentoring Developers</span>
+                  <span className="text-gray-700">Socialization through Video Games</span>
                 </div>
               </div>
             </div>

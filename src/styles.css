@@ -31,6 +31,9 @@
   
   .prose a {
     @apply text-primary hover:text-primary-dark underline;
+    .text-white {
+      color: #FFF;
+    }
   }
   
   .prose ul {

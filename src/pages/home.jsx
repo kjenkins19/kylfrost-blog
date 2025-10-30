@@ -17,12 +17,10 @@ const HomePage = ({ blogs = [] }) => {
         {/* Hero Section */}
         <section className="text-center py-12">
           <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
-            Welcome to My Blog
+            For the Sake of Serving Others
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Hi, I'm Kyle Jenkins - a passionate web developer and speaker. 
-            I share my thoughts on web development, technology trends, and lessons learned 
-            from building modern applications.
+            Hi, I'm Kyle, and welcome to my blog. If there is one thing I've figured out about myself is that I just want to help people, so I hope this site helps you.
           </p>
         </section>
 
@@ -74,9 +72,7 @@ const HomePage = ({ blogs = [] }) => {
             About Me
           </h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
-            I'm a web developer with a passion for creating efficient, scalable applications 
-            and sharing knowledge with the developer community. When I'm not coding, 
-            you can find me speaking at conferences and meetups.
+            Kyle Jenkins is driven to help you ease the pain of work, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
