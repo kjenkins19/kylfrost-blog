@@ -3,7 +3,7 @@ import Layout from '../components/Layout.jsx';
 
 const AboutPage = () => {
   return (
-    <Layout 
+    <Layout
       title="About Me - Kyle Jenkins"
       description="Learn more about Kyle Jenkins - web developer, speaker, and technology enthusiast."
     >
@@ -24,21 +24,21 @@ const AboutPage = () => {
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div className="md:col-span-1">
                 <img src="/me.png" alt="Kyle Jenkins Headshot" className="rounded-lg"/>
-                {/*<div className="w-48 h-48 bg-gradient-to-br from-primary to-primary-dark rounded-full mx-auto mb-6 flex items-center justify-center">*/}
-                  {/*<div className="w-32 h-32 bg-white rounded-full flex items-center justify-center">*/}
-                    {/*<span className="text-4xl font-bold text-primary">KJ</span>*/}
-                  {/*</div>*/}
-                {/*</div>*/}
               </div>
               <div className="md:col-span-2">
                 <h2 className="text-2xl font-bold text-black mb-4">
                   Hello, I'm Kyle
                 </h2>
                 <p className="text-gray-700 mb-4">
-                  I am driven to help you ease the pain of work, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.
+                  I am driven to help you ease the pain of work, whether it’s technology bleeding resources or trouble
+                  working with a team of people. As a full stack developer, public speaker, and principal consultant
+                  with Improving, a global software development consulting and training company, he integrates into
+                  teams to provide quality software solutions and into the IT and Agile community to improve processes
+                  and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and
+                  learnings from video games to the world of work.
                 </p>
                 <p className="text-gray-700">
-                  This blog is where I share my thoughts on web development, technology trends, 
+                  This blog is where I share my thoughts on web development, technology trends,
                   best practices, and lessons learned throughout my career, all for the purpose of helping people.
                 </p>
               </div>
@@ -185,13 +185,32 @@ const AboutPage = () => {
             </div>
           </section>
 
+          {/*Working Genius*/}
+          <section className="bg-white border-2 border-gray-200 rounded-lg p-8">
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              <div className="md:col-span-1">
+                <img src="/working-genius-cert.png" alt="Working Genius Certification Badge" className="rounded-lg"/>
+              </div>
+              <div className="md:col-span-2">
+                <p>
+                  I am stoked to also be a Certified Coach for The 6 Types of Working Genius. I give many high level
+                  introductions on this at tech conferences
+                  and can also come in and work with your team learn more about their productivity styles and how to
+                  better collaborate as a team.
+                </p>
+                <p>
+                  I can also provide this as a FREE lunch and learn for your team!
+                </p>
+              </div>
+            </div>
+          </section>
           {/* Connect */}
           <section className="text-center bg-primary-lightest rounded-lg p-8">
             <h3 className="text-2xl font-bold text-black mb-4">
               Let's Connect
             </h3>
             <p className="text-gray-700 mb-6">
-              I'm always interested in connecting with fellow developers, discussing new ideas, 
+              I'm always interested in connecting with fellow developers, discussing new ideas,
               or exploring collaboration opportunities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
