@@ -21,8 +21,8 @@ const AboutPage = () => {
         {/* Main Content */}
         <div className="prose max-w-4xl mx-auto">
           <div className="bg-white rounded-lg border-2 border-gray-200 p-8">
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="md:col-span-1">
+            <div className="grid md:grid-cols-3 gap-8 mb-8 items-center">
+              <div className="md:col-span-1 max-w-64">
                 <img src="/me.png" alt="Kyle Jenkins Headshot" className="rounded-lg"/>
               </div>
               <div className="md:col-span-2">
@@ -185,10 +185,10 @@ const AboutPage = () => {
             </div>
           </section>
 
-          {/*Working Genius*/}
+          {/* Working Genius */}
           <section className="bg-white border-2 border-gray-200 rounded-lg p-8">
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="md:col-span-1">
+            <div className="grid md:grid-cols-3 gap-8 mb-8 items-center">
+              <div className="md:col-span-1 max-w-64">
                 <img src="/working-genius-cert.png" alt="Working Genius Certification Badge" className="rounded-lg"/>
               </div>
               <div className="md:col-span-2">
