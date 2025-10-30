@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout.jsx';
+import { bio } from "../components/bio.jsx";
 
 const AboutPage = () => {
   return (
@@ -14,15 +15,15 @@ const AboutPage = () => {
             About Me
           </h1>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto italic">
-            Trust Changes Everything
+            Solving business problems through technology and teamwork
           </p>
         </header>
 
         {/* Main Content */}
-        <div className="prose max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg border-2 border-gray-200 p-8">
             <div className="grid md:grid-cols-3 gap-8 mb-8 items-center">
-              <div className="md:col-span-1 max-w-64">
+              <div className="md:col-span-1 max-w-64 mx-auto md:mx-0">
                 <img src="/me.png" alt="Kyle Jenkins Headshot" className="rounded-lg"/>
               </div>
               <div className="md:col-span-2">
@@ -30,12 +31,7 @@ const AboutPage = () => {
                   Hello, I'm Kyle
                 </h2>
                 <p className="text-gray-700 mb-4">
-                  I am driven to help you ease the pain of work, whether it’s technology bleeding resources or trouble
-                  working with a team of people. As a full stack developer, public speaker, and principal consultant
-                  with Improving, a global software development consulting and training company, he integrates into
-                  teams to provide quality software solutions and into the IT and Agile community to improve processes
-                  and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and
-                  learnings from video games to the world of work.
+                  {bio}
                 </p>
                 <p className="text-gray-700">
                   This blog is where I share my thoughts on web development, technology trends,
@@ -46,7 +42,7 @@ const AboutPage = () => {
           </div>
 
           {/* Skills & Interests */}
-          <section className="grid md:grid-cols-2 gap-8">
+          <section className="grid md:grid-cols-2 gap-8 mt-4">
             <div className="bg-primary-lightest rounded-lg p-6">
               <h3 className="text-xl font-bold text-black mb-4">
                 Primary Technical Skills
@@ -105,7 +101,7 @@ const AboutPage = () => {
           </section>
 
           {/* Current Focus */}
-          <section className="bg-white border-2 border-primary-light rounded-lg p-8">
+          <section className="bg-white border-2 border-primary-light rounded-lg p-8 mt-4">
             <h3 className="text-2xl font-bold text-black mb-6 text-center">
               Current Focus
             </h3>
@@ -186,11 +182,8 @@ const AboutPage = () => {
           </section>
 
           {/* Working Genius */}
-          <section className="bg-white border-2 border-gray-200 rounded-lg p-8">
+          <section className="bg-white border-2 border-gray-200 rounded-lg p-8 mt-4">
             <div className="grid md:grid-cols-3 gap-8 mb-8 items-center">
-              <div className="md:col-span-1 max-w-64">
-                <img src="/working-genius-cert.png" alt="Working Genius Certification Badge" className="rounded-lg"/>
-              </div>
               <div className="md:col-span-2">
                 <p>
                   I am stoked to also be a Certified Coach for The 6 Types of Working Genius. I give many high level
@@ -198,14 +191,149 @@ const AboutPage = () => {
                   and can also come in and work with your team learn more about their productivity styles and how to
                   better collaborate as a team.
                 </p>
-                <p>
+                <p className="mt-4">
                   I can also provide this as a FREE lunch and learn for your team!
                 </p>
+                <p className="mt-4">
+                  I build energy through Wonder and Discernment. <a href="https://www.workinggenius.com/about"
+                                                                    className="text-gray-700 hover:text-primary rounded-md transition-colors duration-200">What
+                  about you?</a>
+                </p>
+              </div>
+              <div className="md:col-span-1 max-w-64 mx-auto md:mx-0">
+                <img src="/working-genius-cert.png" alt="Working Genius Certification Badge" className="rounded-lg"/>
               </div>
             </div>
           </section>
+
+          {/* Values and Attributes */}
+          <section className="grid md:grid-cols-3 gap-4 mt-4">
+            {/* Core Values */}
+            <div className="bg-primary-lightest rounded-lg p-6">
+              <h3 className="text-xl font-bold text-black mb-4">
+                Core Values
+              </h3>
+              <div className="space-y-3 scroll-auto">
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Integrity</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Morality & Respect</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Joyfulness</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Service</span>
+                </div>
+                {/*<div className="flex items-center">*/}
+                {/*  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>*/}
+                {/*  <span className="text-gray-700">Independence</span>*/}
+                {/*</div>*/}
+              </div>
+            </div>
+
+            {/* Aspirational Values*/}
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-xl font-bold text-black mb-4">
+                Aspirational Values
+              </h3>
+              <div className="space-y-3 scroll-auto">
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Trust</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Excellence</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Continuous Growth</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Learning through Failure</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Strengthfinders */}
+            <div className="bg-primary-lightest rounded-lg p-6">
+              <h3 className="text-xl font-bold text-black mb-4">
+                CliftonStrengths
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <a
+                    href="https://www.gallup.com/cliftonstrengths/en/252323/restorative-theme.aspx"
+                    className="text-gray-700 hover:text-primary rounded-md transition-colors duration-200"
+                  >
+                    Restorative
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <a
+                    href="https://www.gallup.com/cliftonstrengths/en/252152/analytical-theme.aspx"
+                    className="text-gray-700 hover:text-primary rounded-md transition-colors duration-200"
+                  >
+                    Analytical
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <a
+                    href="https://www.gallup.com/cliftonstrengths/en/252272/individualization-theme.aspx"
+                    className="text-gray-700 hover:text-primary rounded-md transition-colors duration-200"
+                  >
+                    Individualization
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <a
+                    href="https://www.gallup.com/cliftonstrengths/en/252236/empathy-theme.aspx"
+                    className="text-gray-700 hover:text-primary rounded-md transition-colors duration-200"
+                  >
+                    Empathy
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <a
+                    href="https://www.gallup.com/cliftonstrengths/en/252260/ideation-theme.aspx"
+                    className="text-gray-700 hover:text-primary rounded-md transition-colors duration-200"
+                  >
+                    Ideation
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/*DISC Profile*/}
+          <section className="bg-white border-2 border-gray-200 rounded-lg p-8 mt-4">
+            <h3 className="text-xl font-bold text-black mb-4">
+              DISC Profile: Specialist Pattern
+            </h3>
+            <p>
+              Specialists "wear well" with others. With their moderate, controlled stance and modest demeanor, they
+              are
+              able to work well with a number of behavioral styles. Specialists are considerate, patient, and always
+              willing to help those they consider friends. They build close relationships with a relatively small
+              group
+              of associates in the work environment.
+            </p>
+          </section>
+
           {/* Connect */}
-          <section className="text-center bg-primary-lightest rounded-lg p-8">
+          <section className="text-center bg-primary-lightest rounded-lg p-8 mt-4">
             <h3 className="text-2xl font-bold text-black mb-4">
               Let's Connect
             </h3>
@@ -228,6 +356,7 @@ const AboutPage = () => {
               </a>
             </div>
           </section>
+
         </div>
       </div>
     </Layout>

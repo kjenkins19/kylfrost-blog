@@ -370,7 +370,7 @@ const startDevServer = () => {
       }
     });
     
-    const PORT = 3000;
+    const PORT = 4000;
     devServer.listen(PORT, () => {
       console.log(`✅ Dev server running at http://localhost:${PORT}`);
     });

@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout.jsx';
 import BlogList from '../components/BlogList.jsx';
+import { bio } from "../components/bio.jsx";
 
 const HomePage = ({ blogs = [] }) => {
   // Sort blogs by date (newest first) and take the 3 most recent
@@ -20,7 +21,7 @@ const HomePage = ({ blogs = [] }) => {
             For the Sake of Serving Others
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Hi, I'm Kyle. If there is one thing I've figured out about myself is that I just want to help people, so I hope this site helps you.
+            If there is one thing I've figured out about myself, it's that I want to help people, so I hope this site helps you.
           </p>
         </section>
 
@@ -72,7 +73,8 @@ const HomePage = ({ blogs = [] }) => {
             About Me
           </h2>
           <p className="text-gray-700 mb-6 leading-relaxed">
-            I solve business problems through technology and teamwork, am driven to help you ease the pain of daily life, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.
+            {/*I solve business problems through technology and teamwork, am driven to help you ease the pain of daily life, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.*/}
+            {bio}
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
