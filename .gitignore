@@ -54,13 +54,13 @@ coverage/
 .node_repl_history
 
 # Output of 'npm pack'
-*.tgz
+#*.tgz #dup
 
 # Yarn Integrity file
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+#.env # dup
 .env.test
 
 # Parcel-bundler cache
