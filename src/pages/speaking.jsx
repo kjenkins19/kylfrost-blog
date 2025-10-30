@@ -27,22 +27,6 @@ const SpeakingPage = () => {
               <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
                 <img src="/sessionize-logo.png" alt="Sessionize Logo"/>
               </div>
-              {/*<div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">*/}
-                {/*<svg*/}
-                {/*  className="w-8 h-8 text-white"*/}
-                {/*  fill="none"*/}
-                {/*  stroke="currentColor"*/}
-                {/*  viewBox="0 0 24 24"*/}
-                {/*  xmlns="http://www.w3.org/2000/svg"*/}
-                {/*>*/}
-                {/*  <path*/}
-                {/*    strokeLinecap="round"*/}
-                {/*    strokeLinejoin="round"*/}
-                {/*    strokeWidth={2}*/}
-                {/*    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"*/}
-                {/*  />*/}
-                {/*</svg>*/}
-              {/*</div>*/}
               <h2 className="text-2xl font-bold text-black mb-3">
                 Speaker Profile
               </h2>
