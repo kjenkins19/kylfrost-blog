@@ -95,6 +95,10 @@ const AboutPage = () => {
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
                   <span className="text-gray-700">Socialization through Video Games</span>
                 </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Crochet and Stitch Clubs</span>
+                </div>
               </div>
             </div>
           </section>
