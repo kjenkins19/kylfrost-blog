@@ -31,9 +31,23 @@
   
   .prose a {
     @apply text-primary hover:text-primary-dark underline;
-    .text-white {
-      color: #FFF;
-    }
+  }
+
+  /* Override prose anchor styles for buttons */
+  .prose a.inline-flex {
+    @apply no-underline;
+  }
+
+  .prose a.inline-flex.bg-primary {
+    @apply text-white;
+  }
+
+  .prose a.inline-flex.bg-primary:hover {
+    @apply text-white;
+  }
+
+  .prose a.inline-flex.border-primary:hover {
+    @apply text-white;
   }
   
   .prose ul {
