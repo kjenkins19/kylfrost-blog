@@ -187,12 +187,12 @@ const AboutPage = () => {
               <div className="md:col-span-2">
                 <p>
                   I am stoked to also be a Certified Coach for The 6 Types of Working Genius. I give many high level
-                  introductions on this at tech conferences
-                  and can also come in and work with your team learn more about their productivity styles and how to
-                  better collaborate as a team.
+                  overviews at tech conferences and can also come in and work with your team learn more about their
+                  productivity styles and how to better collaborate as a team.
                 </p>
-                <p className="mt-4">
-                  I can also provide this as a FREE lunch and learn for your team!
+                {/*Keep prose here for now to force the css to be correct for the blogs*/}
+                <p className="mt-4 prose">
+                  I can also provide an overview as a FREE lunch and learn for your team!
                 </p>
                 <p className="mt-4">
                   I build energy through Wonder and Discernment. <a href="https://www.workinggenius.com/about"
