@@ -10,13 +10,13 @@ const Layout = ({ children, title = 'Kyle Jenkins Blog', description = 'A blog a
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="author" content="Kyle Jenkins" />
-        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href={`/styles.css?${new Date().getTime()}`} />
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
         <div className="min-h-screen flex flex-col">
           <Header />
-          
+
           <main className="flex-1 pt-16">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               {children}
