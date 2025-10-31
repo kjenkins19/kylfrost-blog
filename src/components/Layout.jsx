@@ -37,8 +37,16 @@ const Layout = ({ children, title = 'Kyle Jenkins Blog', description = 'A blog a
                     Sessionize
                   </a>
                   <a 
-                    href="https://github.com/kjenkins19/presentations" 
+                    href="https://www.linkedin.com/in/kyle-jenkins/"
                     target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-dark underline"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    href="https://github.com/kjenkins19/presentations"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:text-primary-dark underline"
                   >
