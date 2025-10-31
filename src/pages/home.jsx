@@ -12,7 +12,7 @@ const HomePage = ({ blogs = [] }) => {
   return (
     <Layout 
       title="Kyle Jenkins - Home"
-      description="Trust Changes Everything"
+      description="For the Sake of Serving Others"
     >
       <div className="space-y-12">
         {/* Hero Section */}
