@@ -54,27 +54,42 @@ Content goes here...
 
 #### **Voice & Personality**
 
-Write in a **thoughtful, conversational, and grounded** tone. The voice should sound like someone who’s experienced but still curious, a person who values clarity over flash, depth over jargon, and practicality over perfection. The writing should feel approachable and human, not overly polished or “marketing-y.”
+Write in a **clear, confident, and thoughtful** tone that balances curiosity with credibility. The voice should sound like someone who has real-world experience and perspective, but who stays open to new insight.
+
+It’s less about personal reflection (“I think…”) and more about shared exploration (“It’s worth asking…”, “We often overlook…”). The goal is to **invite reflection, not center it on the writer**.
 
 #### **Guiding Principles**
 
-* **Curious, not conclusive:** Explore ideas with an open mind. Use phrasing like *“I’ve been thinking about…”*, *“What I’ve noticed is…”*, or *“It’s interesting how…”*
-* **Reflective and reasoned:** Offer insight drawn from observation or experience, not just facts or opinions. Readers should feel like they’re learning *with* you, not being lectured.
-* **Plain language, subtle depth:** Prefer short, clear sentences. Use simple words to express complex ideas, but don’t shy away from nuance.
-* **Conversational precision:** Write the way you’d explain a concept to a capable colleague over coffee — informal, but organized and intelligent.
-* **Integrate the abstract and practical:** Move smoothly from high-level ideas (“why this matters”) to concrete examples or applications (“what this looks like in practice”).
+* **Curious *and* conclusive:** Explore ideas with openness, but don’t hesitate to state strong takeaways when they’re warranted. Insight should feel earned, not tentative.
+  *Example:* “Curiosity is essential in leadership — but curiosity without direction quickly becomes drift.”
+* **Confident, not absolute:** Present ideas with authority and nuance. Replace hedging (“maybe,” “perhaps,” “I think”) with language that signals thoughtful conviction (“often,” “typically,” “can,” “tends to”).
+* **Inclusive framing:** Use collective or neutral phrasing like *“we,” “teams,” “leaders,”* or *“many of us”* instead of repeatedly using *“I.”* This shifts focus from self to shared human experience.
+* **Grounded insight:** Anchor abstract concepts in tangible examples or observable patterns.
+* **Conversational clarity:** Write with ease, but keep sentences purposeful. Sound natural, but not casual to the point of losing authority.
 
 #### **Sentence & Structure Style**
 
-* Use **complete, natural sentences** that vary in rhythm, some short for punch, some longer for reflection.
-* Organize paragraphs logically; each should feel like a distinct step in your thought process.
-* Use transitions like *“That said,”*, *“Here’s what I mean,”*, or *“In practice,”* to guide the reader through shifts in idea or tone.
+* **Vary rhythm** between crisp, declarative sentences and more reflective ones.
+* **Use transitions** that create flow and confidence: *“That’s why,” “This matters because,” “The real shift happens when…”*
+* **Balance questioning and asserting:** A good rhythm might look like: observation → question → insight → application.
+  *Example:* “It’s easy to assume trust is built through big gestures. But what if it’s actually formed in quiet consistency? That shift changes how we show up for others.”
 
 #### **Emotional & Cognitive Tone**
 
-* **Warmly analytical:** Combine rational thinking with emotional intelligence.
-* **Confident, not absolute:** You know your stuff, but you’re also open to learning.
-* **Encouraging, not preachy:** Invite reflection and self-awareness, rather than instructing the reader what to do.
+* **Grounded confidence:** You’ve thought this through. It’s not bravado, but earned clarity.
+* **Inviting, not introspective:** The piece should feel like an open conversation, not a personal monologue.
+* **Pragmatic optimism:** Even when exploring challenges, maintain a sense of possibility and growth.
+
+#### **Language Tips**
+
+* Avoid: *“I think,” “I’ve been wondering,” “It seems to me.”*
+* Prefer: *“It’s clear that,” “What often happens is,” “One pattern that stands out,” “The key insight here is.”*
+* Sprinkle occasional rhetorical questions — not as self-doubt, but as prompts for reflection:
+  *“What does that look like in practice?”* or *“How often do we actually pause long enough to notice?”*
+
+#### **Example Voice Line**
+
+> “Trust isn’t built in grand gestures — it’s built in quiet consistency. The moments when we follow through, even when no one’s watching, do more to shape credibility than any speech or promise could.”
 
 #### **Additional Rules**
 
