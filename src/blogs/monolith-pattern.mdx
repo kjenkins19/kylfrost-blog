@@ -42,9 +42,9 @@ Here's a concrete example that illustrates this well. Consider a standard projec
 Now imagine each of those as its own service with its own repository. Suddenly, the simple pattern above only works for the frontend. For API changes, especially breaking ones, the process becomes:
 
 > (Update API) Version Changes, Deprecate Old → Validate → Open Pull Request → Merge → Release
-> 
+
 > (Update Frontend) Make Changes → Validate → Open Pull Request → Merge → Release
-> 
+
 > (Update API) Remove Deprecated Code → Validate → Open Pull Request → Merge → Release
 
 That final step is particularly telling. Removing the old deprecated code provides no immediate value to the consumer, but it's now technical debt that someone has to manage. We've created additional operational overhead simply by distributing the system.
