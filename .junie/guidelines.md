@@ -44,11 +44,42 @@ Content goes here...
 ```
 
 **Requirements:**
-- Use proper heading hierarchy (H1 for title, H2 for sections, H3 for subsections)
+- Use proper heading hierarchy (H2 for sections, H3 for subsections)
+- Do not include an H1 as that gets injected by the exported title
 - Include code examples with proper syntax highlighting
-- Add lorem ipsum text to supplement technical content
 - Export metadata at the top of each file
 - Use semantic HTML elements where appropriate
+
+### Writing Style
+
+#### **Voice & Personality**
+
+Write in a **thoughtful, conversational, and grounded** tone. The voice should sound like someone who’s experienced but still curious, a person who values clarity over flash, depth over jargon, and practicality over perfection. The writing should feel approachable and human, not overly polished or “marketing-y.”
+
+#### **Guiding Principles**
+
+* **Curious, not conclusive:** Explore ideas with an open mind. Use phrasing like *“I’ve been thinking about…”*, *“What I’ve noticed is…”*, or *“It’s interesting how…”*
+* **Reflective and reasoned:** Offer insight drawn from observation or experience, not just facts or opinions. Readers should feel like they’re learning *with* you, not being lectured.
+* **Plain language, subtle depth:** Prefer short, clear sentences. Use simple words to express complex ideas, but don’t shy away from nuance.
+* **Conversational precision:** Write the way you’d explain a concept to a capable colleague over coffee — informal, but organized and intelligent.
+* **Integrate the abstract and practical:** Move smoothly from high-level ideas (“why this matters”) to concrete examples or applications (“what this looks like in practice”).
+
+#### **Sentence & Structure Style**
+
+* Use **complete, natural sentences** that vary in rhythm, some short for punch, some longer for reflection.
+* Organize paragraphs logically; each should feel like a distinct step in your thought process.
+* Use transitions like *“That said,”*, *“Here’s what I mean,”*, or *“In practice,”* to guide the reader through shifts in idea or tone.
+
+#### **Emotional & Cognitive Tone**
+
+* **Warmly analytical:** Combine rational thinking with emotional intelligence.
+* **Confident, not absolute:** You know your stuff, but you’re also open to learning.
+* **Encouraging, not preachy:** Invite reflection and self-awareness, rather than instructing the reader what to do.
+
+#### **Additional Rules**
+
+* No em dashes
+* Use Complete sentences
 
 ### Page Components
 
@@ -81,7 +112,6 @@ All page components should:
 
 - Mobile-first approach
 - Fixed header on all screen sizes
-- Hamburger menu for mobile navigation
 - Flexible layouts using CSS Grid and Flexbox
 
 ## 🧩 Component Guidelines
@@ -89,7 +119,6 @@ All page components should:
 ### Header Component
 
 - Fixed positioning at top
-- Responsive hamburger menu for mobile
 - Smooth animations for menu transitions
 - Proper ARIA labels for accessibility
 

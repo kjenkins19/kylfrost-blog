@@ -1,8 +1,10 @@
 export const title = "Monolith is not an anti-pattern, it is a strategy";
-export const date = "2025-10-29";
+export const date = "2025-11-03 EST";
 export const description = "Exploring why monolithic architecture remains a valid and strategic choice for many applications, debunking the myth that it is an outdated anti-pattern.";
 
 The software development community has been caught in a false dichotomy for years: monolith bad, microservices good. This oversimplified narrative has led many teams to prematurely adopt complex distributed architectures when a well-designed monolith would serve them better. It's time to reconsider monoliths not as a relic of the past, but as a deliberate architectural strategy.
+
+When I brought up this topic to the team I was working on, one of the members instantly cheered. I knew I was onto something thought it worth sharing!
 
 ## The Anti-Pattern Myth
 
@@ -10,34 +12,25 @@ The term "anti-pattern" gets thrown around carelessly in our industry, often app
 
 The misconception arises from conflating monoliths with poorly structured, tightly coupled codebases—what we might call "big balls of mud."
 
+### Understanding a proper "pattern" - Focusing on Metrics
+
+Over the last decade, we've learned more and more about the importance of consistent, continuous delivery and how that affects high performance organizations and teams. What I would like to build an understanding of how different architectural strategies, include that of the monolith, can still be in support of high performance.
+
+- **Mean Time to Recovery (MTTR)**
+- **Lead Time** to Production
+- **Feature Failure Rate**
+- **Deployment Frequency**
+
 ### What Makes a Good Monolith?
 
 - **Clear module boundaries**: Well-defined interfaces between components
 - **Separation of concerns**: Each module has a single, well-defined responsibility
 - **Testable architecture**: Easy to unit test, integration test, and end-to-end test
 - **Deployable simplicity**: Single deployment artifact with straightforward rollback procedures
+- **Team Autonomy**: An autonomous team is able to develop and release features
+- **Refactorability**: The ability to split off a portion of it into its own delivery flow as needed
 
 ## Strategic Advantages of Monoliths
-
-### Development Velocity
-
-In the early stages of a project, monoliths offer unparalleled development speed. You can iterate quickly, refactor boldly, and pivot without the overhead of managing multiple services. There's no network latency to debug, no service discovery to configure, and no distributed transaction complexities to navigate.
-
-```javascript
-// Simple monolithic service call
-const user = userService.getUserById(userId);
-const orders = orderService.getOrdersByUser(userId);
-
-// vs distributed service calls with error handling
-try {
-  const user = await userServiceClient.getUserById(userId);
-  const orders = await orderServiceClient.getOrdersByUser(userId);
-} catch (networkError) {
-  // Handle service unavailability, timeouts, retries...
-}
-```
-
-The complexity difference is stark when you consider real-world scenarios with circuit breakers, retries, and fallback mechanisms.
 
 ### Operational Simplicity
 
@@ -45,9 +38,39 @@ Monoliths are operationally straightforward. You have one application to deploy,
 
 Consider the cognitive load on your operations team when they need to trace a request through dozens of microservices versus debugging within a single application boundary.
 
+Consider something as simple as a simple project with both a front end and backup, with a design library only used for this project. This would be fairly standard pattern.
+
+If I start with a simple monolithic structure, perhaps a single mono-repository split into 3 folders, releasing at once, the process for all changes are the same:
+
+> Make Changes -> Validate -> Open Pull Request -> Merge -> Release
+
+Now, imagine every one of those being its own service, their own repository, releasable on their own. The pattern above only works for the front end. For the API for breaking changes
+
+> (Update API) Version Changes, Deprecate Old -> Validate -> Open Pull Request -> Merge -> Release
+
+> (Update Front end) Make Changes -> Validate -> Open Pull Request -> Merge -> Release
+
+> (Update API, **Remove Deprecated Code**) Make Changes -> Validate -> Open Pull Request -> Merge -> Release
+
+I bold the **Remove Deprecated Code** As a simple note that this is now tech debt. Removing the old code provides no immediate value to the consumer, therefore we've already created additional operational overhead.
+
+### Refactoring the Right thing: Managing Domain Uncertainty.
+
+When a service is broken out from a monolith, it's important to understand the full business value conceptually. It's easy to say "Put all the API endpoints together." It's harder to say "Put the authentication pieces together for multiple systems".
+
+When the time comes to break out a portion of the monolith, it's important to break out what is actually used by multiple teams, and is considered worthwhile to take on the extra overhead for those pieces. In the example above, when I do need to break out something, it might be only a portion of the API, or a portion of the front end that we want to put the overhead on. Don't assume the whole thing. When people start with microservices, this domain is often unknown, so by default we simply start by breaking out by code instead of domain, causing even more overhead.
+
+### Development Velocity
+
+**In the early stages of a project**, monoliths offer unparalleled development speed. You can iterate quickly, refactor boldly, and pivot without the overhead of managing multiple services. There's no network latency to debug, no service discovery to configure, and no distributed transaction complexities to navigate.
+
+When a project, or even a business is in the startup phase, the amount of time between ideation and production can determine its success or failure.
+
+The complexity difference is stark when you consider real-world scenarios with circuit breakers, retries, and fallback mechanisms.
+
 ### Data Consistency
 
-ACID transactions are built into monolithic architectures. You don't need to implement complex saga patterns or eventual consistency models for operations that span multiple business domains within your application.
+[ACID transactions](https://www.databricks.com/glossary/acid-transactions) are built into monolithic architectures. You don't need to implement complex saga patterns or eventual consistency models for operations that span multiple business domains within your application.
 
 ## When Monoliths Make Strategic Sense
 
