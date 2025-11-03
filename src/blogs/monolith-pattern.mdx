@@ -2,85 +2,80 @@ export const title = "Monolith is not an anti-pattern, it is a strategy";
 export const date = "2025-11-03 EST";
 export const description = "Exploring why monolithic architecture remains a valid and strategic choice for many applications, debunking the myth that it is an outdated anti-pattern.";
 
-The software development community has been caught in a false dichotomy for years: monolith bad, microservices good. This oversimplified narrative has led many teams to prematurely adopt complex distributed architectures when a well-designed monolith would serve them better. It's time to reconsider monoliths not as a relic of the past, but as a deliberate architectural strategy.
+I've been thinking about something that's bothered me for years in our industry. We've somehow landed in this place where monolith equals bad and microservices equals good. It's a narrative that feels oversimplified, and I've watched teams struggle with it more times than I can count.
 
-When I brought up this topic to the team I was working on, one of the members instantly cheered. I knew I was onto something thought it worth sharing!
+When I brought this up with my team recently, one of the developers instantly cheered. That reaction told me I wasn't alone in questioning this assumption, and it seemed worth exploring why we've gotten so comfortable dismissing monoliths as outdated.
 
-## The Anti-Pattern Myth
+## Rethinking What We Mean by "Anti-Pattern"
 
-The term "anti-pattern" gets thrown around carelessly in our industry, often applied to anything that doesn't align with the latest trends. A true anti-pattern is a commonly used solution that appears beneficial but ultimately creates more problems than it solves. Monolithic architecture, when properly implemented, doesn't fit this definition.
+What's interesting is how loosely we throw around the term "anti-pattern" in our field. I see it applied to anything that doesn't align with whatever's trending on tech Twitter that week. But when I think about what an anti-pattern actually is, it's a solution that looks helpful on the surface but creates more problems than it solves.
 
-The misconception arises from conflating monoliths with poorly structured, tightly coupled codebases—what we might call "big balls of mud."
+Here's what I've noticed: monolithic architecture, when done thoughtfully, doesn't fit that definition. The real issue is that we've been conflating well-designed monoliths with those sprawling, tightly coupled codebases that nobody wants to touch. Those "big balls of mud" aren't representative of what a monolith can be.
 
-### Understanding a proper "pattern" - Focusing on Metrics
+## What High-Performance Architecture Actually Looks Like
 
-Over the last decade, we've learned more and more about the importance of consistent, continuous delivery and how that affects high performance organizations and teams. What I would like to build an understanding of how different architectural strategies, include that of the monolith, can still be in support of high performance.
+Over the past decade, more research has emerged about what makes teams and organizations perform well. The focus has shifted to metrics that matter for continuous delivery and team effectiveness. What I find compelling is how these metrics don't inherently favor one architectural approach over another.
+
+The metrics that seem to matter most are:
 
 - **Mean Time to Recovery (MTTR)**
-- **Lead Time** to Production
+- **Lead Time** to Production  
 - **Feature Failure Rate**
 - **Deployment Frequency**
 
-### What Makes a Good Monolith?
+When I look at these through the lens of architecture choice, it becomes clear that a well-structured monolith can excel in all these areas. The key is understanding what "well-structured" actually means.
 
-- **Clear module boundaries**: Well-defined interfaces between components
-- **Separation of concerns**: Each module has a single, well-defined responsibility
-- **Testable architecture**: Easy to unit test, integration test, and end-to-end test
-- **Deployable simplicity**: Single deployment artifact with straightforward rollback procedures
-- **Team Autonomy**: An autonomous team is able to develop and release features
-- **Refactorability**: The ability to split off a portion of it into its own delivery flow as needed
+In practice, a good monolith has continues to provide clear boundaries between each component. The whole thing to remains testable at every level, and as well as tested as a whole. You get the simplicity of a single deployment artifact with straightforward rollback procedures, while still maintaining team autonomy for feature development. Perhaps most importantly, you preserve the ability to extract portions into separate services when that makes sense.
 
-## Strategic Advantages of Monoliths
+## Why Monoliths Often Make More Sense
 
-### Operational Simplicity
+### The Hidden Costs of Distribution
 
-Monoliths are operationally straightforward. You have one application to deploy, one set of logs to monitor, and one database to backup. This simplicity translates to faster incident resolution and lower operational overhead.
+What I find fascinating is how we often overlook the cognitive overhead of distributed systems. When you're debugging an issue at 2 AM, there's something to be said for having one application to deploy, one set of logs to monitor, and one database to backup. That simplicity isn't just convenient, it translates to faster incident resolution and genuinely lower operational overhead.
 
-Consider the cognitive load on your operations team when they need to trace a request through dozens of microservices versus debugging within a single application boundary.
+Think about the mental load on your operations team when they need to trace a request through dozens of microservices versus debugging within a single application boundary. I've watched teams burn hours on what should have been straightforward issues, simply because the complexity was spread across too many moving pieces.
 
-Consider something as simple as a simple project with both a front end and backup, with a design library only used for this project. This would be fairly standard pattern.
+Here's a concrete example that illustrates this well. Consider a standard project with a frontend, backend API, and a design library used only for this project. If I structure this as a monolith in a single repository with three folders, every change follows the same pattern:
 
-If I start with a simple monolithic structure, perhaps a single mono-repository split into 3 folders, releasing at once, the process for all changes are the same:
+> Make Changes → Validate → Open Pull Request → Merge → Release
 
-> Make Changes -> Validate -> Open Pull Request -> Merge -> Release
+Now imagine each of those as its own service with its own repository. Suddenly, the simple pattern above only works for the frontend. For API changes, especially breaking ones, the process becomes:
 
-Now, imagine every one of those being its own service, their own repository, releasable on their own. The pattern above only works for the front end. For the API for breaking changes
+> (Update API) Version Changes, Deprecate Old → Validate → Open Pull Request → Merge → Release
+> 
+> (Update Frontend) Make Changes → Validate → Open Pull Request → Merge → Release
+> 
+> (Update API) Remove Deprecated Code → Validate → Open Pull Request → Merge → Release
 
-> (Update API) Version Changes, Deprecate Old -> Validate -> Open Pull Request -> Merge -> Release
+That final step is particularly telling. Removing the old deprecated code provides no immediate value to the consumer, but it's now technical debt that someone has to manage. We've created additional operational overhead simply by distributing the system.
 
-> (Update Front end) Make Changes -> Validate -> Open Pull Request -> Merge -> Release
+### Domain Boundaries and the Right Abstractions
 
-> (Update API, **Remove Deprecated Code**) Make Changes -> Validate -> Open Pull Request -> Merge -> Release
+What I've learned over time is that extracting services requires a deep understanding of business value, not just code organization. It's tempting to say "let's put all the API endpoints together," but that's not the same as saying "let's put the authentication pieces together for multiple systems."
 
-I bold the **Remove Deprecated Code** As a simple note that this is now tech debt. Removing the old code provides no immediate value to the consumer, therefore we've already created additional operational overhead.
+The timing matters too. When the moment comes to break out a portion of the monolith, the decision should be driven by what's actually used by multiple teams and worth the extra overhead. In that previous example, it might make sense to extract only a portion of the API or frontend, not the whole thing. When teams start with microservices from day one, this domain knowledge often doesn't exist yet, so they default to breaking things out by code structure rather than business domain. That usually creates even more overhead than necessary.
 
-### Refactoring the Right thing: Managing Domain Uncertainty.
+### Speed When It Matters Most
 
-When a service is broken out from a monolith, it's important to understand the full business value conceptually. It's easy to say "Put all the API endpoints together." It's harder to say "Put the authentication pieces together for multiple systems".
+Here's something I've observed repeatedly: in the early stages of a project, monoliths offer development speed that's hard to match. You can iterate quickly, refactor boldly, and pivot without the overhead of managing multiple services. There's no network latency to debug, no service discovery to configure, and no distributed transaction complexities to navigate.
 
-When the time comes to break out a portion of the monolith, it's important to break out what is actually used by multiple teams, and is considered worthwhile to take on the extra overhead for those pieces. In the example above, when I do need to break out something, it might be only a portion of the API, or a portion of the front end that we want to put the overhead on. Don't assume the whole thing. When people start with microservices, this domain is often unknown, so by default we simply start by breaking out by code instead of domain, causing even more overhead.
+This matters more than we often acknowledge. When a project or even a business is in that crucial startup phase, the time between having an idea and getting it in front of users can determine success or failure. I've seen promising concepts die not because they lacked merit, but because the architecture made iteration too slow.
 
-### Development Velocity
+The complexity difference becomes stark when you start thinking about real-world scenarios. Circuit breakers, retries, fallback mechanisms. These aren't just implementation details, they're cognitive overhead that your team carries every day.
 
-**In the early stages of a project**, monoliths offer unparalleled development speed. You can iterate quickly, refactor boldly, and pivot without the overhead of managing multiple services. There's no network latency to debug, no service discovery to configure, and no distributed transaction complexities to navigate.
+## When Monoliths Align With Reality
 
-When a project, or even a business is in the startup phase, the amount of time between ideation and production can determine its success or failure.
+### Early Discovery Phase
 
-The complexity difference is stark when you consider real-world scenarios with circuit breakers, retries, and fallback mechanisms.
+What I've found is that monoliths work particularly well for startups and new product development. You're still figuring out your domain boundaries, and extracting services too early often leads to interfaces that don't make sense and complexity that does not serve any true purpose, and are still in an environment where it could be thrown away.
 
-### Data Consistency
+There's wisdom in acknowledging that you don't know what you don't know yet. Premature optimization in architecture can be just as problematic as it is in code.
 
-[ACID transactions](https://www.databricks.com/glossary/acid-transactions) are built into monolithic architectures. You don't need to implement complex saga patterns or eventual consistency models for operations that span multiple business domains within your application.
+### Team Size and Communication
 
-## When Monoliths Make Strategic Sense
+Conway's Law offers an interesting lens here. Organizations design systems that mirror their communication structure. If you have a small, cohesive team, a monolith actually aligns well with how you're already organized.
 
-### Early-Stage Products
-
-For startups and new product development, monoliths are often the optimal choice. You're still discovering your domain boundaries, and premature service extraction can lead to poor interface design and increased complexity.
-
-### Small to Medium Teams
-
-Conway's Law tells us that organizations design systems that mirror their communication structure. If you have a small, cohesive team, a monolith aligns perfectly with your organizational structure.
+I've seen this play out in practice. With a monolith, your team communication overhead follows a predictable pattern. But as soon as you introduce multiple services, the complexity grows in ways that often don't match your team's ability to handle it.
 
 ```bash
 # Team communication overhead
@@ -88,26 +83,21 @@ Conway's Law tells us that organizations design systems that mirror their commun
 # Microservices: n services × m people per service = exponential complexity
 ```
 
-### Domain Uncertainty
+### Living With Uncertainty
 
-When you're not yet sure about your domain boundaries, extracting services prematurely can create artificial seams in your architecture. It's easier to split a well-designed monolith than to merge poorly designed microservices.
+Here's something that took me a while to appreciate: when you're not yet sure about your domain boundaries, extracting services prematurely creates artificial seams in your architecture. It's genuinely easier to split a well-designed monolith than to merge poorly designed microservices.
 
-The cost of getting service boundaries wrong is significantly higher than the cost of refactoring within a monolith.
+The cost of getting service boundaries wrong is significantly higher than the cost of refactoring within a monolith. That asymmetry matters when you're making architectural decisions under uncertainty.
 
-## The Microservices Trade-off
+## Understanding the Microservices Trade-off
 
-Microservices aren't inherently superior—they're a different set of trade-offs. They excel when you have:
+What's important to understand is that microservices aren't inherently superior. They're a different set of trade-offs that work well in specific contexts. I've seen them excel when you have large, autonomous teams that need to work independently, well-understood domain boundaries that are unlikely to change, diverse technology requirements across different parts of your system, and genuinely independent scaling needs for different components.
 
-- **Large, autonomous teams** that need to work independently
-- **Well-understood domain boundaries** that are unlikely to change
-- **Diverse technology requirements** across different parts of your system
-- **Independent scaling needs** for different components
+But these benefits come with real costs. Distributed system complexity, operational overhead, and potential performance penalties aren't just theoretical concerns. They're daily realities that your team will live with.
 
-But these benefits come with costs: distributed system complexity, operational overhead, and potential performance penalties.
+## Growing Into Complexity
 
-## Evolution Strategy
-
-The beauty of starting with a monolith is that you can evolve. As your system and team grow, you can extract services strategically, armed with real-world usage patterns and a deep understanding of your domain boundaries.
+What I find compelling about starting with a monolith is the evolutionary path it provides. As your system and team grow, you can extract services strategically. You're armed with real-world usage patterns and a deep understanding of your domain boundaries that you simply couldn't have had at the beginning.
 
 ```mermaid
 graph LR
@@ -116,12 +106,12 @@ graph LR
     C --> D[Microservices]
 ```
 
-This evolutionary approach reduces risk and ensures that your service boundaries reflect actual business needs rather than premature optimization.
+This evolutionary approach reduces risk in a way that feels genuinely practical. Your service boundaries end up reflecting actual business needs rather than early architectural guesses.
 
-## Conclusion
+## Choosing What Serves You
 
-Monolithic architecture is not a stepping stone to microservices—it's a legitimate architectural choice that can serve many applications throughout their entire lifecycle. The key is building a well-structured monolith with clear boundaries and good separation of concerns.
+I've come to think that monolithic architecture isn't a stepping stone to microservices. It's a legitimate architectural choice that can serve many applications throughout their entire lifecycle. The key is building a well-structured monolith with clear boundaries and good separation of concerns.
 
-Before defaulting to microservices, ask yourself: Do you have the team size, operational maturity, and well-understood domain boundaries to justify the additional complexity? If not, embrace the monolith as a strategic choice, not a temporary compromise.
+Before defaulting to microservices, it's worth asking yourself some honest questions. Do you have the team size, operational maturity, and well-understood domain boundaries to justify the additional complexity? If the answer is no, there's real value in embracing the monolith as a strategic choice rather than a temporary compromise.
 
-The goal isn't to choose the most fashionable architecture—it's to choose the architecture that best serves your users, your team, and your business objectives. Sometimes, that's a monolith.
+The goal isn't to choose the most fashionable architecture. It's to choose the architecture that best serves your users, your team, and your business objectives. Sometimes, that's a monolith, and that's perfectly fine.
