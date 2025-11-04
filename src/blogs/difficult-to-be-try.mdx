@@ -8,7 +8,7 @@ export const description = "Exploring the challenges of applying the DRY princip
 
 DRY appears deceptively simple: if you see similar code in two places, extract it into a shared function or module. This mechanical approach to eliminating duplication often leads developers down a path of premature optimization and inappropriate coupling.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. The fundamental misunderstanding is treating all duplication as inherently evil, when in reality, some duplication is coincidental and some is essential for maintaining clear boundaries between different concepts.
+The fundamental misunderstanding is treating all duplication as inherently evil, when in reality, some duplication is coincidental and some is essential for maintaining clear boundaries between different concepts.
 
 ### The Copy-Paste Paranoia
 
@@ -39,7 +39,7 @@ At first glance, this looks like duplication that should be eliminated. But thes
 
 The true power of DRY lies not in eliminating textual duplication, but in consolidating conceptual duplication—places where the same business rule, algorithm, or knowledge is expressed in multiple ways.
 
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consider validation logic scattered across your application:
+Consider validation logic scattered across your application:
 
 ### Scattered Knowledge
 
@@ -85,7 +85,7 @@ function calculateInternationalShipping(order) {
 }
 ```
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. The abstraction that seemed obvious initially becomes a constraint as the concepts evolve in different directions.
+The abstraction that seemed obvious initially becomes a constraint as the concepts evolve in different directions.
 
 ### 2. Context Sensitivity
 
@@ -114,7 +114,7 @@ Every abstraction introduces cognitive overhead:
 - **Testing complexity**: Shared code paths increase the combinatorial explosion of test cases
 - **Change amplification**: Modifications to shared code affect all consumers
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. The cost of abstraction sometimes exceeds the cost of duplication.
+The cost of abstraction sometimes exceeds the cost of duplication.
 
 ## A Better Approach: Concept-Driven DRY
 
@@ -152,7 +152,7 @@ class MoneyValidator {
 
 The "rule of three" suggests waiting until you see a concept repeated three times before extracting it. This helps avoid premature abstractions based on coincidental similarity.
 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Two instances might be coincidence; three suggests a genuine pattern.
+Two instances might be coincidence; three suggests a genuine pattern.
 
 ### 3. Design for Change
 
@@ -190,7 +190,7 @@ Sometimes, duplication is the right choice:
 - **Team boundaries**: Different teams should own their implementations
 - **Experimentation**: A/B tests often require duplicated implementations
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. The key is making conscious decisions about when to couple and when to keep things separate.
+The key is making conscious decisions about when to couple and when to keep things separate.
 
 ## Conclusion
 

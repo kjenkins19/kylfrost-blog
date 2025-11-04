@@ -10,7 +10,7 @@ Code review is fundamentally a communication challenge. Your job isn't just to w
 
 Before diving into tactics, understand what reviewers are thinking when they see your merge request in their queue. They're likely already context-switching from their own work, possibly reviewing multiple changes, and definitely pressed for time.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. When reviewers see a large, poorly described change, their instinct is often to defer it for "when they have more time"—which may never come.
+When reviewers see a large, poorly described change, their instinct is often to defer it for "when they have more time"—which may never come.
 
 ### The Reviewer's Mental Model
 
@@ -45,7 +45,7 @@ How this was verified to work
 Any potential issues or trade-offs
 ```
 
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Here's a real example:
+Here's a real example:
 
 ```markdown
 ## Problem
@@ -100,7 +100,7 @@ Break it into focused changes:
 5. test: Update dashboard tests for new layout (156 lines)
 ```
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Each change builds on the previous ones and can be reviewed independently.
+Each change builds on the previous ones and can be reviewed independently.
 
 ## Code Organization: Guiding the Review Journey
 
@@ -127,7 +127,7 @@ Structure your changes to tell a story. The order of files in your diff matters 
 └── README.md                          (+6, -0)    ← Documentation
 ```
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. This organization lets reviewers understand your approach before diving into implementation details.
+This organization lets reviewers understand your approach before diving into implementation details.
 
 ## Code Quality: Making Review Effortless
 
@@ -167,7 +167,7 @@ function calculateUsageCost(user, billingPeriodDays) {
 
 Use established patterns from your codebase. If your team uses specific error handling, validation approaches, or architectural patterns, follow them consistently.
 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Consistency reduces the mental overhead for reviewers.
+Consistency reduces the mental overhead for reviewers.
 
 ## Tests as Documentation
 
@@ -206,7 +206,7 @@ describe('User Account Recovery', () => {
 });
 ```
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. These tests clearly communicate the intended behavior without requiring reviewers to decipher implementation details.
+These tests clearly communicate the intended behavior without requiring reviewers to decipher implementation details.
 
 ## Addressing Feedback Gracefully
 
@@ -234,7 +234,7 @@ You're right. I updated it to be more specific about what went wrong.
 The new message is: "Recovery code has expired. Please request a new one."
 ```
 
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. This approach shows that you value the reviewer's input and take their suggestions seriously.
+This approach shows that you value the reviewer's input and take their suggestions seriously.
 
 ## Advanced Techniques
 
@@ -275,7 +275,7 @@ To test locally:
 3. Run integration tests
 ```
 
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint. Clear dependencies help reviewers understand the context and review order.
+Clear dependencies help reviewers understand the context and review order.
 
 ## Building Review Culture
 
@@ -292,4 +292,4 @@ Getting your merge requests reviewed quickly isn't about gaming the system—it'
 
 Remember that code review is a collaborative process. The goal isn't just to get your code approved; it's to improve the codebase, share knowledge, and maintain quality standards. By focusing on clear communication, appropriate sizing, and respectful collaboration, you'll find your merge requests moving through the review process much more smoothly.
 
-Similique sunt in culpa qui officia deserunt mollitia animi. Treat every merge request as an opportunity to demonstrate not just your technical skills, but your ability to work effectively with your team.
+Treat every merge request as an opportunity to demonstrate not just your technical skills, but your ability to work effectively with your team.
