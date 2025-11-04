@@ -79,6 +79,7 @@ It’s less about personal reflection (“I think…”) and more about shared e
 * **Grounded confidence:** You’ve thought this through. It’s not bravado, but earned clarity.
 * **Inviting, not introspective:** The piece should feel like an open conversation, not a personal monologue.
 * **Pragmatic optimism:** Even when exploring challenges, maintain a sense of possibility and growth.
+* **Credible and Trustworthy:** Speaking in a manner that builds trust is key to providing quality content.
 
 #### **Language Tips**
 
@@ -95,6 +96,7 @@ It’s less about personal reflection (“I think…”) and more about shared e
 
 * No em dashes
 * Use Complete sentences
+* Goal Length is between 500 and 1000 words
 
 ### Page Components
 

@@ -46,11 +46,11 @@ const ensureDir = (dir) => {
 const copyDir = (src, dest) => {
   ensureDir(dest);
   const entries = fs.readdirSync(src, { withFileTypes: true });
-  
+
   for (const entry of entries) {
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
-    
+
     if (entry.isDirectory()) {
       copyDir(srcPath, destPath);
     } else {
@@ -70,9 +70,9 @@ const slugify = (text) => {
 // CSS Processing
 const processCss = async () => {
   console.log('📦 Processing CSS...');
-  
+
   const css = fs.readFileSync(CONFIG.stylesFile, 'utf8');
-  
+
   // Add Prism CSS theme
   const prismCss = `
 /* Prism.js syntax highlighting theme */
@@ -147,25 +147,25 @@ const processCss = async () => {
   cursor: help;
 }
 `;
-  
+
   const result = await postcss([
     tailwindcss(),
     autoprefixer()
   ]).process(css + prismCss, { from: CONFIG.stylesFile });
-  
+
   const outputPath = path.join(CONFIG.distDir, 'styles.css');
   fs.writeFileSync(outputPath, result.css);
-  
+
   console.log('✅ CSS processed');
 };
 
 // Client-side JavaScript Processing
 const processClientJs = async () => {
   console.log('📦 Processing client-side JavaScript...');
-  
+
   const clientPath = path.join(CONFIG.srcDir, 'client.js');
   const outputPath = path.join(CONFIG.distDir, 'client.js');
-  
+
   try {
     const result = await esbuild.build({
       entryPoints: [clientPath],
@@ -176,7 +176,7 @@ const processClientJs = async () => {
       outfile: outputPath,
       platform: 'browser'
     });
-    
+
     console.log('✅ Client-side JavaScript processed');
   } catch (error) {
     console.error('❌ Error processing client-side JavaScript:', error);
@@ -186,60 +186,49 @@ const processClientJs = async () => {
 // MDX Blog Processing
 const processMdxBlogs = async () => {
   console.log('📝 Processing MDX blogs...');
-  
+
   const blogFiles = fs.readdirSync(CONFIG.blogsDir).filter(file => file.endsWith('.mdx'));
   const blogs = [];
-  
+
   for (const file of blogFiles) {
     const filePath = path.join(CONFIG.blogsDir, file);
     const content = fs.readFileSync(filePath, 'utf8');
-    
+
     // Extract metadata using MDX evaluate
     let metadata = {};
-    try {
-      // Use MDX evaluate to get all exports from the MDX file
-      const { default: MDXContent, ...exports } = await evaluate(content, {
-        ...React,
-        Fragment: React.Fragment,
-        jsx: React.createElement,
-        jsxs: React.createElement,
-        baseUrl: path.dirname(filePath),
-      });
-      
-      // The exports object contains all the exported constants
-      metadata = exports;
-    } catch (error) {
-      console.warn(`Warning: Could not evaluate MDX file ${file}:`, error.message);
-      // Fallback to regex if evaluate fails
-      const metadataRegex = /export const (\w+) = ["'`]([^"'`]+)["'`];/g;
-      let match;
-      while ((match = metadataRegex.exec(content)) !== null) {
-        metadata[match[1]] = match[2];
-      }
-    }
-    
+    // Use MDX evaluate to get all exports from the MDX file
+    const { default: MDXContent, ...exports } = await evaluate(content, {
+      ...React,
+      Fragment: React.Fragment,
+      jsx: React.createElement,
+      jsxs: React.createElement,
+      baseUrl: path.dirname(filePath),
+    });
+
+    // The exports object contains all the exported constants
+    metadata = exports;
+
     // Compile MDX to program format
     const compiled = await compile(content, {
       outputFormat: 'program',
       development: CONFIG.isDev,
       jsxImportSource: 'react'
     });
-    
+
     const slug = path.basename(file, '.mdx');
-    console.log('metadata', metadata);
     const blogData = {
       slug,
       ...metadata,
       compiled: compiled.toString(),
       filename: file
     };
-    
+
     blogs.push(blogData);
-    
+
     // Create individual blog page
     await createBlogPage(blogData);
   }
-  
+
   console.log(`✅ Processed ${blogs.length} blog posts`);
   return blogs.sort((a, b) => new Date(b.date) - new Date(a.date));
 };
@@ -248,14 +237,14 @@ const processMdxBlogs = async () => {
 const createBlogPage = async (blog) => {
   const blogDir = path.join(CONFIG.distDir, 'blogs', blog.slug);
   ensureDir(blogDir);
-  
+
   // Create temporary MDX component file
   const tempMdxPath = path.join(CONFIG.distDir, `temp-mdx-${blog.slug}.js`);
   fs.writeFileSync(tempMdxPath, blog.compiled);
-  
+
   // Create a temporary component file for the blog
   const tempComponentPath = path.join(CONFIG.distDir, `temp-blog-${blog.slug}.js`);
-  
+
   const componentCode = `
 import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
@@ -331,9 +320,9 @@ const BlogPage = () => {
 
 export default BlogPage;
 `;
-  
+
   fs.writeFileSync(tempComponentPath, componentCode);
-  
+
   try {
     // Bundle the component
     const result = await esbuild.build({
@@ -345,18 +334,18 @@ export default BlogPage;
       external: ['react', 'react-dom'],
       jsx: 'automatic'
     });
-    
+
     // Execute the bundled code to get the component
     const bundledCode = result.outputFiles[0].text;
     const module = { exports: {} };
     const func = new Function('module', 'exports', 'require', bundledCode);
     func(module, module.exports, require);
-    
+
     const BlogComponent = module.exports.default;
     const html = renderToStaticMarkup(React.createElement(BlogComponent));
-    
+
     fs.writeFileSync(path.join(blogDir, 'index.html'), `<!DOCTYPE html>${html}`);
-    
+
   } catch (error) {
     console.error(`❌ Error creating blog page for ${blog.slug}:`, error);
   } finally {
@@ -373,24 +362,24 @@ export default BlogPage;
 // Create static pages
 const createStaticPages = async (blogs) => {
   console.log('📄 Creating static pages...');
-  
+
   const pages = [
     { name: 'home', path: '/' },
     { name: 'blogs', path: '/blogs/' },
     { name: 'speaking', path: '/speaking/' },
     { name: 'about', path: '/about/' }
   ];
-  
+
   for (const page of pages) {
     await createStaticPage(page, blogs);
   }
-  
+
   console.log('✅ Static pages created');
 };
 
 const createStaticPage = async (page, blogs) => {
   const tempComponentPath = path.join(CONFIG.distDir, `temp-page-${page.name}.js`);
-  
+
   const componentCode = `
 import React from 'react';
 import ${page.name.charAt(0).toUpperCase() + page.name.slice(1)}Page from '../src/pages/${page.name}.jsx';
@@ -403,9 +392,9 @@ const Page = () => {
 
 export default Page;
 `;
-  
+
   fs.writeFileSync(tempComponentPath, componentCode);
-  
+
   try {
     const result = await esbuild.build({
       entryPoints: [tempComponentPath],
@@ -416,15 +405,15 @@ export default Page;
       external: ['react', 'react-dom'],
       jsx: 'automatic'
     });
-    
+
     const bundledCode = result.outputFiles[0].text;
     const module = { exports: {} };
     const func = new Function('module', 'exports', 'require', bundledCode);
     func(module, module.exports, require);
-    
+
     const PageComponent = module.exports.default;
     const html = renderToStaticMarkup(React.createElement(PageComponent));
-    
+
     // Create directory structure
     if (page.path === '/') {
       fs.writeFileSync(path.join(CONFIG.distDir, 'index.html'), `<!DOCTYPE html>${html}`);
@@ -433,7 +422,7 @@ export default Page;
       ensureDir(pageDir);
       fs.writeFileSync(path.join(pageDir, 'index.html'), `<!DOCTYPE html>${html}`);
     }
-    
+
   } catch (error) {
     console.error(`❌ Error creating page ${page.name}:`, error);
   } finally {
@@ -450,39 +439,39 @@ let devWatcher = null;
 // Development server
 const startDevServer = () => {
   console.log('🚀 Starting development server...');
-  
+
   // Close existing watcher if it exists
   if (devWatcher) {
     devWatcher.close();
   }
-  
+
   devWatcher = chokidar.watch([CONFIG.srcDir], {
     ignored: /node_modules/,
     persistent: true
   });
-  
+
   devWatcher.on('change', async (filePath) => {
     console.log(`📁 File changed: ${filePath}`);
     await buildStatic(); // Only rebuild static files, don't restart server
   });
-  
+
   // Only start server if it's not already running
   if (!devServer) {
     // Simple HTTP server
     const http = require('http');
     const url = require('url');
-    
+
     devServer = http.createServer((req, res) => {
       const parsedUrl = url.parse(req.url);
       let pathname = parsedUrl.pathname;
-      
+
       // Default to index.html for directories
       if (pathname.endsWith('/')) {
         pathname += 'index.html';
       }
-      
+
       const filePath = path.join(CONFIG.distDir, pathname);
-      
+
       if (fs.existsSync(filePath)) {
         const ext = path.extname(filePath);
         const contentType = {
@@ -494,7 +483,7 @@ const startDevServer = () => {
           '.jpg': 'image/jpeg',
           '.ico': 'image/x-icon'
         }[ext] || 'text/plain';
-        
+
         res.writeHead(200, { 'Content-Type': contentType });
         fs.createReadStream(filePath).pipe(res);
       } else {
@@ -502,7 +491,7 @@ const startDevServer = () => {
         res.end('Not Found');
       }
     });
-    
+
     const PORT = 4000;
     devServer.listen(PORT, () => {
       console.log(`✅ Dev server running at http://localhost:${PORT}`);
@@ -513,34 +502,34 @@ const startDevServer = () => {
 // Build static files only (for file watcher)
 const buildStatic = async () => {
   console.log('🔄 Rebuilding static files...');
-  
+
   // Clean dist directory
   if (fs.existsSync(CONFIG.distDir)) {
     fs.rmSync(CONFIG.distDir, { recursive: true });
   }
   ensureDir(CONFIG.distDir);
-  
+
   // Copy public files
   if (fs.existsSync(CONFIG.publicDir)) {
     copyDir(CONFIG.publicDir, CONFIG.distDir);
     console.log('📁 Public files copied');
   }
-  
+
   try {
     // Process CSS
     await processCss();
-    
+
     // Process client-side JavaScript
     await processClientJs();
-    
+
     // Process blogs
     const blogs = await processMdxBlogs();
-    
+
     // Create static pages
     await createStaticPages(blogs);
-    
+
     console.log('✅ Static files rebuilt successfully!');
-    
+
   } catch (error) {
     console.error('❌ Static rebuild failed:', error);
   }
@@ -549,38 +538,40 @@ const buildStatic = async () => {
 // Main build function
 const build = async () => {
   console.log('🏗️  Starting build process...');
-  
+
   // Clean dist directory
   if (fs.existsSync(CONFIG.distDir)) {
     fs.rmSync(CONFIG.distDir, { recursive: true });
   }
   ensureDir(CONFIG.distDir);
-  
+
   // Copy public files
   if (fs.existsSync(CONFIG.publicDir)) {
     copyDir(CONFIG.publicDir, CONFIG.distDir);
     console.log('📁 Public files copied');
   }
-  
+
   try {
     // Process CSS
     await processCss();
-    
+
     // Process client-side JavaScript
     await processClientJs();
-    
+
     // Process blogs
     const blogs = await processMdxBlogs();
-    
+
+    const readyBlogs = blogs.filter((blog) => blog.draft !== true);
+
     // Create static pages
-    await createStaticPages(blogs);
-    
+    await createStaticPages(readyBlogs);
+
     console.log('🎉 Build completed successfully!');
-    
+
     if (CONFIG.isDev) {
       startDevServer();
     }
-    
+
   } catch (error) {
     console.error('❌ Build failed:', error);
     process.exit(1);
