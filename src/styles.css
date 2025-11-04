@@ -56,4 +56,9 @@
   .prose pre code {
     @apply bg-transparent px-0 py-0;
   }
+
+  .prose .post-quote-text {
+    @apply text-right text-gray-600;
+    margin-top: -1rem;
+  }
 }
