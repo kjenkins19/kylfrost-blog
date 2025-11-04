@@ -10,8 +10,6 @@ import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import chokidar from 'chokidar';
-import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-javascript.js';
 import 'prismjs/components/prism-typescript.js';
@@ -196,134 +194,23 @@ const processMdxBlogs = async () => {
     const filePath = path.join(CONFIG.blogsDir, file);
     const content = fs.readFileSync(filePath, 'utf8');
     
-    // Extract metadata using Babel AST parsing
-    const metadata = {};
+    // Extract metadata using MDX evaluate
+    let metadata = {};
     try {
-      // For MDX files, we need to extract just the JavaScript parts (exports)
-      // from the beginning of the file before the Markdown content
-      // Extract everything before the first non-export content
-      const lines = content.split('\n');
-      let jsLines = [];
-      let inExport = false;
-      let bracketCount = 0;
-      let braceCount = 0;
-      
-      for (const line of lines) {
-        const trimmedLine = line.trim();
-        
-        if (trimmedLine.startsWith('export const')) {
-          inExport = true;
-          jsLines.push(line);
-          
-          // Count brackets for multi-line tracking
-          bracketCount += (line.match(/\[/g) || []).length - (line.match(/\]/g) || []).length;
-          braceCount += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
-        } else if (inExport && (bracketCount > 0 || braceCount > 0)) {
-          // We're in a multi-line export
-          jsLines.push(line);
-          bracketCount += (line.match(/\[/g) || []).length - (line.match(/\]/g) || []).length;
-          braceCount += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
-          
-          if (bracketCount === 0 && braceCount === 0) {
-            inExport = false;
-          }
-        } else if (trimmedLine === '' || trimmedLine.startsWith('//')) {
-          // Skip empty lines and comments between exports
-          if (!inExport) {
-            jsLines.push(line);
-          }
-        } else {
-          // Hit non-export content, stop
-          break;
-        }
-      }
-      
-      let jsContent = jsLines.join('\n').trim();
-      
-      if (!jsContent) {
-        throw new Error('No JavaScript exports found at the beginning of the file');
-      }
-      
-      // Clean up the JavaScript content to ensure it's syntactically valid
-      // Remove trailing commas and ensure proper semicolons
-      jsContent = jsContent
-        .replace(/,\s*\n\s*\]/g, '\n]') // Remove trailing commas before closing brackets
-        .replace(/,\s*\n\s*\}/g, '\n}') // Remove trailing commas before closing braces
-        .replace(/;\s*$/gm, '') // Remove existing semicolons
-        .split('\n')
-        .map(line => line.trim())
-        .filter(line => line.length > 0)
-        .map(line => {
-          // Only add semicolons to complete export statements, not array/object elements
-          if (line.startsWith('export const') && !line.includes('[') && !line.includes('{')) {
-            return line.endsWith(';') ? line : line + ';';
-          } else if (line.startsWith('export const') && (line.includes('];') || line.includes('};'))) {
-            return line.endsWith(';') ? line : line + ';';
-          } else if (line === '];' || line === '};') {
-            return line + ';';
-          }
-          return line;
-        })
-        .join('\n');
-      
-      
-      const ast = parse(jsContent, {
-        sourceType: 'module',
-        plugins: ['jsx', 'typescript'],
-        allowImportExportEverywhere: true,
-        allowReturnOutsideFunction: true,
-        strictMode: false
+      // Use MDX evaluate to get all exports from the MDX file
+      const { default: MDXContent, ...exports } = await evaluate(content, {
+        ...React,
+        Fragment: React.Fragment,
+        jsx: React.createElement,
+        jsxs: React.createElement,
+        baseUrl: path.dirname(filePath),
       });
       
-      traverse.default(ast, {
-        ExportNamedDeclaration(path) {
-          if (path.node.declaration && path.node.declaration.type === 'VariableDeclaration') {
-            const declarations = path.node.declaration.declarations;
-            declarations.forEach(declaration => {
-              if (declaration.id && declaration.id.name && declaration.init) {
-                const name = declaration.id.name;
-                const value = declaration.init;
-                
-                // Handle different value types
-                if (value.type === 'StringLiteral') {
-                  metadata[name] = value.value;
-                } else if (value.type === 'NumericLiteral') {
-                  metadata[name] = value.value;
-                } else if (value.type === 'BooleanLiteral') {
-                  metadata[name] = value.value;
-                } else if (value.type === 'ArrayExpression') {
-                  // Handle arrays
-                  metadata[name] = value.elements.map(element => {
-                    if (element && element.type === 'StringLiteral') {
-                      return element.value;
-                    }
-                    return element ? element.value : null;
-                  });
-                } else if (value.type === 'ObjectExpression') {
-                  // Handle objects
-                  const obj = {};
-                  value.properties.forEach(prop => {
-                    if (prop.type === 'ObjectProperty' && prop.key && prop.value) {
-                      const key = prop.key.name || prop.key.value;
-                      if (prop.value.type === 'StringLiteral') {
-                        obj[key] = prop.value.value;
-                      } else if (prop.value.type === 'NumericLiteral') {
-                        obj[key] = prop.value.value;
-                      } else if (prop.value.type === 'BooleanLiteral') {
-                        obj[key] = prop.value.value;
-                      }
-                    }
-                  });
-                  metadata[name] = obj;
-                }
-              }
-            });
-          }
-        }
-      });
+      // The exports object contains all the exported constants
+      metadata = exports;
     } catch (error) {
-      console.warn(`Warning: Could not parse metadata from ${file}, falling back to regex:`, error.message);
-      // Fallback to regex if AST parsing fails
+      console.warn(`Warning: Could not evaluate MDX file ${file}:`, error.message);
+      // Fallback to regex if evaluate fails
       const metadataRegex = /export const (\w+) = ["'`]([^"'`]+)["'`];/g;
       let match;
       while ((match = metadataRegex.exec(content)) !== null) {
