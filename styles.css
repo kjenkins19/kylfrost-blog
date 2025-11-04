@@ -1012,6 +1012,12 @@ video {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+.prose .post-quote-text {
+  text-align: right;
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+    margin-top: -1rem;
+}
 .static {
   position: static;
 }
@@ -1397,9 +1403,6 @@ video {
 }
 .underline {
   text-decoration-line: underline;
-}
-.filter {
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
