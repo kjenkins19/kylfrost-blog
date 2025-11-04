@@ -326,55 +326,7 @@ const mdxComponents = {
     }
     return React.createElement('code', props);
   },
-  pre: (props) => {
-    // Handle code blocks with syntax highlighting
-    const child = props.children;
-    
-    if (child && child.props && child.props.className) {
-      const className = child.props.className;
-      const match = className.match(/language-(\w+)/);
-      
-      if (match) {
-        const language = match[1];
-        const code = child.props.children;
-        
-        // Special handling for mermaid
-        if (language === 'mermaid') {
-          return React.createElement('div', {
-            className: 'mermaid prose mb-4 text-center',
-            children: code.trim()
-          });
-        }
-        
-        // Use Prism for syntax highlighting
-        let highlightedCode = code;
-        try {
-          if (Prism.languages[language]) {
-            highlightedCode = Prism.highlight(code, Prism.languages[language], language);
-          }
-        } catch (error) {
-          console.warn(\`Warning: Could not highlight \${language} code:\`, error.message);
-        }
-        
-        return React.createElement('div', { className: 'prose mb-4' },
-          React.createElement('pre', {
-            className: \`language-\${language} bg-gray-900 text-white p-4 rounded-lg overflow-x-auto\`
-          },
-            React.createElement('code', {
-              className: \`language-\${language}\`,
-              dangerouslySetInnerHTML: { __html: highlightedCode }
-            })
-          )
-        );
-      }
-    }
-    
-    // Fallback for code blocks without language
-    return React.createElement('pre', { 
-      className: 'prose bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4', 
-      ...props 
-    });
-  },
+  pre: (props) => React.createElement('pre', { className: 'prose bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4', ...props }),
 };
 
 const BlogPage = () => {
