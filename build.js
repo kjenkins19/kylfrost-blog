@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
 import esbuild from 'esbuild';
-import { compile } from '@mdx-js/mdx';
+import { compile, evaluate } from '@mdx-js/mdx';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import postcss from 'postcss';
@@ -199,7 +199,75 @@ const processMdxBlogs = async () => {
     // Extract metadata using Babel AST parsing
     const metadata = {};
     try {
-      const ast = parse(content, {
+      // For MDX files, we need to extract just the JavaScript parts (exports)
+      // from the beginning of the file before the Markdown content
+      // Extract everything before the first non-export content
+      const lines = content.split('\n');
+      let jsLines = [];
+      let inExport = false;
+      let bracketCount = 0;
+      let braceCount = 0;
+      
+      for (const line of lines) {
+        const trimmedLine = line.trim();
+        
+        if (trimmedLine.startsWith('export const')) {
+          inExport = true;
+          jsLines.push(line);
+          
+          // Count brackets for multi-line tracking
+          bracketCount += (line.match(/\[/g) || []).length - (line.match(/\]/g) || []).length;
+          braceCount += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+        } else if (inExport && (bracketCount > 0 || braceCount > 0)) {
+          // We're in a multi-line export
+          jsLines.push(line);
+          bracketCount += (line.match(/\[/g) || []).length - (line.match(/\]/g) || []).length;
+          braceCount += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+          
+          if (bracketCount === 0 && braceCount === 0) {
+            inExport = false;
+          }
+        } else if (trimmedLine === '' || trimmedLine.startsWith('//')) {
+          // Skip empty lines and comments between exports
+          if (!inExport) {
+            jsLines.push(line);
+          }
+        } else {
+          // Hit non-export content, stop
+          break;
+        }
+      }
+      
+      let jsContent = jsLines.join('\n').trim();
+      
+      if (!jsContent) {
+        throw new Error('No JavaScript exports found at the beginning of the file');
+      }
+      
+      // Clean up the JavaScript content to ensure it's syntactically valid
+      // Remove trailing commas and ensure proper semicolons
+      jsContent = jsContent
+        .replace(/,\s*\n\s*\]/g, '\n]') // Remove trailing commas before closing brackets
+        .replace(/,\s*\n\s*\}/g, '\n}') // Remove trailing commas before closing braces
+        .replace(/;\s*$/gm, '') // Remove existing semicolons
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line.length > 0)
+        .map(line => {
+          // Only add semicolons to complete export statements, not array/object elements
+          if (line.startsWith('export const') && !line.includes('[') && !line.includes('{')) {
+            return line.endsWith(';') ? line : line + ';';
+          } else if (line.startsWith('export const') && (line.includes('];') || line.includes('};'))) {
+            return line.endsWith(';') ? line : line + ';';
+          } else if (line === '];' || line === '};') {
+            return line + ';';
+          }
+          return line;
+        })
+        .join('\n');
+      
+      
+      const ast = parse(jsContent, {
         sourceType: 'module',
         plugins: ['jsx', 'typescript'],
         allowImportExportEverywhere: true,
@@ -271,6 +339,7 @@ const processMdxBlogs = async () => {
     });
     
     const slug = path.basename(file, '.mdx');
+    console.log('metadata', metadata);
     const blogData = {
       slug,
       ...metadata,
