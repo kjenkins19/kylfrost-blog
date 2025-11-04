@@ -10,6 +10,17 @@ import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import chokidar from 'chokidar';
+import { parse } from '@babel/parser';
+import traverse from '@babel/traverse';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-javascript.js';
+import 'prismjs/components/prism-typescript.js';
+import 'prismjs/components/prism-jsx.js';
+import 'prismjs/components/prism-tsx.js';
+import 'prismjs/components/prism-css.js';
+import 'prismjs/components/prism-bash.js';
+import 'prismjs/components/prism-json.js';
+import 'prismjs/components/prism-markdown.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -64,15 +75,114 @@ const processCss = async () => {
   
   const css = fs.readFileSync(CONFIG.stylesFile, 'utf8');
   
+  // Add Prism CSS theme
+  const prismCss = `
+/* Prism.js syntax highlighting theme */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #8292a2;
+}
+
+.token.punctuation {
+  color: #f8f8f2;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+  color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: #e6db74;
+}
+
+.token.keyword {
+  color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+  color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+`;
+  
   const result = await postcss([
     tailwindcss(),
     autoprefixer()
-  ]).process(css, { from: CONFIG.stylesFile });
+  ]).process(css + prismCss, { from: CONFIG.stylesFile });
   
   const outputPath = path.join(CONFIG.distDir, 'styles.css');
   fs.writeFileSync(outputPath, result.css);
   
   console.log('✅ CSS processed');
+};
+
+// Client-side JavaScript Processing
+const processClientJs = async () => {
+  console.log('📦 Processing client-side JavaScript...');
+  
+  const clientPath = path.join(CONFIG.srcDir, 'client.js');
+  const outputPath = path.join(CONFIG.distDir, 'client.js');
+  
+  try {
+    const result = await esbuild.build({
+      entryPoints: [clientPath],
+      bundle: true,
+      minify: !CONFIG.isDev,
+      format: 'iife',
+      target: 'es2017',
+      outfile: outputPath,
+      platform: 'browser'
+    });
+    
+    console.log('✅ Client-side JavaScript processed');
+  } catch (error) {
+    console.error('❌ Error processing client-side JavaScript:', error);
+  }
 };
 
 // MDX Blog Processing
@@ -86,13 +196,71 @@ const processMdxBlogs = async () => {
     const filePath = path.join(CONFIG.blogsDir, file);
     const content = fs.readFileSync(filePath, 'utf8');
     
-    // Extract metadata
-    const metadataRegex = /export const (\w+) = ["'`]([^"'`]+)["'`];/g;
+    // Extract metadata using Babel AST parsing
     const metadata = {};
-    let match;
-    
-    while ((match = metadataRegex.exec(content)) !== null) {
-      metadata[match[1]] = match[2];
+    try {
+      const ast = parse(content, {
+        sourceType: 'module',
+        plugins: ['jsx', 'typescript'],
+        allowImportExportEverywhere: true,
+        allowReturnOutsideFunction: true,
+        strictMode: false
+      });
+      
+      traverse.default(ast, {
+        ExportNamedDeclaration(path) {
+          if (path.node.declaration && path.node.declaration.type === 'VariableDeclaration') {
+            const declarations = path.node.declaration.declarations;
+            declarations.forEach(declaration => {
+              if (declaration.id && declaration.id.name && declaration.init) {
+                const name = declaration.id.name;
+                const value = declaration.init;
+                
+                // Handle different value types
+                if (value.type === 'StringLiteral') {
+                  metadata[name] = value.value;
+                } else if (value.type === 'NumericLiteral') {
+                  metadata[name] = value.value;
+                } else if (value.type === 'BooleanLiteral') {
+                  metadata[name] = value.value;
+                } else if (value.type === 'ArrayExpression') {
+                  // Handle arrays
+                  metadata[name] = value.elements.map(element => {
+                    if (element && element.type === 'StringLiteral') {
+                      return element.value;
+                    }
+                    return element ? element.value : null;
+                  });
+                } else if (value.type === 'ObjectExpression') {
+                  // Handle objects
+                  const obj = {};
+                  value.properties.forEach(prop => {
+                    if (prop.type === 'ObjectProperty' && prop.key && prop.value) {
+                      const key = prop.key.name || prop.key.value;
+                      if (prop.value.type === 'StringLiteral') {
+                        obj[key] = prop.value.value;
+                      } else if (prop.value.type === 'NumericLiteral') {
+                        obj[key] = prop.value.value;
+                      } else if (prop.value.type === 'BooleanLiteral') {
+                        obj[key] = prop.value.value;
+                      }
+                    }
+                  });
+                  metadata[name] = obj;
+                }
+              }
+            });
+          }
+        }
+      });
+    } catch (error) {
+      console.warn(`Warning: Could not parse metadata from ${file}, falling back to regex:`, error.message);
+      // Fallback to regex if AST parsing fails
+      const metadataRegex = /export const (\w+) = ["'`]([^"'`]+)["'`];/g;
+      let match;
+      while ((match = metadataRegex.exec(content)) !== null) {
+        metadata[match[1]] = match[2];
+      }
     }
     
     // Compile MDX to program format
@@ -148,8 +316,65 @@ const mdxComponents = {
   ol: (props) => React.createElement('ol', { className: 'prose list-decimal pl-6 mb-4', ...props }),
   li: (props) => React.createElement('li', { className: 'prose mb-1', ...props }),
   blockquote: (props) => React.createElement('blockquote', { className: 'prose border-l-4 border-primary-light pl-4 italic text-gray-700 mb-4', ...props }),
-  code: (props) => React.createElement('code', { className: 'prose bg-gray-100 px-1 py-0.5 rounded text-sm font-mono', ...props }),
-  pre: (props) => React.createElement('pre', { className: 'prose bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4', ...props }),
+  code: (props) => {
+    // Inline code (no className means it's inline)
+    if (!props.className) {
+      return React.createElement('code', { 
+        className: 'prose bg-gray-100 px-1 py-0.5 rounded text-sm font-mono text-red-600',
+        ...props 
+      });
+    }
+    return React.createElement('code', props);
+  },
+  pre: (props) => {
+    // Handle code blocks with syntax highlighting
+    const child = props.children;
+    
+    if (child && child.props && child.props.className) {
+      const className = child.props.className;
+      const match = className.match(/language-(\w+)/);
+      
+      if (match) {
+        const language = match[1];
+        const code = child.props.children;
+        
+        // Special handling for mermaid
+        if (language === 'mermaid') {
+          return React.createElement('div', {
+            className: 'mermaid prose mb-4 text-center',
+            children: code.trim()
+          });
+        }
+        
+        // Use Prism for syntax highlighting
+        let highlightedCode = code;
+        try {
+          if (Prism.languages[language]) {
+            highlightedCode = Prism.highlight(code, Prism.languages[language], language);
+          }
+        } catch (error) {
+          console.warn(\`Warning: Could not highlight \${language} code:\`, error.message);
+        }
+        
+        return React.createElement('div', { className: 'prose mb-4' },
+          React.createElement('pre', {
+            className: \`language-\${language} bg-gray-900 text-white p-4 rounded-lg overflow-x-auto\`
+          },
+            React.createElement('code', {
+              className: \`language-\${language}\`,
+              dangerouslySetInnerHTML: { __html: highlightedCode }
+            })
+          )
+        );
+      }
+    }
+    
+    // Fallback for code blocks without language
+    return React.createElement('pre', { 
+      className: 'prose bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4', 
+      ...props 
+    });
+  },
 };
 
 const BlogPage = () => {
@@ -397,6 +622,9 @@ const buildStatic = async () => {
     // Process CSS
     await processCss();
     
+    // Process client-side JavaScript
+    await processClientJs();
+    
     // Process blogs
     const blogs = await processMdxBlogs();
     
@@ -429,6 +657,9 @@ const build = async () => {
   try {
     // Process CSS
     await processCss();
+    
+    // Process client-side JavaScript
+    await processClientJs();
     
     // Process blogs
     const blogs = await processMdxBlogs();

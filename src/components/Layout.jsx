@@ -57,6 +57,7 @@ const Layout = ({ children, title = 'Kyle Jenkins Blog', description = 'A blog a
             </div>
           </footer>
         </div>
+        <script src={`/client.js?${new Date().getTime()}`}></script>
       </body>
     </html>
   );
