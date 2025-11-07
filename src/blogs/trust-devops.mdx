@@ -1,0 +1,83 @@
+export const title = "Building Trust Through DevOps";
+export const date = "2025-11-07";
+export const description = "DevOps Practices provide the foundations of self to societal trust.";
+export const tags = ['Trust, DevOps'];
+
+## TLDR;
+
+* Building smart trust requires measurements, otherwise you promote gullibility
+* Sometimes measurements are provided through correlation instead of direct causation
+* The DORA Metrics correlate to high performance, and each one helps build trust in a variety of ways
+* Metrics should be able to be improved by the delivery teams so they can build that trust
+
+---
+
+> Build projects around motivated individuals.
+> Give them the environment and support they need,
+> and <b>trust</b> them to get the job done.
+
+<p className="post-quote-text">- <a href="https://agilemanifesto.org/principles.html" target="_blank">Principles behind
+  the Agile Manifesto - agilemanifesto.org</a></p>
+
+
+
+Building trust at scale is hard. As businesses get larger and more processes are put in place, it gets hard to extend trust to each team and individual as we go.
+
+There are tricks to being able to extend trust to teams, and tools for teams to build trust in themselves, encouraging them to continue moving forward.
+
+## The Smart Trust Matrix
+
+Stephen M.R. Covey in his book "The Speed of Trust" introduced an important concept of smart trust. The Primary idea behind it is that if we extend trust without analysis around it, we only end up in a state of gullibility, which I do believe many businesses are stuck in at this time. "Trust me, I'm an engineer" is not a sustainable phrase. Everyone wants to be able extend smart trust, so how do we do it?
+
+![Smart Trust Matrix by Stephen M.R. Covey showing that smart trust combines a high propensity to trust with analysis](/blogs/trust-devops/smart-trust-matrix.png "Smart Trust Matrix")
+
+
+## Correlation over Causation
+
+I had an amazing conversation with a retired highway patrolman which really drove home the concept of correlation. A few decades ago, as a holiday weekend approached, he ordered the whole team to get out and write tickets. If you were going over, you were going to be pulled over, simple as that. Most people will now look at this man as the devil. However, there was only one metric that mattered throughout the whole process. That holiday weekend, for the first time in the recorded history of that section of the highway, had 0 fatalities. It was the first time no family's holiday was ruined.
+
+Is there a direct link between the # of tickets and 0 fatalities? Nope. However he used a theory known as the broken window theory: signs of a minor crime, such as a broken window, lead to more serious criminal activity. A broken window itself doesn't "cause" other issues, but it does correlate.
+
+The DORA Metrics "correlate" to high performing teams, and can be used as the analysis portion of building smart trust. If you would like more information on the DORA Metrics beyond what this article provides, I highly recommend checking out the the book [Accelerate](https://a.co/d/2JHt4Ac) by Nicole Forsgren, Jez Humble, and Gene Kim.
+
+## #1. Lead time
+
+Lead Time as a whole focuses on how long it takes to go from an idea to the user.
+
+From a self-trust perspective, nothing makes one feel better than seeing one's work get into production, into the users hands. When I manage to finish something today, and see it ready for them the following day, my own self-confidence boosts, and I am able to keep building trust in myself from that. I can now even give an example of this blog. It takes less than 60 seconds for me to finish this blog to see it available just for you, the users I want to help!
+
+So, lets look even better. Let's say Houston just got hit's by its 20th hurricane, and as a business we want to show society our efforts towards their recovery. if our development team takes 1 week for design, 2 weeks to develop in a Sprint, and another week to ship it to put this on the front page of the website, that fails to showcase visibility to the world in a timely fashion. Instead, we build in content management systems that have extremely fast lead times, near instant if desired, to help build that trust with society.
+
+## #2. Release Frequency
+
+Release Frequency reflects how often are we actually releasing to production.
+
+Successful Release Frequency has a very holistic effect across the other metrics, and is important for building consistency in the release cycle. being able to delivery regularly in short iterations helps dramatically in building trust with the product owners and other portions of the business.
+
+## #3. Mean Time to Recovery
+
+When something goes wrong, the system goes down, how fast can we bring it back to life?
+
+Things will go wrong, even in the best systems. I happen to be writing this a couple weeks after AWS and Azure had significant problems. However, "Righting Wrongs" is a huge portion of building trust. Apologize quickly, and make restitution.
+
+If it takes too long, trust starts to be long at an exponential rate and becomes costly. Recently a friend of mind experienced an outage caused  by their external tech service provider which lasted 3 days and cost the business upwards of 3 million. The end cost? They are now providing an entire year of free tech support.
+
+It's important to understand the cost of lost time and balance that with the needs and backup recovery systems. I used to work for a small company, we went down for an entire day due to an ISP issue. End cost? 0. We lost no customers, everyone understood. Probably don't need to sink a huge amount of money to back up systems compared to a business that loses money on a per minute basis.
+
+## #4 Failure Rates
+
+Failure gets measured in many different ways, from a failed release causing downtime, to an implementation not actually bringing in enough money to sustain itself. My personal view is that of value: did the implementation not successfully pay for itself.
+
+Even the largest of business sometimes fail projects. [One of them is very well known for it](https://killedbygoogle.com/) visibly showing over 250 failed projects. It's important to take a blameless retrospective conversation when things do fail, but also celebrate and understand the wins, figure out what has gone right or wrong and keep moving forward, creating transparency of what was delivery, good or bad, so we can focus on improving this metric over time.
+
+We focus in improving releases through tests, we focus on value by talking with users and making sure we are providing what is needed.
+
+## Retrospectives and The Circle of Concern
+
+A great DevOps Process doesn't just provide these measurements to us to use, the ideal goal is to enable the teams to control all 4 of these metrics. A great DevOps team provides the tooling to the team so when the team says "Hey, we should work on X..." there is no outside dependency. We want the metrics to live in each of the teams circle of concern.
+
+If what processes live within a teams influence, while they cannot do anything direct about it, they should be focused on educating themselves on improvements, and sharing that with the teams who does live in that concern. If these metrics are only sitting in the circle of concern for teams, we end up with a poor culture: a team unable to build real trust and unable to get better.
+
+## Conclusion.
+
+Focus on Enabling your teams to have all 4 metrics in their control allows for change and improvement to occur, and for them to build trust throughout the whole organization.
