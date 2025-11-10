@@ -525,8 +525,10 @@ const buildStatic = async () => {
     // Process blogs
     const blogs = await processMdxBlogs();
 
+    const readyBlogs = blogs.filter((blog) => blog.draft !== true);
+
     // Create static pages
-    await createStaticPages(blogs);
+    await createStaticPages(readyBlogs);
 
     console.log('✅ Static files rebuilt successfully!');
 
