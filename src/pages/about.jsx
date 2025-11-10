@@ -6,7 +6,7 @@ const AboutPage = () => {
   return (
     <Layout
       title="About Me - Kyle Jenkins"
-      description="Learn more about Kyle Jenkins - web developer, speaker, and technology enthusiast."
+      description="Kyle Jenkins - Software Engineer, Speaker, and Technology Enthusiast."
     >
       <div className="space-y-12">
         {/* Page Header */}
