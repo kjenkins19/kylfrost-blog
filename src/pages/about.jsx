@@ -58,7 +58,11 @@ const AboutPage = () => {
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">Node.js & Backend Development</span>
+                  <span className="text-gray-700">NodeJS & Backend Development</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                  <span className="text-gray-700">Database Administration and Performance Tuning</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
@@ -82,7 +86,7 @@ const AboutPage = () => {
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  <span className="text-gray-700">Business Solutions with AI</span>
+                  <span className="text-gray-700">Business Solutions with AI & Agentic AI Development</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>

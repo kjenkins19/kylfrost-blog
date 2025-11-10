@@ -4,6 +4,6 @@ export const bio = (<>
   with <a href="https://improving.com" className="text-primary font-bold">Improving</a>, a global software development consulting and training company, I
   focus on integrating into
   teams to provide quality software solutions and into the IT and Agile community to improve processes
-  and teamwork. On the side, I am an avid video gamer, and loves correlating the challenges and
+  and teamwork. On the side, I am an avid video gamer, and love correlating the challenges and
   learnings from video games to the world of work.
 </>)
