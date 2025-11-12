@@ -1018,6 +1018,9 @@ video {
   color: rgb(75 85 99 / var(--tw-text-opacity, 1));
     margin-top: -1rem;
 }
+.visible {
+  visibility: visible;
+}
 .invisible {
   visibility: hidden;
 }
@@ -1041,6 +1044,9 @@ video {
 }
 .z-50 {
   z-index: 50;
+}
+.col-span-1 {
+  grid-column: span 1 / span 1;
 }
 .mx-auto {
   margin-left: auto;
@@ -1069,6 +1075,9 @@ video {
 }
 .ml-10 {
   margin-left: 2.5rem;
+}
+.ml-3 {
+  margin-left: 0.75rem;
 }
 .mr-1 {
   margin-right: 0.25rem;
@@ -1166,6 +1175,18 @@ video {
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.list-inside {
+  list-style-position: inside;
+}
+.list-disc {
+  list-style-type: disc;
+}
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
 .flex-col {
   flex-direction: column;
 }
@@ -1205,6 +1226,11 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
   margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 .space-y-12 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -1318,6 +1344,9 @@ video {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
 .pb-8 {
   padding-bottom: 2rem;
 }
@@ -1420,6 +1449,7 @@ video {
 .duration-200 {
   transition-duration: 200ms;
 }
+
 /* Prism.js syntax highlighting theme */
 .token.comment,
 .token.prolog,
@@ -1548,6 +1578,10 @@ video {
     grid-column: span 2 / span 2;
   }
 
+  .md\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
   .md\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
@@ -1599,5 +1633,39 @@ video {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+
+@media print {
+
+  .print\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
+  .print\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
+  .print\:break-before-left {
+    -moz-column-break-before: left;
+         break-before: left;
+  }
+
+  .print\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .print\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .print\:py-0 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .print\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 }
