@@ -73,85 +73,10 @@ const processCss = async () => {
 
   const css = fs.readFileSync(CONFIG.stylesFile, 'utf8');
 
-  // Add Prism CSS theme
-  const prismCss = `
-/* Prism.js syntax highlighting theme */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: #8292a2;
-}
-
-.token.punctuation {
-  color: #f8f8f2;
-}
-
-.token.property,
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #f92672;
-}
-
-.token.boolean,
-.token.number {
-  color: #ae81ff;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #a6e22e;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string,
-.token.variable {
-  color: #f8f8f2;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.function,
-.token.class-name {
-  color: #e6db74;
-}
-
-.token.keyword {
-  color: #66d9ef;
-}
-
-.token.regex,
-.token.important {
-  color: #fd971f;
-}
-
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-.token.entity {
-  cursor: help;
-}
-`;
-
   const result = await postcss([
     tailwindcss(),
     autoprefixer()
-  ]).process(css + prismCss, { from: CONFIG.stylesFile });
+  ]).process(css, { from: CONFIG.stylesFile });
 
   const outputPath = path.join(CONFIG.distDir, 'styles.css');
   fs.writeFileSync(outputPath, result.css);
@@ -367,7 +292,8 @@ const createStaticPages = async (blogs) => {
     { name: 'home', path: '/' },
     { name: 'blogs', path: '/blogs/' },
     { name: 'speaking', path: '/speaking/' },
-    { name: 'about', path: '/about/' }
+    { name: 'about', path: '/about/' },
+    { name: 'resume', path: '/resume/' },
   ];
 
   for (const page of pages) {
