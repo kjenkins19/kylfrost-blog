@@ -12,7 +12,7 @@ const SplitSection = ({ children, title = ' ' }) => (
   </div>
 );
 
-const Resume = ({address, phone, email}) => {
+const Resume = ({ address, phone, email }) => {
   return (
     <ResumeLayout>
       <div className="space-y-1 print:text-sm">
@@ -47,37 +47,37 @@ const Resume = ({address, phone, email}) => {
         </SplitSection>
 
         <SplitSection title="SKILLS">
-          <p className="">
+          <p>
               <span className="font-bold">
                 Frontend Technologies:&nbsp;
               </span>
             JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Ajax, Storybook
           </p>
-          <p className="">
+          <p>
             <span className="font-bold">Backend and Data Technologies: </span>
             Node.js, GraphQL, PHP, ASP, JSP, Python, Ruby, Redis, SQL Server, MySQL, PostgreSQL, Next.js, NGINX
           </p>
-          <p className="">
+          <p>
               <span className="font-bold">
                 DevOps, Automation and Cloud Technologies:&nbsp;
               </span>
             AWS, Docker, Terraform, Jenkins, Helm, Git, Gitlab, Github, Jest, Playwright, Cucumber, Splunk, Dynatrace,
             DataDog
           </p>
-          <p className="">
+          <p>
               <span className="font-bold">
                 Development Methodologies and Tools:&nbsp;
               </span>
             Agile, Scrum, Kanban, Jira, Confluence, Mural, DevOps, Azure DevOps, Model-View-Controller (MVC), Test
             Driven Development (TDD), Acceptance Test Driven Development (ATDD)
           </p>
-          <p className="">
+          <p>
               <span className="font-bold">
                 Development Environment Technologies:&nbsp;
               </span>
             IntelliJ IDEA, PyCharm, RubyMine, PHPStorm, Eclipse, VSCode, Webpack, NPM, Yarn, Rollup, ESLint, Prettier
           </p>
-          <p className="">
+          <p>
               <span className="font-bold">
                 AI / Agentic AI Technologies:&nbsp;
               </span>
@@ -117,10 +117,12 @@ const Resume = ({address, phone, email}) => {
               <p className="italic">Mattress Firm - Architect, Front-end Engineer</p>
               <ul className="list-disc list-inside ml-3">
                 <li>
-                  Led feature implementation and architectural guidance across multiple teams using GraphQL, React, Storybook, Next.js, Node.js, TypeScript.
+                  Led feature implementation and architectural guidance across multiple teams using GraphQL, React,
+                  Storybook, Next.js, Node.js, TypeScript.
                 </li>
                 <li>
-                  Advised on CDN and cookie management for A/B testing, standardized logging, and improved local environments.
+                  Advised on CDN and cookie management for A/B testing, standardized logging, and improved local
+                  environments.
                 </li>
                 <li>
                   Managed daily standups and contributed to UI/UX design.
@@ -186,8 +188,8 @@ const Resume = ({address, phone, email}) => {
           <div>
             <ul className="list-disc list-inside ml-3">
               <li>
-                Serve as Scrum Master for a development team by insulating working groups from dis-
-                traction. Tailored responses to specific project challenges: smooth integration of working group
+                Serve as Scrum Master for a development team by insulating working groups from distraction. Tailored
+                responses to specific project challenges: smooth integration of working group
                 components; nimble adjustments based on real-time client feedback; and challenging individuals to push
                 themselves to the edge of their skill sets.
               </li>
