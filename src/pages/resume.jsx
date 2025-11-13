@@ -39,7 +39,7 @@ const Resume = () => {
               <span className="font-bold">
                 Frontend Technologies:&nbsp;
               </span>
-            JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Webpack, Ajax
+            JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Ajax
           </p>
           <p className="">
             <span className="font-bold">Backend and Data Technologies: </span>
@@ -57,8 +57,7 @@ const Resume = () => {
                 Development Methodologies and Tools:&nbsp;
               </span>
             Agile, Scrum, Kanban, Jira, Confluence, Mural, DevOps, Azure DevOps, Model-View-Controller (MVC), Test
-            Driven
-            Development (TDD), Acceptance Test Driven Development (ATDD)
+            Driven Development (TDD), Acceptance Test Driven Development (ATDD)
           </p>
           <p className="">
               <span className="font-bold">
@@ -66,9 +65,15 @@ const Resume = () => {
               </span>
             IntelliJ IDEA, PyCharm, RubyMine, PHPStorm, Eclipse, VSCode, Webpack, NPM, Yarn, Rollup, ESLint, Prettier
           </p>
+          <p className="">
+              <span className="font-bold">
+                AI / Agentic AI Technologies:&nbsp;
+              </span>
+            ChatGPT, Junie, GPT-5, Sonnet 4, Gemini
+          </p>
           <p>
             <span className="font-bold">
-              Other Technologies of Interest:&nbsp;
+              Other Technologies:&nbsp;
             </span>
             Linux, Debian, Ubuntu, Bash, zsh, Windows Server, Websphere, JSON, Drupal, Prompt Engineering, Launch
             Darkly, Adobe Target
@@ -89,10 +94,10 @@ const Resume = () => {
                   application
                 </li>
                 <li>
-                  Migrated an ClickOps built application in EC2 to AWS ECS with Docker and Terraform
+                  Migrated a ClickOps built application in EC2 to AWS ECS with Docker and Terraform
                 </li>
                 <li>
-                  Fully automated the deployment pipelines with with Trunk Based Development with Github Actions
+                  Fully automated deployment pipelines integrating Trunk Based Development with Github Actions
                 </li>
               </ul>
             </div>
@@ -148,7 +153,7 @@ const Resume = () => {
         </SplitSection>
         {/*eHealth Data Solutions*/}
         <SplitSection>
-          <div className="flex justify-between print:break-before-left">
+          <div className="flex justify-between">
             <p className="font-bold">eHealth Data Solutions - Full Stack Software Engineer</p>
             <p className="italic">2007 - 2014</p>
           </div>
@@ -180,7 +185,7 @@ const Resume = () => {
           </div>
         </SplitSection>
         <SplitSection title="EDUCATION">
-          <div className="flex justify-between print:break-before-left">
+          <div className="flex justify-between">
             <p className="font-bold"><i>Bachelor of Arts</i>, Mathematics</p>
             <p className="italic">2003 - 2007</p>
           </div>
