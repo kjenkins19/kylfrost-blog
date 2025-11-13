@@ -10,7 +10,6 @@ import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import chokidar from 'chokidar';
-import Prism from 'prismjs';
 import 'prismjs/components/prism-javascript.js';
 import 'prismjs/components/prism-typescript.js';
 import 'prismjs/components/prism-jsx.js';
@@ -304,8 +303,33 @@ const createStaticPages = async (blogs) => {
   console.log('✅ Static pages created');
 };
 
+// Load secrets data if available
+const loadSecretsData = () => {
+  const secretsPath = path.join(__dirname, 'secrets', 'resume.json');
+  if (fs.existsSync(secretsPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(secretsPath, 'utf8'));
+    } catch (error) {
+      console.warn('⚠️  Warning: Could not parse secrets/resume.json:', error.message);
+      return null;
+    }
+  }
+  return null;
+};
+
 const createStaticPage = async (page, blogs) => {
   const tempComponentPath = path.join(CONFIG.distDir, `temp-page-${page.name}.js`);
+
+  // Load secrets data for resume page
+  const secretsData = page.name === 'resume' ? loadSecretsData() : null;
+  
+  // Build props object
+  const props = { blogs: JSON.stringify(blogs) };
+  if (secretsData) {
+    props.address = JSON.stringify(secretsData.address);
+    props.phone = JSON.stringify(secretsData.phone);
+    props.email = JSON.stringify(secretsData.email);
+  }
 
   const componentCode = `
 import React from 'react';
@@ -313,7 +337,7 @@ import ${page.name.charAt(0).toUpperCase() + page.name.slice(1)}Page from '../sr
 
 const Page = () => {
   return React.createElement(${page.name.charAt(0).toUpperCase() + page.name.slice(1)}Page, {
-    blogs: ${JSON.stringify(blogs)}
+    ${Object.entries(props).map(([key, value]) => `${key}: ${value}`).join(',\n    ')}
   });
 };
 
