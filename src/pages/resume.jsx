@@ -51,7 +51,7 @@ const Resume = ({address, phone, email}) => {
               <span className="font-bold">
                 Frontend Technologies:&nbsp;
               </span>
-            JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Ajax
+            JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Ajax, Storybook
           </p>
           <p className="">
             <span className="font-bold">Backend and Data Technologies: </span>
@@ -110,6 +110,20 @@ const Resume = ({address, phone, email}) => {
                 </li>
                 <li>
                   Fully automated deployment pipelines integrating Trunk Based Development with Github Actions
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className="italic">Mattress Firm - Architect, Front-end Engineer</p>
+              <ul className="list-disc list-inside ml-3">
+                <li>
+                  Led feature implementation and architectural guidance across multiple teams using GraphQL, React, Storybook, Next.js, Node.js, TypeScript.
+                </li>
+                <li>
+                  Advised on CDN and cookie management for A/B testing, standardized logging, and improved local environments.
+                </li>
+                <li>
+                  Managed daily standups and contributed to UI/UX design.
                 </li>
               </ul>
             </div>
