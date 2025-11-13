@@ -91,3 +91,6 @@ storybook-static
 # Local development
 .local
 *.local
+
+# Local only secrets
+secrets/

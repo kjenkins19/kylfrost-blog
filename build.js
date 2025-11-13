@@ -31,6 +31,7 @@ const CONFIG = {
   publicDir: path.join(__dirname, 'public'),
   blogsDir: path.join(__dirname, 'src', 'blogs'),
   pagesDir: path.join(__dirname, 'src', 'pages'),
+  secretsDir: path.join(__dirname, 'secrets'),
   componentsDir: path.join(__dirname, 'src', 'components'),
   stylesFile: path.join(__dirname, 'src', 'styles.css'),
   isDev: process.argv.includes('--dev')
