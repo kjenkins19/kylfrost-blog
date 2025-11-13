@@ -12,7 +12,7 @@ const SplitSection = ({ children, title = ' ' }) => (
   </div>
 );
 
-const Resume = () => {
+const Resume = ({address, phone, email}) => {
   return (
     <ResumeLayout>
       <div className="space-y-1 print:text-sm">
@@ -22,9 +22,21 @@ const Resume = () => {
             Kyle Jenkins
           </h1>
           <hr/>
-          <p className="text-sm text-gray-400 max-w-2xl mx-auto italic">
+          {address && phone && email ? (
+            <div className="flex justify-between text-gray-700">
+              <p>
+                {address}
+              </p>
+              <p>
+                {phone}
+              </p>
+              <p>
+                {email}
+              </p>
+            </div>
+          ) : (<p className="text-sm text-gray-400 max-w-2xl mx-auto italic">
             Contact information hidden for online privacy. Contact me via LinkedIn for full version
-          </p>
+          </p>)}
         </header>
 
         <SplitSection title="OBJECTIVE">
