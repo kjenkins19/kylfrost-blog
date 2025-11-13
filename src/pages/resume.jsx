@@ -37,9 +37,9 @@ const Resume = ({ address, phone, email }) => {
 
       <SplitSection title="SKILLS">
         <p>
-              <span className="font-bold">
-                Frontend Technologies:&nbsp;
-              </span>
+          <span className="font-bold">
+            Frontend Technologies:&nbsp;
+          </span>
           JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Ajax, Storybook
         </p>
         <p>
@@ -47,16 +47,16 @@ const Resume = ({ address, phone, email }) => {
           Node.js, GraphQL, PHP, ASP, JSP, Python, Ruby, Redis, SQL Server, MySQL, PostgreSQL, Next.js, NGINX
         </p>
         <p>
-              <span className="font-bold">
-                DevOps, Automation and Cloud Technologies:&nbsp;
-              </span>
+          <span className="font-bold">
+            DevOps, Automation and Cloud Technologies:&nbsp;
+          </span>
           AWS, Docker, Terraform, Jenkins, Helm, Git, Gitlab, Github, Jest, Playwright, Cucumber, Splunk, Dynatrace,
           DataDog
         </p>
         <p>
-              <span className="font-bold">
-                Development Methodologies and Tools:&nbsp;
-              </span>
+          <span className="font-bold">
+            Development Methodologies and Tools:&nbsp;
+          </span>
           Agile, Scrum, Kanban, Jira, Confluence, Mural, DevOps, Azure DevOps, Model-View-Controller (MVC), Test
           Driven Development (TDD), Acceptance Test Driven Development (ATDD)
         </p>
@@ -67,9 +67,9 @@ const Resume = ({ address, phone, email }) => {
           IntelliJ IDEA, PyCharm, RubyMine, PHPStorm, Eclipse, VSCode, Webpack, NPM, Yarn, Rollup, ESLint, Prettier
         </p>
         <p>
-              <span className="font-bold">
-                AI / Agentic AI Technologies:&nbsp;
-              </span>
+          <span className="font-bold">
+            AI / Agentic AI Technologies:&nbsp;
+          </span>
           ChatGPT, Junie, GPT-5, Sonnet 4, Gemini
         </p>
         <p>

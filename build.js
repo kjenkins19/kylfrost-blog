@@ -10,6 +10,7 @@ import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import chokidar from 'chokidar';
+import Prism from 'prismjs'; // This line must remain although unused for build to work.
 import 'prismjs/components/prism-javascript.js';
 import 'prismjs/components/prism-typescript.js';
 import 'prismjs/components/prism-jsx.js';
