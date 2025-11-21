@@ -1,15 +1,6 @@
 import React from 'react';
 import ResumeLayout from "../components/ResumeLayout.jsx";
 
-const SplitSection = ({ children, title = ' ' }) => (<div className="grid grid-cols-6 print:grid-cols-6 pb-2">
-  <div className="col-span-1 print:col-span-1">
-    <p className="font-bold">{title}</p>
-  </div>
-  <div className="col-span-5 print:col-span-5">
-    {children}
-  </div>
-</div>);
-
 const Resume = ({ address, phone, email }) => {
   return (<ResumeLayout>
     {/*<div className="print:hidden text-xs">When printing, remove headers and set margins to minimum</div>*/}
