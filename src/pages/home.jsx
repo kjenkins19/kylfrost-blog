@@ -12,13 +12,13 @@ const HomePage = ({ blogs = [] }) => {
   return (
     <Layout 
       title="Kyle Jenkins - Home"
-      description="For the Sake of Serving Others"
+      description="Serving Humanity Through Technology and Teamwork"
     >
       <div className="space-y-12">
         {/* Hero Section */}
         <section className="text-center py-12">
           <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
-            For the Sake of Serving Others
+            Serving Humanity Through Technology and Teamwork
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
             If there is one thing I've figured out about myself, it's that I want to help people, so I hope this site helps you.

@@ -295,6 +295,7 @@ const createStaticPages = async (blogs) => {
     { name: 'speaking', path: '/speaking/' },
     { name: 'about', path: '/about/' },
     { name: 'resume', path: '/resume/' },
+    { name: 'resumeside', path: '/resumeside/' },
   ];
 
   for (const page of pages) {
@@ -322,7 +323,7 @@ const createStaticPage = async (page, blogs) => {
   const tempComponentPath = path.join(CONFIG.distDir, `temp-page-${page.name}.js`);
 
   // Load secrets data for resume page
-  const secretsData = page.name === 'resume' ? loadSecretsData() : null;
+  const secretsData = page.name.substr(0,6) === 'resume' ? loadSecretsData() : null;
   
   // Build props object
   const props = { blogs: JSON.stringify(blogs) };

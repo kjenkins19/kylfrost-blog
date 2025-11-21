@@ -13,7 +13,7 @@ const ResumeLayout = ({ children, title = 'Kyle Jenkins Blog', description = 'A 
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col print:text-xs">
           <main className="flex-1">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:py-0">
               {children}

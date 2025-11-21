@@ -23,6 +23,7 @@ const Resume = ({ address, phone, email }) => {
           <p>{address}</p>
           <p>{phone}</p>
           <p>{email}</p>
+          <p>https://kylfrost.com</p>
         </div>) : (<p className="text-sm text-gray-400 max-w-2xl mx-auto italic">
           Contact information hidden for online privacy. Contact me via LinkedIn for full version
         </p>)}
@@ -40,11 +41,11 @@ const Resume = ({ address, phone, email }) => {
           <span className="font-bold">
             Frontend Technologies:&nbsp;
           </span>
-          JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Ajax, Storybook
+          JavaScript, TypeScript, React, Angular, jQuery, HTML, CSS, SASS/SCSS, Tailwind CSS, Ajax, Storybook, Mermaid
         </p>
         <p>
           <span className="font-bold">Backend and Data Technologies: </span>
-          Node.js, GraphQL, PHP, ASP, JSP, Python, Ruby, Redis, SQL Server, MySQL, PostgreSQL, Next.js, NGINX
+          Node.js, GraphQL, PHP, ASP, JSP, Python, Ruby, Redis, SQL Server, MySQL, PostgreSQL, Next.js, ExpressJS, KoaJS, NGINX
         </p>
         <p>
           <span className="font-bold">
@@ -84,7 +85,7 @@ const Resume = ({ address, phone, email }) => {
       <SplitSection title="EXPERIENCE">
         <div className="flex justify-between">
           <p className="font-bold">Improving - Principal Consultant</p>
-          <p className="italic">2014 - Present</p>
+          <p className="italic">2015 - Present</p>
         </div>
         <div className="grid grid-cols-1 gap-2 print:grid-cols-1">
           <div>
@@ -92,13 +93,13 @@ const Resume = ({ address, phone, email }) => {
             <ul className="list-disc list-inside ml-3">
               <li>
                 Integrated development best practices to increase consistency, security, and reliability across a new
-                application
+                application.
               </li>
               <li>
-                Migrated a ClickOps built application in EC2 to AWS ECS with Docker and Terraform
+                Migrated a ClickOps built application in AWS EC2 to AWS ECS with Docker and Terraform.
               </li>
               <li>
-                Fully automated deployment pipelines integrating Trunk Based Development with Github Actions
+                Fully automated deployment pipelines integrating Trunk Based Development with Github Actions.
               </li>
             </ul>
           </div>
@@ -141,6 +142,10 @@ const Resume = ({ address, phone, email }) => {
                 Played a major role in integrating Level AA Web Content Accessibility Guidelines and the creation of a
                 design system structured on Atomic Design concepts.
               </li>
+              <li>
+                Provided guidance and work towards migrating legacy JSPs to Node.js and React Microservices
+                incrementally delivering new valuable features without needing a full re-write.
+              </li>
             </ul>
           </div>
           <div>
@@ -158,10 +163,10 @@ const Resume = ({ address, phone, email }) => {
             <p className="italic">Resource Ammaratti - Front-end Engineer</p>
             <ul className="list-disc list-inside ml-3">
               <li>
-                Developed components for integration for cardinalhealth.com and toysrus.com.
+                Developed components for integration for Cardinal Health and Toys R Us websites.
               </li>
               <li>
-                Modified custom NodeJS Framework used for defining handlebars components
+                Modified custom NodeJS Framework used for defining handlebars components.
               </li>
             </ul>
           </div>
