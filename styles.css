@@ -1048,6 +1048,15 @@ video {
 .col-span-1 {
   grid-column: span 1 / span 1;
 }
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+.col-span-5 {
+  grid-column: span 5 / span 5;
+}
+.col-span-7 {
+  grid-column: span 7 / span 7;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1186,6 +1195,9 @@ video {
 }
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.grid-cols-9 {
+  grid-template-columns: repeat(9, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;
@@ -1642,8 +1654,20 @@ video {
     grid-column: span 1 / span 1;
   }
 
+  .print\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
   .print\:col-span-5 {
     grid-column: span 5 / span 5;
+  }
+
+  .print\:col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+
+  .print\:hidden {
+    display: none;
   }
 
   .print\:grid-cols-1 {
@@ -1654,6 +1678,10 @@ video {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
+  .print\:grid-cols-9 {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+
   .print\:py-0 {
     padding-top: 0px;
     padding-bottom: 0px;
@@ -1662,5 +1690,10 @@ video {
   .print\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+
+  .print\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 }
