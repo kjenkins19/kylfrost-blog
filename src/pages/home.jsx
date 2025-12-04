@@ -69,8 +69,8 @@ const HomePage = ({ blogs = [] }) => {
           <h2 className="text-2xl font-bold text-black mb-4">
             About Me
           </h2>
-          <div className="grid md:grid-cols-3 gap-8 items-center">
-            <div className="md:col-span-2">
+          <div className="grid md:grid-cols-5 gap-8 items-center">
+            <div className="md:col-span-4">
               <p className="text-gray-700 mb-6 leading-relaxed">
                 {/*I solve business problems through technology and teamwork, am driven to help you ease the pain of daily life, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.*/}
                 {bio}
