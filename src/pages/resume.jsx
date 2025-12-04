@@ -45,7 +45,8 @@ const Resume = ({ address, phone, email }) => {
         </p>
         <p>
           <span className="font-bold">Backend and Data Technologies: </span>
-          Node.js, GraphQL, PHP, ASP, JSP, Python, Ruby, Redis, SQL Server, MySQL, PostgreSQL, Next.js, ExpressJS, KoaJS, NGINX
+          Node.js, GraphQL, PHP, ASP, JSP, Python, Ruby, Redis, SQL Server, MySQL, PostgreSQL, Next.js, ExpressJS,
+          KoaJS, NGINX
         </p>
         <p>
           <span className="font-bold">
@@ -212,6 +213,20 @@ const Resume = ({ address, phone, email }) => {
         </div>
         <p>Cleveland State University, Cleveland, Ohio</p>
         <p>Minor: Computer and Information Systems</p>
+      </SplitSection>
+      <SplitSection title="CERTIFICATIONS">
+        <div className="flex justify-between">
+          <div>
+            <p className="font-bold">The Six Types of Working Genius Certification</p>
+            <p>The Six Types of Working Genius</p>
+            <p className="italic">Issued Sep 2021</p>
+          </div>
+          <div>
+            <p className="font-bold">Certified Professional Scrummaster</p>
+            <p>Scrum.org</p>
+            <p className="italic">Issued Dec 2014</p>
+          </div>
+        </div>
       </SplitSection>
     </div>
   </ResumeLayout>);

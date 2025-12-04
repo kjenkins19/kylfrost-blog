@@ -9,8 +9,7 @@ const HomePage = ({ blogs = [] }) => {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
 
-  return (
-    <Layout 
+  return (<Layout
       title="Kyle Jenkins - Home"
       description="Serving Humanity Through Technology and Teamwork"
     >
@@ -21,7 +20,8 @@ const HomePage = ({ blogs = [] }) => {
             Serving Humanity Through Technology and Teamwork
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            If there is one thing I've figured out about myself, it's that I want to help people, so I hope this site helps you.
+            If there is one thing I've figured out about myself, it's that I want to help people, so I hope this site
+            helps you.
           </p>
         </section>
 
@@ -53,9 +53,7 @@ const HomePage = ({ blogs = [] }) => {
             </a>
           </div>
 
-          {recentBlogs.length > 0 ? (
-            <BlogList blogs={recentBlogs} limit={3} showDescription={true} />
-          ) : (
+          {recentBlogs.length > 0 ? (<BlogList blogs={recentBlogs} limit={3} showDescription={true}/>) : (
             <div className="text-center py-12 bg-gray-50 rounded-lg">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 No blog posts yet
@@ -63,8 +61,7 @@ const HomePage = ({ blogs = [] }) => {
               <p className="text-gray-600">
                 Stay tuned for upcoming posts about web development and technology!
               </p>
-            </div>
-          )}
+            </div>)}
         </section>
 
         {/* About Preview */}
@@ -72,10 +69,17 @@ const HomePage = ({ blogs = [] }) => {
           <h2 className="text-2xl font-bold text-black mb-4">
             About Me
           </h2>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            {/*I solve business problems through technology and teamwork, am driven to help you ease the pain of daily life, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.*/}
-            {bio}
-          </p>
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            <div className="md:col-span-2">
+              <p className="text-gray-700 mb-6 leading-relaxed">
+                {/*I solve business problems through technology and teamwork, am driven to help you ease the pain of daily life, whether it’s technology bleeding resources or trouble working with a team of people. As a full stack developer, public speaker, and principal consultant with Improving, a global software development consulting and training company, he integrates into teams to provide quality software solutions and into the IT and Agile community to improve processes and teamwork. On the side, he is an avid video gamer, and loves correlating the challenges and learnings from video games to the world of work.*/}
+                {bio}
+              </p>
+            </div>
+            <div className="md:col-span-1 max-w-64 mx-auto md:mx-0">
+              <img src="/me.png" alt="Kyle Jenkins Headshot" className="rounded-lg"/>
+            </div>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="/about/"
@@ -92,8 +96,7 @@ const HomePage = ({ blogs = [] }) => {
           </div>
         </section>
       </div>
-    </Layout>
-  );
+    </Layout>);
 };
 
 export default HomePage;

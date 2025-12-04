@@ -149,11 +149,31 @@ const Resume = ({ address, phone, email }) => {
           </div>
         </div>
 
+        {/*Education*/}
         <div className="pb-2">
           <h2 className="font-bold">EDUCATION</h2>
           <div className="flex justify-between">
             <p className="font-bold"><i>Bachelor of Arts</i>, Mathematics</p>
             <p className="italic">2003 - 2007</p>
+          </div>
+          <p>Cleveland State University, Cleveland, Ohio</p>
+          <p>Minor: Computer and Information Systems</p>
+        </div>
+
+        {/*Certifications*/}
+        <div className="pb-2">
+          <h2 className="font-bold">CERTIFICATIONS</h2>
+          <div className="flex justify-between">
+            <div>
+              <p className="font-bold">The Six Types of Working Genius Certification</p>
+              <p>The Six Types of Working Genius</p>
+              <p className="italic">Issued Sep 2021</p>
+            </div>
+            <div>
+              <p className="font-bold">Certified Professional Scrummaster</p>
+              <p>Scrum.org</p>
+              <p className="italic">Issued Dec 2014</p>
+            </div>
           </div>
           <p>Cleveland State University, Cleveland, Ohio</p>
           <p>Minor: Computer and Information Systems</p>
