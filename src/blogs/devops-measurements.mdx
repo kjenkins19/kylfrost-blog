@@ -1,0 +1,55 @@
+export const title = "Redefining Devops: A Focus on Measurements";
+export const date = "2025-12-8";
+export const description = "DevOps is often confused with tools or specific practices, and I think it's time to transform it to it's primary value: measurements.";
+export const tags = ['Trust', 'DevOps'];
+export const draft = true;
+
+## TLDR;
+
+* DevOps as a whole needs to focus more on the DORA metrics
+* If we are implementing tools which harm those metrics, it is anti-devops
+* Focusing on measurements enables both the building of trust and promotion of improvement
+
+---
+
+As I was giving a talk around how DevOps builds trust, I realized I don't do an amazing job of "defining" DevOps. I ended up thinking through it a fair bit more and realize I don't like where it stands today. Too many people think of devops as a set of tools, and others are a fair bit better and focus on practices, however, I think there is still an underlying principle behind that, and it's time to transform it further.
+
+Throughout extensive research, highly promoted by the book [Accelerate: The Science of Lean Software and DevOps](https://a.co/d/iFWMzUc), the DORA metrics were developed, correlating to the performance of teams
+
+* Lead Time (Delivery) - The Time it takes to start a task to providing value
+* Change Failure Rate - How often a task fails at providing value
+* Deployment Frequency - How often are you deploying
+* Mean Time to Recovery (restore service) - How long it takes to restore service after a failure
+
+## Redefining DevOps
+
+As I'm looking at a slide which listed these 4, I had a moment where I realized I would define DevOps as anything you do which promotes improving these four metrics. Even as simple as a developer writing a test, there is a goal there for reducing lead time on future changes and failure rates. Even a practice as simple as requesting a change in how one writes requirements to improve flow efficiency affects lead time.
+
+This leads me to redefine DevOps as:
+
+> The active practice of changing processes and tools to improve Lead Time, Change Failure Rates, Deployment Frequency, and Mean Time to Recovery.
+
+## Smaller changes for faster value
+
+One recent client I was working on getting them migrated to automated fast deployments. My initial instinct was to go all out with an Infrastructure as Code system, complete management of the environments through code. This would take a fair bit of time not only to implement but also train the team to catch on long term. But then I took a step back and though through "what is the actual priority here? What would give us the most value now?"
+
+I managed to solve the primary problem itself in a couple of days. I reduced lead time dramatically and promoted frequent deliveries by pushing a docker image to the AWS ECR registry and letting AWS take care of the rest. This made me think: what is the real value of Infrastructure as Code? What is the value of tools like Terraform?
+
+This is when it clicked: Every tool, every process, one should always link to which metrics it can/should improve (or potentially harm), and also understand when in the lifecycle of a project or application it changes. Then we can prioritize appropriately based on those effects.
+
+## A Shift during the project lifecycle
+
+Tests are straightforward to pick on when it comes to the lifecycle of a project or application. They often provide very little help at the start of the project when requirements are constantly changing, so a lot of developers skip over them, as they would be re-writing them repeatedly as it actively can harm lead time. Over the course of time, as requirements are solidified, making sure the system is consistently working while adding new features dramatically supports every DORA metric.
+
+Keeping these types of practices and the effects they have transparent can help build clarity and trust with the business.
+
+## The DevOps Team Dilemma
+
+So many companies create a separate team focused on DevOps. However, the active practice of it by the new definition is the accountability of every team. I now see a DevOps team no different from historically an operations team, one focused on deployment and management of servers, that actively focuses on improving their own processes and tools to improve those metrics.
+
+The best DevOps teams also help focus on creating the autonomy of those metrics for other teams, so they can too focus on improving their own metrics as well. This leads to amazing retrospectives for those teams, enabling them to constantly improve their processes while staying in their circle of control.
+
+## Summary
+
+All technical teams are accountable for focusing on improving the DORA metrics, not just a single team, and when thinking of the term DevOps we should be focused holistically. Each change should be measured and the team should be able to see the impact of those changes.
+
