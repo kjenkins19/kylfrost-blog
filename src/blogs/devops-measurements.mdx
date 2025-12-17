@@ -1,8 +1,7 @@
 export const title = "Redefining Devops: A Focus on Measurements";
-export const date = "2025-12-8";
+export const date = "2025-12-17";
 export const description = "DevOps is often confused with tools or specific practices, and I think it's time to transform it to it's primary value: measurements.";
 export const tags = ['Trust', 'DevOps'];
-export const draft = true;
 
 ## TLDR;
 
@@ -33,7 +32,7 @@ This leads me to redefine DevOps as:
 
 One recent client I was working on getting them migrated to automated fast deployments. My initial instinct was to go all out with an Infrastructure as Code system, complete management of the environments through code. This would take a fair bit of time not only to implement but also train the team to catch on long term. But then I took a step back and though through "what is the actual priority here? What would give us the most value now?"
 
-I managed to solve the primary problem itself in a couple of days. I reduced lead time dramatically and promoted frequent deliveries by pushing a docker image to the AWS ECR registry and letting AWS take care of the rest. This made me think: what is the real value of Infrastructure as Code? What is the value of tools like Terraform?
+I managed to solve the primary problem itself in a couple of days. I reduced lead time dramatically and promoted frequent deliveries by pushing a docker image to the AWS ECR registry and letting AWS take care of the rest. This made me think: what is the real value of Infrastructure as Code? What is the value of tools like Terraform? Reducing failure rates!
 
 This is when it clicked: Every tool, every process, one should always link to which metrics it can/should improve (or potentially harm), and also understand when in the lifecycle of a project or application it changes. Then we can prioritize appropriately based on those effects.
 
@@ -51,5 +50,4 @@ The best DevOps teams also help focus on creating the autonomy of those metrics 
 
 ## Summary
 
-All technical teams are accountable for focusing on improving the DORA metrics, not just a single team, and when thinking of the term DevOps we should be focused holistically. Each change should be measured and the team should be able to see the impact of those changes.
-
+All technical teams are accountable for focusing on improving the DORA metrics, not just a single team, and when thinking of the term DevOps, we should be focused holistically. Each change should be measured and the team should be able to see the impact of those changes. Anything classified as "tech debt" should also be able to track back to one of these 4 metrics... otherwise perhaps it's time to throw that ticket away.
