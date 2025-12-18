@@ -17,6 +17,10 @@ const speakerList = [{
   sessionizeKey: 'kyle-jenkins',
   topics: 'Soft Skills/Trust/Teamwork, Docker, The Six Types of Working Genius, Agile'
 },{
+  name: 'Bob Fornal',
+  sessionizeKey: 'bob-fornal',
+  topics: 'Front End Technologies, Testing / QA'
+},{
   name: 'Cassandra Faris',
   sessionizeKey: 'cassandra-faris',
   topics: 'Professional Networking, Personal Branding, Communication, Diversity'
@@ -29,6 +33,10 @@ const speakerList = [{
   sessionizeKey: 'craig-stuntz',
   topics: 'Threat Modeling, Wierd Tech'
 },{
+  name: 'Damian Synadinos',
+  sessionizeKey: 'damian-synadinos',
+  topics: 'Soft Skills, QA (Note: Professional Keynote Speaker)'
+},{
   name: 'Drake Lundstrom',
   sessionizeKey: 'drake-lundstrom',
   topics: 'How to Learn, DevOps, Azure'
@@ -36,6 +44,10 @@ const speakerList = [{
   name: 'Guy Royse',
   sessionizeKey: 'guyroyse',
   topics: 'Information & Communications Technology, Redis'
+},{
+  name: 'Jeff Blankenburg',
+  sessionizeKey: 'jeffblankenburg',
+  topics: 'Alexa, Cloud'
 },{
   name: 'Jeffrey Miller',
   sessionizeKey: 'xagronaut',
@@ -45,9 +57,25 @@ const speakerList = [{
   sessionizeKey: 'jonathan-danylko',
   topics: '.NET, SQL, Career Growth'
 },{
+  name: 'Mark Tinderholt',
+  sessionizeKey: 'markti',
+  topics: 'Cloud, Azure, .NET'
+},{
+  name: 'Matthew Hope Eland',
+  sessionizeKey: 'matt-eland',
+  topics: 'AI, .NET'
+},{
+  name: 'Michael Eaton',
+  sessionizeKey: 'matt-eland',
+  topics: 'Leadership, Soft Skills'
+},{
   name: 'MJ Lindeman',
-  sessionizeKey: 'mj-lindeman',
+  sessionizeKey: 'mjeaton',
   topics: 'AI, Quantum Physics'
+},{
+  name: 'Stephanie Wightman',
+  sessionizeKey: 'stephanie-wightman',
+  topics: ' Information & Communications Technology'
 }]
 
 const ColumbusSpeakers = () => {
@@ -72,7 +100,7 @@ const ColumbusSpeakers = () => {
 
       {/* Recent Blog Posts */}
       {speakerList.map(({ name, sessionizeKey, topics }) => (
-        <Sessionize name={name} sessionizeKey={sessionizeKey} topics={topics}/>))}
+        <Sessionize key={name} name={name} sessionizeKey={sessionizeKey} topics={topics}/>))}
     </div>
   </Layout>);
 };
