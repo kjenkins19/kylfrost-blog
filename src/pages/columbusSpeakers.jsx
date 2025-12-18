@@ -81,7 +81,7 @@ const speakerList = [{
 const ColumbusSpeakers = () => {
   return (<Layout
     title="Kyle Jenkins - Columbus Speakers"
-    description="Other Columbus Speaker that I like"
+    description="Other Columbus Speakers that I like"
   >
     <div className="space-y-12">
       {/* Hero Section */}
