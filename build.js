@@ -60,13 +60,13 @@ const copyDir = (src, dest) => {
   }
 };
 
-const slugify = (text) => {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-};
+// const slugify = (text) => {
+//   return text
+//     .toLowerCase()
+//     .replace(/[^\w\s-]/g, '')
+//     .replace(/[\s_-]+/g, '-')
+//     .replace(/^-+|-+$/g, '');
+// };
 
 // CSS Processing
 const processCss = async () => {
@@ -296,6 +296,7 @@ const createStaticPages = async (blogs) => {
     { name: 'about', path: '/about/' },
     { name: 'resume', path: '/resume/' },
     { name: 'resumeside', path: '/resumeside/' },
+    { name: 'columbusSpeakers', path: '/columbus-speakers/' },
   ];
 
   for (const page of pages) {
