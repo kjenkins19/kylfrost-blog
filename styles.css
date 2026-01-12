@@ -1106,9 +1106,6 @@ video {
 .mt-4 {
   margin-top: 1rem;
 }
-.mt-6 {
-  margin-top: 1.5rem;
-}
 .mt-auto {
   margin-top: auto;
 }
@@ -1785,8 +1782,8 @@ video {
     grid-column: span 7 / span 7;
   }
 
-  .print\:mt-2 {
-    margin-top: 0.5rem;
+  .print\:flex {
+    display: flex;
   }
 
   .print\:hidden {
@@ -1823,6 +1820,10 @@ video {
 
   .print\:grid-cols-9 {
     grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+
+  .print\:flex-col {
+    flex-direction: column;
   }
 
   .print\:gap-4 {
