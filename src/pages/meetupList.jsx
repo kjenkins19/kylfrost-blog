@@ -70,7 +70,7 @@ const MeetupList = () => {
         <tbody>
         <tr>
           <td className="w-full pb-8">
-            <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 print:grid-cols-2 print:gap-4">
+            <main className="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-4">
               {MEETUPS.map((meetup, index) => (<MeetupCard
                 key={index}
                 name={meetup.name}
