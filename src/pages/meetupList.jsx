@@ -15,32 +15,27 @@ import ResumeLayout from "../components/ResumeLayout.jsx";
 const MEETUPS = [
   {
     name: "Columbus Ruby Brigade",
-    description: "A group of Ruby enthusiasts in the Columbus, OH area since 2004.",
     qrPath: "/meetupList/columbus-ruby.png", // Ensure this file exists in public/meetupList/
   },
   {
     name: "Columbus Elixir",
-    description: "Sharing and learning about the Elixir language and ecosystem.",
     qrPath: "/meetupList/columbus-elixir.png",
   },
   {
     name: "Cleveland React",
-    description: "Discussing all things React and modern web development in Cleveland.",
     qrPath: "/meetupList/cleveland-react.png",
   },
   {
     name: "Chicago JS",
-    description: "The premier JavaScript community in the Windy City.",
     qrPath: "/meetupList/chicago-js.png",
   },
   // Add more meetups here...
 ];
 
-const MeetupCard = ({ name, description, qrPath }) => (
+const MeetupCard = ({ name, qrPath }) => (
   <div className="flex flex-col items-center justify-between border-2 border-gray-200 rounded-xl p-6 h-full break-inside-avoid print:border-gray-300">
     <div className="text-center space-y-2">
       <h2 className="text-2xl font-bold text-black print:text-xl">{name}</h2>
-      <p className="text-gray-600 text-sm print:text-xs leading-relaxed">{description}</p>
     </div>
     
     <div className="mt-4 flex flex-col items-center">
@@ -99,7 +94,7 @@ const MeetupList = () => {
               </p>
             </div>
             
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col print:flex print:flex-col items-center">
               <div className="w-32 h-32 bg-white p-2 border border-gray-200 rounded-lg shadow-sm print:w-28 print:h-28 print:shadow-none">
                 <img 
                   src="/meetupList/contact-qr.png" 
@@ -113,27 +108,23 @@ const MeetupList = () => {
               <span className="mt-1 text-[8px] text-gray-400 uppercase font-mono">Contact Us</span>
             </div>
           </div>
-          
-          <div className="text-center mt-6 text-gray-400 text-xs print:mt-2">
-            <p>© {new Date().getFullYear()} Kyle Jenkins • kylfrost.com</p>
-          </div>
         </footer>
 
       </div>
       
       {/* Print Specific styles to ensure clean margins and paper usage */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        @media print {
-          @page {
-            margin: 0.5in;
-            size: auto;
-          }
-          body {
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
-          }
-        }
-      `}} />
+      {/*<style dangerouslySetInnerHTML={{ __html: `*/}
+      {/*  @media print {*/}
+      {/*    @page {*/}
+      {/*      margin: 0.5in;*/}
+      {/*      size: auto;*/}
+      {/*    }*/}
+      {/*    body {*/}
+      {/*      print-color-adjust: exact;*/}
+      {/*      -webkit-print-color-adjust: exact;*/}
+      {/*    }*/}
+      {/*  }*/}
+      {/*`}} />*/}
     </ResumeLayout>
   );
 };
