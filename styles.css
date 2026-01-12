@@ -1233,6 +1233,9 @@ video {
 .grid-cols-9 {
   grid-template-columns: repeat(9, minmax(0, 1fr));
 }
+.flex-row {
+  flex-direction: row;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -1456,9 +1459,6 @@ video {
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
-.text-\[10px\] {
-  font-size: 10px;
-}
 .text-\[8px\] {
   font-size: 8px;
 }
@@ -1501,9 +1501,6 @@ video {
 }
 .tracking-tight {
   letter-spacing: -0.025em;
-}
-.tracking-widest {
-  letter-spacing: 0.1em;
 }
 .text-black {
   --tw-text-opacity: 1;
@@ -1720,10 +1717,6 @@ video {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .md\:flex-row {
-    flex-direction: row;
-  }
-
   .md\:text-left {
     text-align: left;
   }
@@ -1779,6 +1772,10 @@ video {
     grid-column: span 7 / span 7;
   }
 
+  .print\:flex {
+    display: flex;
+  }
+
   .print\:table-footer-group {
     display: table-footer-group;
   }
@@ -1821,6 +1818,14 @@ video {
 
   .print\:grid-cols-9 {
     grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+
+  .print\:flex-row {
+    flex-direction: row;
+  }
+
+  .print\:justify-between {
+    justify-content: space-between;
   }
 
   .print\:gap-4 {
