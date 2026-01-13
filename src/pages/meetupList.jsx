@@ -13,17 +13,29 @@ import ResumeLayout from "../components/ResumeLayout.jsx";
 
 const MEETUPS = [{
   name: "Columbus Code & Coffee", qrPath: "/meetupList/columbus-code-and-coffee.png"
-}, { name: "Central Ohio Python Users Group (Columbus)", qrPath: "/meetupList/columbus-cohpy.png" }, {
+}, {
+  name: "Central Ohio Python Users Group (Columbus)", qrPath: "/meetupList/columbus-cohpy.png"
+}, {
   name: "Christians in Tech (Columbus)", qrPath: "/meetupList/columbus-cit.png"
-}, { name: "Buckeye Cocoa Programmers (iOS) (Columbus)", qrPath: "/meetupList/columbus-cocoa.png" }, {
+}, {
+  name: "Buckeye Cocoa Programmers (iOS) (Columbus)", qrPath: "/meetupList/columbus-cocoa.png"
+}, {
   name: "Golang Columbus", qrPath: "/meetupList/columbus-golang.png"
-}, { name: "Columbus Unity User Group", qrPath: "/meetupList/columbus-unity.png" }, {
+}, {
+  name: "Columbus Unity User Group", qrPath: "/meetupList/columbus-unity.png"
+}, {
   name: "OWASP Columbus Chapter", qrPath: "/meetupList/columbus-owasp.png"
-}, { name: "Cleveland Power Platform", qrPath: "/meetupList/cleveland-power-platform.png" }, {
+}, {
+  name: "Cleveland Power Platform", qrPath: "/meetupList/cleveland-power-platform.png"
+}, {
+  name: "Beyond Code (Cleveland) (Formerly DevOpsCLE)", qrPath: "/meetupList/beyond-code.png"
+}, {
+  name: "Ohio North Data Training (Cleveland)", qrPath: "/meetupList/ohio-north-data.png"
+}, {
   name: "Elastic Chicago User Group", qrPath: "/meetupList/chicago-elastic.png"
 },];
 
-const MeetupCard = ({ name, qrPath, index }) => (<div className={index % 3 === 2 ? 'col-span-2' : ''}>
+const MeetupCard = ({ name, qrPath, index }) => (<div className={index === 10 ? 'col-span-2' : ''}>
   <div
     className="flex flex-col items-center justify-between rounded-xl p-6 h-full break-inside-avoid">
     <div className="text-center">
@@ -70,7 +82,7 @@ const MeetupList = () => {
         <tbody>
         <tr>
           <td className="w-full pb-8">
-            <main className="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-4">
+            <main className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2 print:gap-0">
               {MEETUPS.map((meetup, index) => (<MeetupCard
                 key={index}
                 name={meetup.name}
