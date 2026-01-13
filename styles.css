@@ -1814,8 +1814,8 @@ video {
     justify-content: space-between;
   }
 
-  .print\:gap-4 {
-    gap: 1rem;
+  .print\:gap-0 {
+    gap: 0px;
   }
 
   .print\:border-2 {
