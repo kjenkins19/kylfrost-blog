@@ -24,7 +24,18 @@ const Resume = ({ address, phone, email }) => {
         </p>)}
       </div>
       <div className="col-span-7 print:col-span-7">
-        <h2 className="font-bold">EXPERIENCE</h2>
+        <h2 className="font-bold">PROFESSIONAL SUMMARY</h2>
+        <div className="pb-2">
+          <p>
+            Technology leader and consultant with deep experience in software development and architecture and cloud
+            enabled systems, paired with a strong focus on leadership effectiveness and organizational trust. I
+            specialize in helping teams deliver sound technical solutions under real world constraints, while coaching
+            the team to navigate change with clarity and integrity. My approach blends technical rigor with emotional
+            intelligence, enabling scalable systems, resilient teams, and sustainable delivery.
+          </p>
+        </div>
+
+        <h2 className="font-bold mt-3">EXPERIENCE</h2>
         <div className="pb-2">
           <div className="flex justify-between">
             <p className="font-bold">Improving - Principal Consultant</p>
@@ -32,38 +43,68 @@ const Resume = ({ address, phone, email }) => {
           </div>
           <div className="grid grid-cols-1 gap-2 print:grid-cols-1">
             <div>
-              <p className="italic">AI OWL - DevOps Engineer, Cloud Architect, Full Stack Developer</p>
               <ul className="list-disc list-inside ml-3">
                 <li>
-                  Integrated development best practices to increase consistency, security, and reliability across a new
-                  application.
+                  Developed automated flows with Power Automate for capturing data for local community events for our
+                  internal community initiative.
                 </li>
                 <li>
-                  Migrated a ClickOps built application in AWS EC2 to AWS ECS with Docker and Terraform.
-                </li>
-                <li>
-                  Fully automated deployment pipelines integrating Trunk Based Development with Github Actions.
+                  Facilitated multiple internal courses across a variety of topics including Trust, Leadership, and The
+                  6 Types of Working Geniuses.
                 </li>
               </ul>
             </div>
             <div>
-              <p className="italic">Mattress Firm - Architect, Front-end Engineer</p>
+              <p className="italic">AI OWL (Client) - DevOps Engineer, Cloud Architect, Full Stack Developer</p>
+              <ul className="list-disc list-inside ml-3">
+                <li>
+                  Integrated development best practices to increase consistency, security, reliability, and
+                  accessibility across a new application.
+                </li>
+                <li>
+                  Migrated a ClickOps built application in AWS EC2 to AWS ECS with Docker, AWS ECR and Terraform.
+                </li>
+                <li>
+                  Fully automated deployment pipelines integrating Trunk Based Development with Github Actions.
+                </li>
+                <li>
+                  Setup Unit and Behavior Testing with Playwright for an Angular Frontend, Python Backend website,
+                  updating features as needed.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className="italic">Mattress Firm (Client) - Architect, Front-end Engineer</p>
               <ul className="list-disc list-inside ml-3">
                 <li>
                   Led feature implementation and architectural guidance across multiple teams using GraphQL, React,
                   Storybook, Next.js, Node.js, TypeScript.
                 </li>
                 <li>
-                  Advised on CDN and cookie management for A/B testing, standardized logging, and improved local
-                  environments.
+                  Advised on standardized logging and improved local environments.
                 </li>
                 <li>
-                  Managed daily standups and contributed to UI/UX design.
+                  Enhanced documentation on current and proposed architectures with Azure DevOps (ADO), utilizing
+                  markdown and Mermaid diagrams.
+                </li>
+                <li>
+                  Rearchitected the A/B Testing Setup to properly manage caching with the CDN through properly cookie
+                  management.
+                </li>
+                <li>
+                  Managed daily standups for cross team collaboration and project management.
+                </li>
+                <li>
+                  Actively contributed to UI/UX design to promote common standards for better user workflow.
+                </li>
+                <li>
+                  Utilized Gemini AI to speed up the development of both code and tests, and actively promoted it
+                  throughout the teams to use.
                 </li>
               </ul>
             </div>
             <div>
-              <p className="italic">Abercrombie & Fitch - Architect, Full Stack Developer</p>
+              <p className="italic">Abercrombie & Fitch (Client) - Architect, Full Stack Developer</p>
               <ul className="list-disc list-inside ml-3">
                 <li>
                   Development and maintenance of the primary e-commerce and marketing website within the IBM WebSphere
@@ -83,33 +124,48 @@ const Resume = ({ address, phone, email }) => {
                 </li>
                 <li>
                   Played a major role in integrating Level AA Web Content Accessibility Guidelines and the creation of a
-                  design system structured on Atomic Design concepts.
+                  design system utilizing Storybook and Rollup structured on Atomic Design concepts.
                 </li>
                 <li>
                   Provided guidance and work towards migrating legacy JSPs to Node.js and React Microservices
                   incrementally delivering new valuable features without needing a full re-write.
                 </li>
-              </ul>
-            </div>
-            <div>
-              <p className="italic">Highlights for Children's Magazine - Front-end Engineer, DevOps Engineer</p>
-              <ul className="list-disc list-inside ml-3">
                 <li>
-                  Modernized and maintained multiple Drupal-based websites.
+                  Defined custom middleware instances with ExpressJS and KoaJS to manage server rendered instances for migration to React.
                 </li>
                 <li>
-                  Developed CI/CD jobs using Jenkins.
+                  Provided extensive updates to the documentation process and onboarding communications.
+                </li>
+                <li>
+                  Optimized GraphQL calls with caching integrations with both CDN and Redis instances.
                 </li>
               </ul>
             </div>
             <div>
-              <p className="italic">Resource Ammaratti - Front-end Engineer</p>
+              <p className="italic">Highlights for Children's Magazine (Client) - Front-end Engineer, DevOps
+                Engineer</p>
               <ul className="list-disc list-inside ml-3">
                 <li>
-                  Developed components for integration for Cardinal Health and Toys R Us websites.
+                  Modernized and maintained multiple Drupal-based websites, including custom PHP based plugins.
                 </li>
                 <li>
-                  Modified custom NodeJS Framework used for defining handlebars components.
+                  Actively maintained MySQL instances to optimize performance.
+                </li>
+                <li>
+                  Created CI/CD jobs using Jenkins to facilitate automated deployments for development and production
+                  environments.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className="italic">Resource Ammaratti (Client) - Front-end Engineer</p>
+              <ul className="list-disc list-inside ml-3">
+                <li>
+                  Developed front end components with Handlebars, SASS/SCSS, and JQuery/JavaScript for integration with
+                  Adobe CMS for Cardinal Health and FAO Schwarz websites.
+                </li>
+                <li>
+                  Modified a custom in-house NodeJS Framework used for defining handlebars components.
                 </li>
               </ul>
             </div>
@@ -130,9 +186,11 @@ const Resume = ({ address, phone, email }) => {
                 themselves to the edge of their skill sets.
               </li>
               <li>
+                Managed Jira and Confluence instances to promote efficient workflows and gather analytics for project
+                management.
+              </li>
+              <li>
                 Maintain and improve two healthcare-related subscriber websites powered by HTML, JavaScript, and CSS.
-                Site-specific work such as working with Windows-based ASP/MSSQL backend for one; and Linux-based
-                PHP/PostgreSQL with an MVC framework for the other.
               </li>
               <li>
                 Strategize and implement an incremental based migration for one product from the ASP/MSSQL backend to
@@ -150,8 +208,8 @@ const Resume = ({ address, phone, email }) => {
         </div>
 
         {/*Education*/}
+        <h2 className="font-bold mt-3">EDUCATION</h2>
         <div className="pb-2">
-          <h2 className="font-bold">EDUCATION</h2>
           <div className="flex justify-between">
             <p className="font-bold"><i>Bachelor of Arts</i>, Mathematics</p>
             <p className="italic">2003 - 2007</p>
@@ -161,8 +219,8 @@ const Resume = ({ address, phone, email }) => {
         </div>
 
         {/*Certifications*/}
+        <h2 className="font-bold mt-3">CERTIFICATIONS</h2>
         <div className="pb-2">
-          <h2 className="font-bold">CERTIFICATIONS</h2>
           <div className="flex justify-between">
             <div>
               <p className="font-bold">The Six Types of Working Genius Certification</p>
@@ -198,8 +256,6 @@ const Resume = ({ address, phone, email }) => {
           <p>MySQL / Redis</p>
           <p>DevOps / Cloud / AWS</p>
           <p>Docker / Terraform</p>
-          <p>IntelliJ / VSCode</p>
-          <p>Git / GitHub / GitLab</p>
           <p>Jenkins / Bamboo</p>
           <p>AI / Agentic AI</p>
           <p>GPT / Sonnet / Gemini</p>
@@ -209,10 +265,17 @@ const Resume = ({ address, phone, email }) => {
           <p>Scrum / Kanban</p>
           <p>Jira / Confluence</p>
           <p>Azure Devops / Mural</p>
-        {/*  Helm, Cucumber, jQuery Model-View-Controller (MVC), Test Driven Development (TDD), Acceptance Test Driven Development (ATDD)*/}
-        {/*  ChatGPT, Junie, GPT-5, Sonnet 4, Gemini */}
+          {/*  Helm, Cucumber, jQuery Model-View-Controller (MVC), Test Driven Development (TDD), Acceptance Test Driven Development (ATDD)*/}
+          {/*  ChatGPT, Junie, GPT-5, Sonnet 4, Gemini */}
           {/*IntelliJ IDEA, PyCharm, RubyMine, PHPStorm, Eclipse, VSCode, Webpack, NPM, Yarn, Rollup, ESLint, Prettier*/}
           {/*Linux, Debian, Ubuntu, Bash, zsh, Windows Server, Websphere, JSON, Drupal, Prompt Engineering, Launch Darkly, Adobe Target*/}
+        </div>
+        <h2 className="font-bold pt-8">TOOLS</h2>
+        <div>
+          <p>IntelliJ / VSCode</p>
+          <p>PHPStory / Rubymine</p>
+          <p>Antigravity</p>
+          <p>Git / GitHub / GitLab</p>
         </div>
         <h2 className="font-bold pt-8">EXPLORATORY SKILLS</h2>
         <div>
