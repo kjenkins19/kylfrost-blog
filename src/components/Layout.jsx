@@ -53,6 +53,23 @@ const Layout = ({ children, title = 'Kyle Jenkins Blog', description = 'A blog a
                     GitHub
                   </a>
                 </div>
+                <div className="mt-2 space-x-4 flex justify-center">
+                  <a
+                    href="/columbus-speakers/"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-dark underline"
+                  >
+                    Columbus Speakers
+                  </a>
+                  <p>|</p>
+                  <a
+                    href="/columbus-meetups/"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-dark underline"
+                  >
+                    Columbus Meetups List
+                  </a>
+                </div>
               </div>
             </div>
           </footer>
