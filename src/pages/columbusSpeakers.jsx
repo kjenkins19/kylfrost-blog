@@ -70,7 +70,7 @@ const speakerList = [{
   topics: 'Leadership, Soft Skills'
 },{
   name: 'MJ Lindeman',
-  sessionizeKey: 'marthalindeman',
+  sessionizeKey: 'mj-lindeman',
   topics: 'AI, Quantum Physics'
 },{
   name: 'Stephanie Wightman',
