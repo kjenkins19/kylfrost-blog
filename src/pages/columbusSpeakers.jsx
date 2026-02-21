@@ -66,11 +66,11 @@ const speakerList = [{
   topics: 'AI, .NET'
 },{
   name: 'Michael Eaton',
-  sessionizeKey: 'matt-eland',
+  sessionizeKey: 'mjeaton',
   topics: 'Leadership, Soft Skills'
 },{
   name: 'MJ Lindeman',
-  sessionizeKey: 'mjeaton',
+  sessionizeKey: 'marthalindeman',
   topics: 'AI, Quantum Physics'
 },{
   name: 'Stephanie Wightman',
