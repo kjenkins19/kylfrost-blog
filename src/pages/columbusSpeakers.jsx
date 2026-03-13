@@ -17,6 +17,10 @@ const speakerList = [{
   sessionizeKey: 'kyle-jenkins',
   topics: 'Soft Skills/Trust/Teamwork, Docker, The Six Types of Working Genius, Agile'
 },{
+  name: 'Bill Sempf',
+  sessionizeKey: 'bill-sempf',
+  topics: 'Security'
+},{
   name: 'Bob Fornal',
   sessionizeKey: 'bob-fornal',
   topics: 'Front End Technologies, Testing / QA'
