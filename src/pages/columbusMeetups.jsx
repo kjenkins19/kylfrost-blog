@@ -29,7 +29,7 @@ const meetupList = [{
   name: 'AI Tinkerers Columbus',
   url: 'https://columbus.aitinkerers.org/',
   topics: 'AI Demos, Agentic Workflow'
-},{
+}, {
   name: 'ColumbusJS',
   url: 'https://www.meetup.com/columbusjs/',
   topics: 'JavaScript and all the wonderfully adjacent technology'
