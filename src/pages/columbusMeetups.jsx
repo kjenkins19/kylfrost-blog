@@ -62,6 +62,10 @@ const meetupList = [{
   url: 'https://www.meetup.com/columbus-ai/',
   topics: 'AI'
 }, {
+  name: 'Columbus AI Engineering',
+  url: 'https://www.meetup.com/columbus-ai-engineering-meetup/',
+  topics: 'AI'
+}, {
   name: 'Columbus Arduino Raspberry Pi Enthusiasts (CARPE)',
   url: 'https://www.meetup.com/columbus-arduino-raspberry-pi-enthusiasts/',
   topics: 'Hardware'
