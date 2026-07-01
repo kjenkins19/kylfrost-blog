@@ -299,6 +299,7 @@ const createStaticPages = async (blogs) => {
     { name: 'columbusSpeakers', path: '/columbus-speakers/' },
     { name: 'columbusMeetups', path: '/columbus-meetups/' },
     { name: 'meetupList', path: '/meetup-list/' },
+    { name: 'disc', path: '/disc/' },
   ];
 
   for (const page of pages) {
