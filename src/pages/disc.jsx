@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { discPages } from './discData.js';
-import ResumeLayout from "../components/ResumeLayout.jsx";
 
 // Sections definitions for Table of Contents
 const SECTIONS = [
@@ -59,6 +58,45 @@ const DISC_COLORS = {
   I: { bg: "bg-yellow-500", text: "text-yellow-600", border: "border-yellow-500", fill: "#EAB308" },
   S: { bg: "bg-green-500", text: "text-green-600", border: "border-green-500", fill: "#22C55E" },
   C: { bg: "bg-blue-500", text: "text-blue-600", border: "border-blue-500", fill: "#3B82F6" },
+};
+
+// OCR Clean-up helper to filter out trailing page signatures, wheel roles, and other scans noise
+const WHEEL_ROLES = [
+  "IMPLEMENTOR", "ANALYZER", "CONDUCTOR", "COORDINATOR", 
+  "PERSUADER", "SUPPORTER", "PROMOTER", "RELATER"
+];
+
+const cleanOcrContent = (content) => {
+  if (!content) return "";
+  const lines = content.split('\n');
+  const filtered = lines.filter(line => {
+    const trimmed = line.trim();
+    if (!trimmed) return true;
+    
+    // Remove wheel roles
+    if (WHEEL_ROLES.includes(trimmed)) return false;
+    
+    // Remove copyright blocks
+    if (trimmed.includes("Copyright ©") || (trimmed.includes("Copyright") && trimmed.includes("Target Training International"))) return false;
+    
+    // Remove page numbers or footer artifacts
+    if (trimmed.match(/^Page \d+$/i)) return false;
+    if (trimmed.match(/^\d+$/)) return false;
+    if (trimmed.includes("Clear Cut Strategies, LLC & The Abelson Group")) return false;
+    if (trimmed.includes("Clear Out Strategies, LLC & The Abelson Group")) return false;
+    if (trimmed.includes("Tel. 937-597-4507")) return false;
+    if (trimmed.includes("Succeed@TheAbelsonGroup.com")) return false;
+    if (trimmed.includes("CarlaNeer@hotmail.com")) return false;
+    
+    return true;
+  });
+  
+  return filtered.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+};
+
+const cleanTitle = (title, pageNum) => {
+  if (pageNum === 14) return "Natural and Adapted Style (Continued)";
+  return title;
 };
 
 // Cover Page Renderer (Page 1)
@@ -392,26 +430,829 @@ const EQGraphs = ({ pageNum }) => {
   );
 };
 
-// Default text formatting page renderer
-const DefaultPageRenderer = ({ content }) => {
-  const blocks = content.split('\n\n');
+// ----------------------------------------------------
+// MODERNIZED VISUAL COMPONENTS FOR DATA-HEAVY PAGES
+// ----------------------------------------------------
+
+// Page 12 - Descriptors Grid (replaces plain text lists)
+const DESCRIPTORS_DATA = [
+  {
+    dimension: "Dominance",
+    colorClass: "red",
+    headerBg: "bg-red-600",
+    lightBg: "bg-red-50/70",
+    textClass: "text-red-700",
+    score: 26,
+    highWords: ["Driving", "Ambitious", "Pioneering", "Strong-Willed", "Determined", "Competitive", "Decisive", "Venturesome"],
+    lowWords: ["Calculating", "Cooperative", "Hesitant", "Cautious", "Agreeable", "Modest", "Peaceful", "Unobtrusive"]
+  },
+  {
+    dimension: "Influencing",
+    colorClass: "yellow",
+    headerBg: "bg-yellow-500",
+    lightBg: "bg-yellow-50/75",
+    textClass: "text-yellow-800",
+    score: 24,
+    highWords: ["Inspiring", "Magnetic", "Enthusiastic", "Persuasive", "Convincing", "Poised", "Optimistic", "Trusting"],
+    lowWords: ["Reflective", "Factual", "Calculating", "Skeptical", "Logical", "Suspicious", "Matter-of-Fact", "Incisive"]
+  },
+  {
+    dimension: "Steadiness",
+    colorClass: "green",
+    headerBg: "bg-green-600",
+    lightBg: "bg-green-50/70",
+    textClass: "text-green-700",
+    score: 89,
+    highWords: ["Relaxed", "Passive", "Patient", "Possessive", "Predictable", "Consistent", "Steady", "Stable"],
+    lowWords: ["Mobile", "Active", "Restless", "Impatient", "Pressure-Oriented", "Eager", "Flexible", "Impulsive"]
+  },
+  {
+    dimension: "Compliance",
+    colorClass: "blue",
+    headerBg: "bg-blue-600",
+    lightBg: "bg-blue-50/70",
+    textClass: "text-blue-700",
+    score: 74,
+    highWords: ["Cautious", "Careful", "Exacting", "Systematic", "Accurate", "Open-Minded", "Balanced Judgment", "Diplomatic"],
+    lowWords: ["Firm", "Independent", "Self-Willed", "Obstinate", "Unsystematic", "Uninhibited", "Arbitrary", "Unbending"]
+  }
+];
+
+const DescriptorGrid = () => {
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 border border-gray-200 rounded-xl overflow-hidden bg-white my-6 shadow-sm">
+      {DESCRIPTORS_DATA.map((col) => {
+        const isHigh = col.score >= 50;
+        return (
+          <div key={col.dimension} className="flex flex-col border-r last:border-r-0 border-gray-200">
+            {/* High Descriptors */}
+            <div className={`flex-1 p-4 flex flex-col items-center justify-center gap-2 transition duration-200 ${isHigh ? `${col.lightBg} font-bold text-gray-900` : 'bg-white text-gray-400 font-normal'}`}>
+              {col.highWords.map((word) => (
+                <span key={word} className={`text-xs tracking-wide ${isHigh ? `${col.textClass} font-bold` : 'opacity-60'}`}>{word}</span>
+              ))}
+            </div>
+            
+            {/* Color accent split header */}
+            <div className={`${col.headerBg} py-3 text-center text-white font-extrabold uppercase text-[10px] tracking-wider flex flex-col justify-center items-center`}>
+              <span>{col.dimension}</span>
+              <span className="text-[9px] opacity-90 mt-0.5">Score: {col.score}</span>
+            </div>
+
+            {/* Low Descriptors */}
+            <div className={`flex-1 p-4 flex flex-col items-center justify-center gap-2 transition duration-200 ${!isHigh ? `${col.lightBg} font-bold text-gray-900` : 'bg-white text-gray-400 font-normal'}`}>
+              {col.lowWords.map((word) => (
+                <span key={word} className={`text-xs tracking-wide ${!isHigh ? `${col.textClass} font-bold` : 'opacity-60'}`}>{word}</span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+// Page 13 & 14 - Natural & Adapted Styles dual comparisons
+const NATURAL_ADAPTED_DATA = {
+  13: [
+    {
+      title: "Problems - Challenges",
+      color: "red",
+      bgClass: "bg-red-600",
+      borderClass: "border-red-200",
+      natural: "Kyle is cautious in his approach to problem solving and does not attempt to demand that his view, or opinion, be accepted at face value. Kyle likes to solve problems within the framework of a team environment. He will look for a compromise as opposed to a win-lose situation.",
+      adapted: "Kyle sees no need to change his approach to solving problems or dealing with challenges in his present environment."
+    },
+    {
+      title: "People - Contacts",
+      color: "yellow",
+      bgClass: "bg-yellow-500",
+      borderClass: "border-yellow-200",
+      natural: "Kyle is undemonstrative in his approach to influencing others and likes to let facts and figures stand for themselves. He feels persuasion needs to be objective and straightforward. His trust level is based on each interaction--the past is the past. He presents facts without embellishments.",
+      adapted: "Kyle sees no need to change his approach to influencing others to his way of thinking. He sees his natural style to be what the environment is calling for."
+    }
+  ],
+  14: [
+    {
+      title: "Pace - Consistency",
+      color: "green",
+      bgClass: "bg-green-600",
+      borderClass: "border-green-200",
+      natural: "Kyle is comfortable in an environment in which there are few projects going on concurrently. He is appreciative of the team concept and feels quite secure in an environment where the need to move from one activity to another quite quickly is kept to a minimum.",
+      adapted: "Kyle sees his natural activity style to be just what the environment needs. What you see is what you get for activity level and consistency. Sometimes he would like the world to slow down."
+    },
+    {
+      title: "Procedures - Constraints",
+      color: "blue",
+      bgClass: "bg-blue-600",
+      borderClass: "border-blue-200",
+      natural: "Kyle naturally is cautious and concerned for quality. He likes to be on a team that takes responsibility for the final product. He enjoys knowing the rules and can become upset when others fail to comply with the rules.",
+      adapted: "Kyle shows little discomfort when comparing his basic (natural) style to his response to the environment (adapted) style. The difference is not significant and Kyle sees little or no need to change his response to the environment."
+    }
+  ]
+};
+
+const ComparativeStyleCard = ({ styleData }) => {
+  const verticalTextStyles = {
+    writingMode: 'vertical-rl',
+    transform: 'rotate(180deg)',
+    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
 
   return (
-    <div className="space-y-4">
+    <div className="flex border rounded-xl overflow-hidden bg-white shadow-sm hover:shadow transition duration-200 mb-6 border-gray-200">
+      {/* Rotated category sidebar */}
+      <div className={`w-12 sm:w-14 flex-shrink-0 flex items-center justify-center ${styleData.bgClass} text-white font-black py-6`}>
+        <span 
+          style={verticalTextStyles}
+          className="whitespace-nowrap tracking-wider text-xs sm:text-sm uppercase"
+        >
+          {styleData.title}
+        </span>
+      </div>
+      
+      {/* Side-by-side styles */}
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-150">
+        <div className="p-6 hover:bg-gray-50/30 transition">
+          <div className="flex items-center gap-2 mb-3">
+            <span className={`w-2 h-2 rounded-full ${styleData.bgClass}`} />
+            <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Natural Style</h4>
+          </div>
+          <p className="text-gray-700 text-sm leading-relaxed">{styleData.natural}</p>
+        </div>
+        
+        <div className="p-6 bg-gray-50/10 hover:bg-gray-50/40 transition">
+          <div className="flex items-center gap-2 mb-3">
+            <span className={`w-2 h-2 rounded-full ${styleData.bgClass} opacity-60`} />
+            <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Adapted Style</h4>
+          </div>
+          <p className="text-gray-700 text-sm leading-relaxed">{styleData.adapted}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Page 9 - Communication Tips Component
+const COMMUNICATION_TIPS = [
+  {
+    type: "Dominance",
+    title: "ambitious, forceful, decisive, strong-willed, independent and goal-oriented",
+    bgClass: "bg-red-500",
+    textClass: "text-red-700",
+    hoverBg: "hover:bg-red-50/20",
+    dos: [
+      "Be clear, specific, brief and to the point.",
+      "Stick to business.",
+      "Be prepared with support material in a well-organized \"package.\""
+    ],
+    donts: [
+      "Talking about things that are not relevant to the issue.",
+      "Leaving loopholes or cloudy issues.",
+      "Appearing disorganized."
+    ]
+  },
+  {
+    type: "Influencing",
+    title: "magnetic, enthusiastic, friendly, demonstrative and political",
+    bgClass: "bg-yellow-500",
+    textClass: "text-yellow-700",
+    hoverBg: "hover:bg-yellow-50/20",
+    dos: [
+      "Provide a warm and friendly environment.",
+      "Don't deal with a lot of details (put them in writing).",
+      "Ask \"feeling\" questions to draw their opinions or comments."
+    ],
+    donts: [
+      "Being curt, cold or tight-lipped.",
+      "Controlling the conversation.",
+      "Driving on facts and figures, alternatives, abstractions."
+    ]
+  },
+  {
+    type: "Steadiness",
+    title: "patient, predictable, reliable, steady, relaxed and modest",
+    bgClass: "bg-green-500",
+    textClass: "text-green-700",
+    hoverBg: "hover:bg-green-50/20",
+    dos: [
+      "Begin with a personal comment--break the ice.",
+      "Present your case softly, nonthreateningly.",
+      "Ask \"how?\" questions to draw their opinions."
+    ],
+    donts: [
+      "Rushing headlong into business.",
+      "Being domineering or demanding.",
+      "Forcing them to respond quickly to your objectives."
+    ]
+  },
+  {
+    type: "Compliance",
+    title: "dependent, neat, conservative, perfectionist, careful and compliant",
+    bgClass: "bg-blue-500",
+    textClass: "text-blue-700",
+    hoverBg: "hover:bg-blue-50/20",
+    dos: [
+      "Prepare your \"case\" in advance.",
+      "Stick to business.",
+      "Be accurate and realistic."
+    ],
+    donts: [
+      "Being giddy, casual, informal, loud.",
+      "Pushing too hard or being unrealistic with deadlines.",
+      "Being disorganized or messy."
+    ]
+  }
+];
+
+const CommunicationTipsGrid = () => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+      {COMMUNICATION_TIPS.map((tip) => (
+        <div 
+          key={tip.type} 
+          className={`relative border border-gray-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col justify-between transition-all duration-200 hover:shadow ${tip.hoverBg}`}
+        >
+          {/* Accent triangle at bottom right */}
+          <div className="absolute bottom-0 right-0 w-8 h-8 overflow-hidden rounded-br-2xl pointer-events-none">
+            <div className={`absolute bottom-[-16px] right-[-16px] w-12 h-12 rotate-45 ${tip.bgClass}`} />
+          </div>
+
+          <div>
+            <div className="mb-4">
+              <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold text-white uppercase ${tip.bgClass} mb-2`}>
+                {tip.type}
+              </span>
+              <p className="text-gray-800 text-sm font-semibold leading-relaxed">
+                When communicating with a person who is {tip.title}:
+              </p>
+            </div>
+
+            <div className="space-y-2 mb-4">
+              {tip.dos.map((doItem, idx) => (
+                <div key={idx} className="flex items-start gap-2 text-xs text-gray-700">
+                  <span className={`text-sm ${tip.textClass}`}>•</span>
+                  <span>{doItem}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-gray-100 pt-3 mt-3">
+              <h5 className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">
+                Factors that will create tension:
+              </h5>
+              <div className="space-y-2">
+                {tip.donts.map((dontItem, idx) => (
+                  <div key={idx} className="flex items-start gap-2 text-xs text-gray-650">
+                    <span className="text-sm text-gray-400">•</span>
+                    <span>{dontItem}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Page 10 - Perceptions Component
+const PERCEPTIONS_DATA = [
+  {
+    title: "Self-Perception",
+    subtitle: "Kyle usually sees himself as being:",
+    accentClass: "bg-emerald-500",
+    lightBg: "bg-emerald-50/10",
+    items: [
+      { left: "Considerate", right: "Thoughtful" },
+      { left: "Good-Natured", right: "Dependable" },
+      { left: "Team player", right: "Good listener" }
+    ]
+  },
+  {
+    title: "Others' Perception - Moderate",
+    subtitle: "Under moderate pressure, stress or fatigue, others may see him as:",
+    accentClass: "bg-amber-500",
+    lightBg: "bg-amber-50/10",
+    items: [
+      { left: "Nondemonstrative", right: "Hesitant" },
+      { left: "Unconcerned", right: "Inflexible" }
+    ]
+  },
+  {
+    title: "Others' Perception - Extreme",
+    subtitle: "Under extreme pressure, stress or fatigue, others may see him as:",
+    accentClass: "bg-rose-500",
+    lightBg: "bg-rose-50/10",
+    items: [
+      { left: "Possessive", right: "Stubborn" },
+      { left: "Detached", right: "Insensitive" }
+    ]
+  }
+];
+
+const PerceptionsGrid = () => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+      {PERCEPTIONS_DATA.map((card) => (
+        <div 
+          key={card.title}
+          className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow transition duration-200 flex flex-col"
+        >
+          <div className={`${card.accentClass} py-3.5 px-5 text-white font-extrabold text-xs uppercase tracking-wider`}>
+            {card.title}
+          </div>
+          
+          <div className={`p-5 flex-1 flex flex-col justify-between ${card.lightBg}`}>
+            <p className="text-gray-500 text-xs font-semibold leading-relaxed mb-4">
+              {card.subtitle}
+            </p>
+
+            <div className="space-y-3">
+              {card.items.map((row, idx) => (
+                <div key={idx} className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center gap-2 text-xs font-bold text-gray-700 bg-gray-50/50 border border-gray-100 px-3 py-2 rounded-lg">
+                    <span className={`w-1.5 h-1.5 rounded-full ${card.accentClass}`} />
+                    <span>{row.left}</span>
+                  </div>
+                  {row.right ? (
+                    <div className="flex items-center gap-2 text-xs font-bold text-gray-700 bg-gray-50/50 border border-gray-100 px-3 py-2 rounded-lg">
+                      <span className={`w-1.5 h-1.5 rounded-full ${card.accentClass}`} />
+                      <span>{row.right}</span>
+                    </div>
+                  ) : (
+                    <div />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Pages 16-19 - Time Wasters
+const TIME_WASTERS = {
+  16: [
+    {
+      title: "Failure To Share Information",
+      desc: "The failure to share information is the inability or unwillingness to discuss with others.",
+      causes: [
+        "Don't think others want to know the information",
+        "Unclear of the way the information will be used/received",
+        "Wait until asked before sharing information"
+      ],
+      solutions: [
+        "Let others know that they need to ask for information",
+        "Share with those whose opinions you trust"
+      ]
+    },
+    {
+      title: "Resisting Change",
+      desc: "Resisting change is the process of consciously or subconsciously not participating in the change process. Measures of resistance may be active or passive, not doing things the new way, or making excuses for not having tasks accomplished.",
+      causes: [
+        "Need a high degree of security",
+        "Like to maintain the status quo",
+        "Routine/procedures have worked in the past",
+        "One specific aspect of a proposed change violates sense of values",
+        "A specific change is not seen as contributing to successful accomplishments"
+      ],
+      solutions: [
+        "Acknowledge that change is a natural part of any job",
+        "Develop the habit of writing down all of the pros and cons of a specific change",
+        "Evaluate each objection to a change",
+        "If there is one specific objection that is overriding the ability to change, share the specific concern with those involved and seek advice or input from others"
+      ]
+    }
+  ],
+  17: [
+    {
+      title: "Postpone The Unpleasant",
+      desc: "Postponing the unpleasant is similar to procrastinating but is usually a continual reprioritizing of daily tasks. It is often a way to delay something that is not enjoyable.",
+      causes: [
+        "Like low-conflict environments and relationships",
+        "Want to feel the success of accomplishment so the simple tasks are done first"
+      ],
+      solutions: [
+        "Change your routine and, for one week, do the unpleasant tasks first",
+        "See the accomplishment of unpleasant tasks as an equal or even greater achievement of success",
+        "Reward yourself for every unpleasant task that you complete without postponing",
+        "Confront those people who are causing you discomfort and discuss the problems"
+      ]
+    },
+    {
+      title: "Habits",
+      desc: "A habit is a specific thought, behavior or way of doing something that was acquired by repetition or by reinforcement from self and/or others.",
+      causes: [
+        "Have established routines that are comfortable",
+        "Routine creates a feeling of security",
+        "Resist change for change's sake",
+        "Have been praised repeatedly for a specific behavior"
+      ],
+      solutions: [
+        "Evaluate habits and decide which contribute to your accomplishments and which deter you from success",
+        "Try new ways of performing a certain task",
+        "Ask others for recommendations on different approaches",
+        "Consciously practice changing your routine"
+      ]
+    }
+  ],
+  18: [
+    {
+      title: "Not Exercising Authority",
+      desc: "Not exercising authority is the inability to make decisions that might adversely impact some people and compromises the success of task accomplishment. It is also the resistance to making the tough calls.",
+      causes: [
+        "Want to be seen as supportive",
+        "Believe people will do what is right",
+        "Fear offending others",
+        "Fear creating conflict between team members"
+      ],
+      solutions: [
+        "Have clearly defined and written performance objectives",
+        "Have clearly written rationale for specific decisions",
+        "Assign decision reporting to the deputy/assistant",
+        "Appoint a strong deputy or assistant",
+        "Have a \"Good Guy/Bad Guy\" image agreement with deputy/assistant"
+      ]
+    },
+    {
+      title: "Failure To Anticipate",
+      desc: "Failure to anticipate is the lack of focusing on possible outcomes or requirements.",
+      causes: [
+        "Expect only the best to happen",
+        "Expect everyone else to do their best"
+      ],
+      solutions: []
+    }
+  ],
+  19: [
+    {
+      title: "Failure To Anticipate (Continued)",
+      desc: "Failure to anticipate is the lack of focusing on possible outcomes or requirements.",
+      causes: [
+        "Trust the system to run well",
+        "Focus on the here and now rather than the future",
+        "Resist change"
+      ],
+      solutions: [
+        "Set aside a specific amount of time each day to consider outcome possibilities",
+        "Talk with others who may have prior experience with a specific task or person"
+      ]
+    }
+  ]
+};
+
+const TimeWastersList = ({ pageNum }) => {
+  const wasters = TIME_WASTERS[pageNum];
+  if (!wasters) return null;
+
+  return (
+    <div className="space-y-6 my-6">
+      {wasters.map((w, idx) => (
+        <div key={idx} className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow transition duration-200">
+          {/* Title bar */}
+          <div className="bg-gradient-to-r from-slate-700 to-slate-800 py-3.5 px-6 text-white flex justify-between items-center border-b border-slate-200">
+            <h3 className="font-extrabold text-sm uppercase tracking-wider">{w.title}</h3>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300 bg-slate-800 px-2.5 py-0.5 rounded-full border border-slate-700">
+              Time Waster
+            </span>
+          </div>
+
+          <div className="p-6 space-y-4">
+            <p className="text-gray-600 text-sm leading-relaxed border-l-4 border-slate-400 pl-4 italic">
+              {w.desc}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              {/* Causes */}
+              {w.causes && w.causes.length > 0 && (
+                <div className="bg-amber-50/30 border border-amber-100 p-4 rounded-xl space-y-3">
+                  <h4 className="text-[10px] font-bold text-amber-700 uppercase tracking-widest flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    Possible Causes
+                  </h4>
+                  <ul className="space-y-2 text-xs text-gray-700">
+                    {w.causes.map((c, cIdx) => (
+                      <li key={cIdx} className="flex items-start gap-2">
+                        <span className="text-amber-500 font-bold">•</span>
+                        <span className="leading-relaxed">{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Solutions */}
+              {w.solutions && w.solutions.length > 0 && (
+                <div className="bg-emerald-50/30 border border-emerald-100 p-4 rounded-xl space-y-3">
+                  <h4 className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Possible Solutions
+                  </h4>
+                  <ul className="space-y-2 text-xs text-gray-700">
+                    {w.solutions.map((s, sIdx) => (
+                      <li key={sIdx} className="flex items-start gap-2">
+                        <span className="text-emerald-500 font-bold">✓</span>
+                        <span className="leading-relaxed">{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Page 6 - Value to the Organization
+const ValueToOrganization = () => {
+  const points = [
+    "Good listener.",
+    "Objective and realistic.",
+    "Good at reconciling factions--is calming and adds stability.",
+    "Patient and empathetic.",
+    "Builds good relationships.",
+    "Presents the facts without emotion.",
+    "Consistent and steady."
+  ];
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm my-6 space-y-4">
+      <p className="text-gray-500 text-xs font-semibold leading-relaxed border-b border-gray-100 pb-3">
+        This section identifies the specific talents and behavior Kyle brings to the job. By looking at these statements, one can identify his role in the organization. The organization can then develop a system to capitalize on his particular value and make him an integral part of the team.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {points.map((p, idx) => (
+          <div key={idx} className="flex items-center gap-3 p-3.5 border border-blue-50/50 bg-blue-50/10 rounded-xl hover:bg-blue-50/20 transition">
+            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <span className="text-xs font-bold text-gray-700 leading-relaxed">{p}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Page 7 - Checklist for Communicating (Ways to Communicate)
+const WaysToCommunicate = () => {
+  const dos = [
+    "Be prepared with the facts and figures.",
+    "Use an unemotional approach.",
+    "Show sincere interest in him as a person. Find areas of common involvement and be candid and open.",
+    "Respect his quiet demeanor.",
+    "Provide guarantees that his decision will minimize risks; give assurance that provides him with benefits.",
+    "Look for hurt feelings or personal reasons if you disagree.",
+    "Provide a friendly environment.",
+    "Give him time to analyze the data before making a decision.",
+    "Present your case softly, nonthreateningly with a sincere tone of voice.",
+    "Provide details in writing.",
+    "Use expert testimonials."
+  ];
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm my-6 space-y-4">
+      <p className="text-gray-500 text-xs font-semibold leading-relaxed border-b border-gray-100 pb-3">
+        Most people are aware of and sensitive to the ways with which they prefer to be communicated. This page provides a list of things to <strong>DO</strong> when communicating with Kyle. Highlight the most important DOs.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {dos.map((d, idx) => (
+          <div key={idx} className="flex items-start gap-3 p-3.5 border border-emerald-50 bg-emerald-50/10 rounded-xl hover:bg-emerald-50/20 transition">
+            <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mt-0.5">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <span className="text-xs text-gray-700 leading-relaxed">{d}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Page 8 - Checklist for Communicating Continued (Ways NOT to Communicate)
+const WaysNotToCommunicate = () => {
+  const donts = [
+    "Offer assurance and guarantees you can't fulfill.",
+    "Make statements you cannot prove.",
+    "Touch his body when talking to him.",
+    "Be redundant.",
+    "Stick coldly or harshly to business; on the other hand, don't lose sight of goals by being too personal.",
+    "Be disorganized.",
+    "Leave things open to interpretation.",
+    "Manipulate or push him into agreeing because he probably won't fight back.",
+    "Debate about facts and figures.",
+    "Patronize or demean him by using subtlety or incentive.",
+    "Pretend to be an expert, if you are not."
+  ];
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm my-6 space-y-4">
+      <p className="text-gray-500 text-xs font-semibold leading-relaxed border-b border-gray-100 pb-3">
+        This section of the report is a list of things <strong>NOT</strong> to do while communicating with Kyle. Review and identify those methods of communication that result in frustration or reduced performance.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {donts.map((d, idx) => (
+          <div key={idx} className="flex items-start gap-3 p-3.5 border border-rose-50 bg-rose-50/10 rounded-xl hover:bg-rose-50/20 transition">
+            <div className="flex-shrink-0 w-5 h-5 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 mt-0.5">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </div>
+            <span className="text-xs text-gray-750 leading-relaxed text-gray-700">{d}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Page 15 - Adapted Style checklist
+const AdaptedEnvironmentChecklist = () => {
+  const points = [
+    "Task focus over people focus.",
+    "Sensitivity to existing rules and regulations.",
+    "Diplomatic cooperation in team interaction.",
+    "Adherence to established guidelines and procedures.",
+    "Precise, analytical approach to work tasks.",
+    "Logical solutions.",
+    "Consistency of task performance.",
+    "Traditional, quality-oriented work model to follow.",
+    "Exhibiting patience and good listening skills.",
+    "Disciplined, meticulous attention to order.",
+    "Compliance to high standards.",
+    "Using a disciplined approach.",
+    "Limited contact with people."
+  ];
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm my-6 space-y-4">
+      <p className="text-gray-500 text-xs font-semibold leading-relaxed border-b border-gray-100 pb-3">
+        Kyle sees his present work environment requiring him to exhibit the behaviors listed below. If these statements DO NOT sound job-related, explore the reasons why he is adapting this behavior.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {points.map((p, idx) => (
+          <div key={idx} className="flex items-center gap-3 p-3 border border-indigo-50 bg-indigo-50/5 rounded-xl hover:bg-indigo-50/15 transition">
+            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span className="text-xs font-bold text-gray-700 leading-relaxed">{p}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Page 20 - Areas for Improvement
+const AreasForImprovement = () => {
+  const points = [
+    "Dislike change if he feels the change is unwarranted",
+    "Not let others know where he stands on an issue.",
+    "Need help in prioritizing new assignments.",
+    "Have difficulty establishing priorities. Have a tendency to make all things a number one priority--may have trouble meeting deadlines.",
+    "Avoid accountability by overstating the complexity of the situation.",
+    "Hold a grudge if his personal beliefs are attacked.",
+    "Be dependent on others for decisions, even if he knows he is right."
+  ];
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm my-6 space-y-4">
+      <p className="text-gray-500 text-xs font-semibold leading-relaxed border-b border-gray-100 pb-3">
+        In this area is a listing of possible limitations without regard to a specific job. Review and highlight 1 to 3 limitations that are hindering performance and develop an action plan to reduce or eliminate them.
+      </p>
+      <div className="space-y-3">
+        {points.map((p, idx) => (
+          <div key={idx} className="flex items-start gap-3.5 p-3.5 border border-amber-50 bg-amber-50/10 rounded-xl hover:bg-amber-50/20 transition">
+            <div className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mt-0.5">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div className="text-xs text-gray-700 leading-relaxed font-semibold">
+              <span className="text-[10px] font-bold text-amber-700 uppercase tracking-widest block mb-1">Tendency {idx + 1}</span>
+              {p}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Page 25 - Success Insights Wheel Component
+const SuccessInsightsWheelSVG = () => {
+  return (
+    <div className="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-2xl shadow-sm my-6">
+      <h3 className="text-md font-bold text-gray-800 mb-2">Success Insights® Wheel</h3>
+      <p className="text-xs text-gray-400 mb-6 text-center max-w-sm">
+        Natural (Circle) and Adapted (Star) styles plotted at <strong>(20) Supporting Coordinator</strong>.
+      </p>
+      
+      <div className="relative w-72 h-72">
+        <svg viewBox="0 0 200 200" className="w-full h-full">
+          {/* Wheel Background rings */}
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+          <circle cx="100" cy="100" r="50" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+          <circle cx="100" cy="100" r="30" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+          
+          {/* 8 Sector Wedges representing combinations of D, I, S, C */}
+          {/* Segment 1: Conductor (Red) (247.5 - 292.5 deg) */}
+          <path d="M 100 100 L 100 10 A 90 90 0 0 1 163.6 36.4 Z" fill="#EF4444" opacity="0.15" />
+          {/* Segment 2: Persuader (Red-Yellow) (292.5 - 337.5 deg) */}
+          <path d="M 100 100 L 163.6 36.4 A 90 90 0 0 1 190 100 Z" fill="#F59E0B" opacity="0.15" />
+          {/* Segment 3: Promoter (Yellow) (337.5 - 22.5 deg) */}
+          <path d="M 100 100 L 190 100 A 90 90 0 0 1 163.6 163.6 Z" fill="#EAB308" opacity="0.15" />
+          {/* Segment 4: Relater (Yellow-Green) (22.5 - 67.5 deg) */}
+          <path d="M 100 100 L 163.6 163.6 A 90 90 0 0 1 100 190 Z" fill="#84CC16" opacity="0.15" />
+          {/* Segment 5: Supporter (Green) (67.5 - 112.5 deg) */}
+          <path d="M 100 100 L 100 190 A 90 90 0 0 1 36.4 163.6 Z" fill="#22C55E" opacity="0.15" />
+          {/* Segment 6: Coordinator (Green-Blue) (112.5 - 157.5 deg) */}
+          <path d="M 100 100 L 36.4 163.6 A 90 90 0 0 1 10 100 Z" fill="#06B6D4" opacity="0.15" />
+          {/* Segment 7: Analyzer (Blue) (157.5 - 202.5 deg) */}
+          <path d="M 100 100 L 10 100 A 90 90 0 0 1 36.4 36.4 Z" fill="#3B82F6" opacity="0.15" />
+          {/* Segment 8: Implementor (Blue-Red) (202.5 - 247.5 deg) */}
+          <path d="M 100 100 L 36.4 36.4 A 90 90 0 0 1 100 1 Z" fill="#6366F1" opacity="0.15" />
+
+          {/* Sector divider lines */}
+          <line x1="100" y1="10" x2="100" y2="190" stroke="#E5E7EB" strokeWidth="1" />
+          <line x1="10" y1="100" x2="190" y2="100" stroke="#E5E7EB" strokeWidth="1" />
+          <line x1="36.4" y1="36.4" x2="163.6" y2="163.6" stroke="#E5E7EB" strokeWidth="1" />
+          <line x1="36.4" y1="163.6" x2="163.6" y2="36.4" stroke="#E5E7EB" strokeWidth="1" />
+
+          {/* Sector Labels */}
+          <text x="100" y="25" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#B91C1C">CONDUCTOR</text>
+          <text x="145" y="45" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#D97706">PERSUADER</text>
+          <text x="165" y="100" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#CA8A04">PROMOTER</text>
+          <text x="145" y="150" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#65A30D">RELATER</text>
+          <text x="100" y="175" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#16A34A">SUPPORTER</text>
+          <text x="55" y="150" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#0891B2">COORDINATOR</text>
+          <text x="35" y="100" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#2563EB">ANALYZER</text>
+          <text x="55" y="45" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#4F46E5">IMPLEMENTOR</text>
+
+          {/* Plotted Natural (Circle) and Adapted (Star) dot in Coordinator/Supporter outer zone */}
+          <circle cx="72" cy="172" r="6" fill="#16A34A" stroke="#FFFFFF" strokeWidth="1.5" className="animate-pulse" />
+          <path d="M 72 167 L 73.5 170.5 L 77 170.5 L 74 172.5 L 75.5 176 L 72 174 L 68.5 176 L 70 172.5 L 67 170.5 L 70.5 170.5 Z" fill="#D97706" stroke="#FFFFFF" strokeWidth="1.0" />
+        </svg>
+
+        {/* Legend block */}
+        <div className="absolute bottom-2 left-2 flex flex-col gap-1 text-[10px] font-bold bg-white/95 border border-gray-150 p-2 rounded-lg shadow-sm">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#16A34A] border border-white shadow-sm" />
+            <span className="text-gray-600">Natural Style (20)</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <svg viewBox="0 0 10 10" className="w-2.5 h-2.5 text-[#D97706]">
+              <path d="M 5 0.5 L 6.5 4 L 10 4 L 7 6 L 8.5 9.5 L 5 7.5 L 1.5 9.5 L 3 6 L 0 4 L 3.5 4 Z" fill="currentColor" stroke="white" strokeWidth="0.5" />
+            </svg>
+            <span className="text-gray-600">Adapted Style (20)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Default text formatting page renderer
+const DefaultPageRenderer = ({ content }) => {
+  const cleanedContent = cleanOcrContent(content);
+  const blocks = cleanedContent.split('\n\n');
+
+  return (
+    <div className="space-y-6">
       {blocks.map((block, idx) => {
         const lines = block.trim().split('\n');
         if (!lines.length || lines[0] === '') return null;
 
         // Check if block is a list
-        const isList = lines.some(line => line.strip ? line.strip().startsWith('•') : line.trim().startsWith('•') || line.trim().startsWith('*'));
+        const isList = lines.some(line => line.trim().startsWith('•') || line.trim().startsWith('*') || line.trim().startsWith('-'));
 
         if (isList) {
           return (
-            <ul key={idx} className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
+            <ul key={idx} className="list-disc pl-6 space-y-3 text-gray-700 text-sm">
               {lines.map((line, lidx) => {
-                const cleanLine = line.trim().replace(/^[•*]\s*/, '');
+                const cleanLine = line.trim().replace(/^[•*\-]\s*/, '');
                 if (!cleanLine) return null;
-                return <li key={lidx} className="leading-relaxed">{cleanLine}</li>;
+                return <li key={lidx} className="leading-relaxed pl-1 text-gray-700">{cleanLine}</li>;
               })}
             </ul>
           );
@@ -437,10 +1278,6 @@ const DefaultPageRenderer = ({ content }) => {
           }
         }
 
-        // Check if paragraph contains column headers (like Page 13 side-by-side Natural vs Adapted columns)
-        // Let's check if the block contains "Natural" or "Adapted" as standalone headers
-        const joinedText = lines.join(' ');
-        
         return (
           <p key={idx} className="text-gray-700 leading-relaxed text-sm whitespace-pre-line">
             {block}
@@ -457,16 +1294,88 @@ const PageContent = ({ page }) => {
   if (pageNum === 1) {
     return <CoverPage content={page.content} />;
   }
+  if (pageNum === 6) {
+    return <ValueToOrganization />;
+  }
+  if (pageNum === 7) {
+    return <WaysToCommunicate />;
+  }
+  if (pageNum === 8) {
+    return <WaysNotToCommunicate />;
+  }
+  if (pageNum === 9) {
+    return (
+      <div className="space-y-4">
+        <p className="text-gray-700 leading-relaxed text-sm">
+          This section provides suggestions on methods which will improve Kyle's communications with others. The tips include a brief description of typical people with whom he may interact. By adapting to the communication style desired by other people, Kyle will become more effective in his communications with them.
+        </p>
+        <CommunicationTipsGrid />
+      </div>
+    );
+  }
+  if (pageNum === 10) {
+    return (
+      <div className="space-y-4">
+        <p className="text-gray-700 leading-relaxed text-sm">
+          A person's behavior and feelings may be quickly telegraphed to others. This section provides additional information on Kyle's self-perception and how, under certain conditions, others may perceive his behavior.
+        </p>
+        <PerceptionsGrid />
+      </div>
+    );
+  }
+  if (pageNum === 12) {
+    return (
+      <div className="space-y-4">
+        <p className="text-gray-700 leading-relaxed text-sm">
+          Based on Kyle's responses, the report has marked those words that describe his personal behavior. They describe how he solves problems and meets challenges, influences people, responds to the pace of the environment, and how he responds to rules and procedures set by others.
+        </p>
+        <DescriptorGrid />
+      </div>
+    );
+  }
+  if (pageNum === 13 || pageNum === 14) {
+    const list = NATURAL_ADAPTED_DATA[pageNum];
+    return (
+      <div className="space-y-4">
+        <p className="text-gray-700 leading-relaxed text-sm">
+          {pageNum === 13 
+            ? "Kyle's natural style of dealing with problems, people, pace of events and procedures may not always fit what the environment needs. This section will provide valuable information related to stress and the pressure to adapt to the environment."
+            : "Comparing basic (natural) style to response to the environment (adapted) style reveals the degree to which Kyle feels pressured to adapt."
+          }
+        </p>
+        <div className="mt-6">
+          {list.map((style, i) => (
+            <ComparativeStyleCard key={i} styleData={style} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (pageNum === 15) {
+    return <AdaptedEnvironmentChecklist />;
+  }
+  if (pageNum === 16 || pageNum === 17 || pageNum === 18 || pageNum === 19) {
+    return (
+      <div className="space-y-4">
+        <p className="text-gray-700 leading-relaxed text-sm">
+          {pageNum === 16 && "This section of your report is designed to identify time wasters that may impact your overall time use effectiveness. Possible causes and solutions will serve as a basis for creating an effective plan for maximizing your use of TIME and increasing your PERFORMANCE."}
+          {pageNum > 16 && "Review the causes and solutions to create an action plan for minimizing these time wasters."}
+        </p>
+        <TimeWastersList pageNum={pageNum} />
+      </div>
+    );
+  }
+  if (pageNum === 20) {
+    return <AreasForImprovement />;
+  }
   if (pageNum === 21 || pageNum === 22) {
     return (
       <div className="space-y-4">
-        {/* Render standard text if available */}
-        <div className="text-gray-700 leading-relaxed text-sm">
-          {page.content.split('\n\n').slice(0, 1).map((para, i) => (
+        <div className="text-gray-700 leading-relaxed text-sm font-medium">
+          {cleanOcrContent(page.content).split('\n\n').slice(0, 1).map((para, i) => (
             <p key={i}>{para}</p>
           ))}
         </div>
-        {/* Render beautiful interactive chart */}
         {pageNum === 21 && <BehavioralHierarchy />}
       </div>
     );
@@ -474,11 +1383,21 @@ const PageContent = ({ page }) => {
   if (pageNum === 23) {
     return <DISCGraphs />;
   }
+  if (pageNum === 25) {
+    return (
+      <div className="space-y-4">
+        <p className="text-gray-700 leading-relaxed text-sm">
+          Notice on the wheel that your Natural style (circle) and your Adapted style (star) are plotted on the Wheel. If they are plotted in different boxes, then you are adapting your behavior. The further the two plotting points are from each other, the more you are adapting your behavior.
+        </p>
+        <SuccessInsightsWheelSVG />
+      </div>
+    );
+  }
   if (pageNum === 37) {
     return (
       <div className="space-y-4">
         <div className="text-gray-700 leading-relaxed text-sm">
-          {page.content.split('\n\n').slice(0, 1).map((para, i) => (
+          {cleanOcrContent(page.content).split('\n\n').slice(0, 1).map((para, i) => (
             <p key={i}>{para}</p>
           ))}
         </div>
@@ -490,7 +1409,7 @@ const PageContent = ({ page }) => {
     return (
       <div className="space-y-4">
         <div className="text-gray-700 leading-relaxed text-sm">
-          {page.content.split('\n\n').slice(0, 1).map((para, i) => (
+          {cleanOcrContent(page.content).split('\n\n').slice(0, 1).map((para, i) => (
             <p key={i}>{para}</p>
           ))}
         </div>
@@ -630,7 +1549,7 @@ const DISCProfilePage = () => {
                   {/* Main Page Title */}
                   {page.page > 1 && page.title && (
                     <h2 className="text-2xl font-extrabold text-gray-900 border-b-2 border-gray-100 pb-2 mb-6">
-                      {page.title}
+                      {cleanTitle(page.title, page.page)}
                     </h2>
                   )}
 
