@@ -1294,57 +1294,124 @@ const SuccessInsightsWheelImage = () => {
 // Default text formatting page renderer
 const DefaultPageRenderer = ({ content }) => {
   const cleanedContent = cleanOcrContent(content);
-  const blocks = cleanedContent.split('\n\n');
+  const lines = cleanedContent.split('\n').map(l => l.trim());
+  
+  const elements = [];
+  let currentParagraph = [];
+  let currentList = [];
 
-  return (
-    <div className="space-y-6">
-      {blocks.map((block, idx) => {
-        const lines = block.trim().split('\n');
-        if (!lines.length || lines[0] === '') return null;
+  const flushParagraph = () => {
+    if (currentParagraph.length > 0) {
+      elements.push(
+        <p key={`p-${elements.length}`} className="text-gray-700 leading-relaxed text-sm mb-4">
+          {currentParagraph.join(' ')}
+        </p>
+      );
+      currentParagraph = [];
+    }
+  };
 
-        // Check if block is a list
-        const isList = lines.some(line => line.trim().startsWith('•') || line.trim().startsWith('*') || line.trim().startsWith('-'));
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul key={`ul-${elements.length}`} className="list-disc pl-6 space-y-2.5 text-gray-700 text-sm mb-5">
+          {currentList.map((item, idx) => (
+            <li key={idx} className="leading-relaxed pl-1">{item}</li>
+          ))}
+        </ul>
+      );
+      currentList = [];
+    }
+  };
 
-        if (isList) {
-          return (
-            <ul key={idx} className="list-disc pl-6 space-y-3 text-gray-700 text-sm">
-              {lines.map((line, lidx) => {
-                const cleanLine = line.trim().replace(/^[•*\-]\s*/, '');
-                if (!cleanLine) return null;
-                return <li key={lidx} className="leading-relaxed pl-1 text-gray-700">{cleanLine}</li>;
-              })}
-            </ul>
-          );
-        }
+  const isHeaderLine = (line) => {
+    if (line.endsWith('.')) return false;
+    if (line === line.toUpperCase() && line.length > 3 && !line.match(/^\d+$/)) return true;
+    
+    const knownHeaders = [
+      "Natural", "Adapted", "Problems - Challenges", "People - Contacts", "Pace - Consistency", "Procedures - Constraints", 
+      "Ways to Communicate", "Ways NOT to Communicate", "Introduction", "General Characteristics", "Situations and circumstances to avoid",
+      "Understanding that the need to adapt is unavoidable", "The Absence of a Behavioral Factor", "Time Wasters", "Comfort Zone",
+      "Motivators - Norms & Comparisons", "Integrating Behaviors and Motivators Section", "Intrapersonal emotional intelligence",
+      "Interpersonal emotional intelligence", "Self-Awareness", "Self-Regulation", "Motivation", "Empathy", "Social Skills",
+      "Where Opportunity Meets Talent", "Blending Behaviors, Motivators and EQ", "Introduction Behaviors Section", "Introduction Motivators Section",
+      "Introduction Integrating Behaviors and Motivators Section", "Introduction Emotional Intelligence Section"
+    ];
+    
+    const lineLower = line.toLowerCase();
+    if (knownHeaders.some(h => {
+      const hLower = h.toLowerCase();
+      return lineLower === hLower || lineLower.startsWith(hLower + " (") || lineLower.startsWith(hLower + "®") || lineLower.startsWith(hLower + "™");
+    })) return true;
 
-        // Check if single line is a header
-        if (lines.length === 1) {
-          const text = lines[0].trim();
-          
-          // Identify potential major headers or headings
-          const isAllHeader = text === text.toUpperCase() && text.length > 3 && !text.match(/^\d+$/);
-          const isKnownHeader = [
-            "Natural", "Adapted", "Problems - Challenges", "People - Contacts", "Pace - Consistency", "Procedures - Constraints", 
-            "Ways to Communicate", "Ways NOT to Communicate", "Introduction", "General Characteristics"
-          ].some(h => text.includes(h));
+    const isShort = line.length < 55;
+    const noPeriod = !line.endsWith('.');
+    const startsWithCap = /^[A-Z0-9(]/.test(line);
+    
+    const lowercaseTitleWords = ["and", "of", "the", "a", "an", "for", "to", "in", "on", "at", "by", "with", "from", "or", "as", "about"];
+    const isTitleCase = line.split(/\s+/).every(word => {
+      const cleanWord = word.replace(/[^A-Za-z0-9]/g, '');
+      if (!cleanWord) return true;
+      if (lowercaseTitleWords.includes(cleanWord.toLowerCase())) return true;
+      return /^[A-Z0-9]/.test(cleanWord);
+    });
+    
+    return isShort && noPeriod && startsWithCap && isTitleCase;
+  };
 
-          if (isAllHeader || isKnownHeader) {
-            return (
-              <h3 key={idx} className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">
-                {text}
-              </h3>
-            );
-          }
-        }
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line) {
+      flushParagraph();
+      flushList();
+      continue;
+    }
 
-        return (
-          <p key={idx} className="text-gray-700 leading-relaxed text-sm whitespace-pre-line">
-            {block}
-          </p>
-        );
-      })}
-    </div>
-  );
+    const isBullet = line.startsWith('•') || line.startsWith('*') || (line.startsWith('-') && !line.startsWith('--'));
+    if (isBullet) {
+      flushParagraph();
+      const cleanLine = line.replace(/^[•*\-]\s*/, '');
+      if (cleanLine) {
+        currentList.push(cleanLine);
+      }
+      continue;
+    }
+
+    if (isHeaderLine(line)) {
+      flushParagraph();
+      flushList();
+      elements.push(
+        <h3 key={`h3-${elements.length}`} className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">
+          {line}
+        </h3>
+      );
+      continue;
+    }
+
+    const startsWithLowercase = /^[a-z]/.test(line);
+    if (startsWithLowercase) {
+      if (currentList.length > 0) {
+        currentList[currentList.length - 1] += ' ' + line;
+      } else {
+        currentParagraph.push(line);
+      }
+      continue;
+    }
+
+    flushList();
+    currentParagraph.push(line);
+
+    const endsWithPunctuation = /[.!?]$/.test(line);
+    const isShortLine = line.length < 68;
+    if (endsWithPunctuation && isShortLine) {
+      flushParagraph();
+    }
+  }
+
+  flushParagraph();
+  flushList();
+
+  return <div className="space-y-4">{elements}</div>;
 };
 
 const PageContent = ({ page }) => {
@@ -1428,13 +1495,12 @@ const PageContent = ({ page }) => {
     return <AreasForImprovement />;
   }
   if (pageNum === 21 || pageNum === 22) {
+    const introText = pageNum === 21 
+      ? "Your observable behavior and related emotions contribute to your success on the job. When matched to the job, they play a large role in enhancing your performance. The list below ranks your behavioral traits from the strongest to the weakest."
+      : "Your observable behavior and related emotions rank-ordered from strongest to weakest.";
     return (
       <div className="space-y-4">
-        <div className="text-gray-700 leading-relaxed text-sm font-medium">
-          {cleanOcrContent(page.content).split('\n\n').slice(0, 1).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        <p className="text-gray-700 leading-relaxed text-sm">{introText}</p>
         {pageNum === 21 && <BehavioralHierarchy />}
       </div>
     );
@@ -1453,25 +1519,21 @@ const PageContent = ({ page }) => {
     );
   }
   if (pageNum === 37) {
+    const introText = "Your motivation to succeed in anything you do is determined by your underlying motivators. You will feel energized and successful at work when your job supports your personal motivators. They are listed below from the highest to the lowest.";
     return (
       <div className="space-y-4">
-        <div className="text-gray-700 leading-relaxed text-sm">
-          {cleanOcrContent(page.content).split('\n\n').slice(0, 1).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        <p className="text-gray-700 leading-relaxed text-sm">{introText}</p>
         <MotivatorsHierarchy />
       </div>
     );
   }
   if (pageNum === 48 || pageNum === 49) {
+    const introText = pageNum === 48
+      ? "The Emotional Quotient™ report looks at a person's emotional intelligence, which is the ability to sense, understand and effectively apply the power and acumen of emotions to facilitate higher levels of collaboration and productivity."
+      : "Aggregated intrapersonal, interpersonal, and total emotional quotient scores compared against national averages.";
     return (
       <div className="space-y-4">
-        <div className="text-gray-700 leading-relaxed text-sm">
-          {cleanOcrContent(page.content).split('\n\n').slice(0, 1).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        <p className="text-gray-700 leading-relaxed text-sm">{introText}</p>
         <EQGraphs pageNum={pageNum} />
       </div>
     );
