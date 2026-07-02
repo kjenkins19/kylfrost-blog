@@ -40,7 +40,7 @@ const Page10 = () => {
       <p className="text-gray-700 leading-relaxed text-sm">
         A person's behavior and feelings may be quickly telegraphed to others. This section provides additional information on Kyle's self-perception and how, under certain conditions, others may perceive his behavior. Understanding this section will empower Kyle to project the image that will allow him to control the situation.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+      <div className="space-y-4">
         {PERCEPTIONS_DATA.map((card) => (
           <div 
             key={card.title}
