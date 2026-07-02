@@ -1422,37 +1422,6 @@ const PageContent = ({ page }) => {
 };
 
 const DISCProfilePage = () => {
-  const [activeSection, setActiveSection] = useState(null);
-
-  // Monitor scrolling to highlight the active section in Table of Contents
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-      for (const section of SECTIONS) {
-        const firstPageEl = document.getElementById(`page-${section.start}`);
-        const lastPageEl = document.getElementById(`page-${section.end}`);
-        if (firstPageEl && lastPageEl) {
-          const top = firstPageEl.offsetTop;
-          const bottom = lastPageEl.offsetTop + lastPageEl.offsetHeight;
-          if (scrollPosition >= top && scrollPosition <= bottom) {
-            setActiveSection(section.title);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToPage = (pageNum) => {
-    const el = document.getElementById(`page-${pageNum}`);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <html lang="en">
       <head>
@@ -1500,12 +1469,12 @@ const DISCProfilePage = () => {
               </h2>
               <div className="space-y-6">
                 {SECTIONS.map((section) => {
-                  const isActive = activeSection === section.title;
                   return (
                     <div key={section.title} className="space-y-2">
                       <button 
-                        onClick={() => scrollToPage(section.start)}
-                        className={`text-left text-sm font-bold block w-full transition ${isActive ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
+                        data-section-title={section.title}
+                        data-scroll-to={section.start}
+                        className="text-left text-sm font-bold block w-full transition text-gray-700 hover:text-blue-600"
                       >
                         {section.title}
                       </button>
@@ -1517,7 +1486,7 @@ const DISCProfilePage = () => {
                           return (
                             <button
                               key={pageNum}
-                              onClick={() => scrollToPage(pageNum)}
+                              data-scroll-to={pageNum}
                               className="w-7 h-7 flex items-center justify-center text-[10px] font-bold rounded bg-gray-50 border border-gray-100 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition"
                               title={`Page ${pageNum}`}
                             >
@@ -1538,7 +1507,7 @@ const DISCProfilePage = () => {
                 <article 
                   key={page.page} 
                   id={`page-${page.page}`}
-                  className="bg-white border border-gray-200 rounded-2xl p-8 sm:p-12 shadow-sm relative print:shadow-none print:border-none print:p-0 print:m-0 print:bg-transparent print:break-after-page min-h-[900px] flex flex-col justify-between"
+                  className="scroll-mt-20 bg-white border border-gray-200 rounded-2xl p-8 sm:p-12 shadow-sm relative print:shadow-none print:border-none print:p-0 print:m-0 print:bg-transparent print:break-after-page min-h-[900px] flex flex-col justify-between"
                 >
                   {/* Decorative Header (Screen only) */}
                   <div className="flex justify-between items-center text-[10px] text-gray-400 font-extrabold uppercase tracking-widest border-b border-gray-100 pb-4 mb-6 print:hidden">
@@ -1573,6 +1542,63 @@ const DISCProfilePage = () => {
             
           </main>
         </div>
+
+        {/* Custom vanilla JS to handle smooth scrolling and active-section highlighting without React hydration */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          document.addEventListener('DOMContentLoaded', function() {
+            const sections = ${JSON.stringify(SECTIONS)};
+            const headerOffset = 90;
+            
+            // Smooth scrolling to pages
+            const scrollTriggers = document.querySelectorAll('[data-scroll-to]');
+            scrollTriggers.forEach(trigger => {
+              trigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageNum = this.getAttribute('data-scroll-to');
+                const el = document.getElementById('page-' + pageNum);
+                if (el) {
+                  const elementPosition = el.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
+                  // Update URL hash without scroll jump
+                  history.pushState(null, null, '#page-' + pageNum);
+                }
+              });
+            });
+
+            // Track scrolling to update active Table of Contents section
+            function updateActiveSection() {
+              const scrollPosition = window.scrollY + headerOffset + 10;
+              for (const section of sections) {
+                const firstPageEl = document.getElementById('page-' + section.start);
+                const lastPageEl = document.getElementById('page-' + section.end);
+                if (firstPageEl && lastPageEl) {
+                  const top = firstPageEl.offsetTop;
+                  const bottom = lastPageEl.offsetTop + lastPageEl.offsetHeight;
+                  if (scrollPosition >= top && scrollPosition <= bottom) {
+                    // Update active styles
+                    document.querySelectorAll('[data-section-title]').forEach(btn => {
+                      btn.classList.remove('text-blue-600');
+                      btn.classList.add('text-gray-700');
+                    });
+                    const activeBtn = document.querySelector('[data-section-title="' + section.title + '"]');
+                    if (activeBtn) {
+                      activeBtn.classList.remove('text-gray-700');
+                      activeBtn.classList.add('text-blue-600');
+                    }
+                    break;
+                  }
+                }
+              }
+            }
+
+            window.addEventListener('scroll', updateActiveSection);
+            updateActiveSection();
+          });
+        ` }} />
         <script src={`/client.js?${new Date().getTime()}`}></script>
       </body>
     </html>
