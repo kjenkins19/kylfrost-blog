@@ -66,6 +66,11 @@ const WHEEL_ROLES = [
   "PERSUADER", "SUPPORTER", "PROMOTER", "RELATER"
 ];
 
+const MOTIVATOR_LABELS = [
+  "THEORETICAL", "THEORETICA", "INDIVIDUALIST", "INDIVIDUALIS", "INDIVIDUALISTI", "INDIVIDUA", "INDIVIDUALISTIC",
+  "AESTHETIC", "UTILITARIAN", "UTILITARIA)", "UTILITARIA", "TRADITIONAL", "ADITIONAL", "ATIONAL", "SOCIAL"
+];
+
 const cleanOcrContent = (content) => {
   if (!content) return "";
   const lines = content.split('\n');
@@ -73,8 +78,9 @@ const cleanOcrContent = (content) => {
     const trimmed = line.trim();
     if (!trimmed) return true;
     
-    // Remove wheel roles
+    // Remove wheel roles and motivator labels
     if (WHEEL_ROLES.includes(trimmed)) return false;
+    if (MOTIVATOR_LABELS.includes(trimmed)) return false;
     
     // Remove copyright blocks
     if (trimmed.includes("Copyright ©") || (trimmed.includes("Copyright") && trimmed.includes("Target Training International"))) return false;
@@ -382,6 +388,151 @@ const MotivatorsIntroduction = () => {
   );
 };
 
+// Motivators Norms & Comparisons (Page 35)
+const MotivatorsNormsAndComparisons = () => {
+  const data = [
+    { name: "Theoretical", score: 5.5, mean: 6.0, label: "Mainstream" },
+    { name: "Utilitarian", score: 4.2, mean: 5.3, label: "Mainstream" },
+    { name: "Aesthetic", score: 5.8, mean: 4.3, label: "Mainstream" },
+    { name: "Social", score: 5.5, mean: 5.7, label: "Mainstream" },
+    { name: "Individualistic", score: 5.8, mean: 4.7, label: "Mainstream" },
+    { name: "Traditional", score: 3.2, mean: 4.7, label: "Mainstream" }
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="space-y-4 text-gray-700 leading-relaxed text-sm">
+        <p>
+          For years you have heard statements like, "Different strokes for different folks," "to each his own,"
+          and "people do things for their own reasons, not yours." When you are surrounded by people
+          who share similar motivators, you will fit in with the group and be energized. However, when
+          surrounded by people whose motivators are significantly different from yours, you may be
+          perceived as out of the mainstream. These differences can induce stress or conflict.{" "}
+          <strong className="text-gray-900 font-extrabold">When confronted with this type of situation you can:</strong>
+        </p>
+      </div>
+
+      <ul className="space-y-2.5 text-gray-700 text-sm pl-4">
+        <li className="flex items-start gap-2.5">
+          <span className="text-blue-500 font-extrabold mt-0.5">•</span>
+          <span>Change the situation.</span>
+        </li>
+        <li className="flex items-start gap-2.5">
+          <span className="text-blue-500 font-extrabold mt-0.5">•</span>
+          <span>Change your perception of the situation.</span>
+        </li>
+        <li className="flex items-start gap-2.5">
+          <span className="text-blue-500 font-extrabold mt-0.5">•</span>
+          <span>Leave the situation.</span>
+        </li>
+        <li className="flex items-start gap-2.5">
+          <span className="text-blue-500 font-extrabold mt-0.5">•</span>
+          <span>Cope with the situation.</span>
+        </li>
+      </ul>
+
+      <div className="space-y-4 text-gray-700 leading-relaxed text-sm">
+        <p>
+          <strong className="text-gray-900 font-extrabold">This section reveals areas where your motivators may be outside the mainstream and could lead to conflict.</strong>{" "}
+          The further away you are from the mainstream on the high side, the more people will notice your passion about that motivator. The further away from the mainstream on the low side, the more people will view you as indifferent and possibly negative about that motivator. The shaded area for each motivator represents 68 percent of the population or scores that fall within one standard deviation above or below the national mean.
+        </p>
+      </div>
+
+      {/* Norms & Comparisons Table */}
+      <div className="border border-blue-200 rounded-2xl overflow-hidden shadow-sm max-w-3xl mx-auto my-8 bg-white">
+        <div className="bg-blue-50/60 px-6 py-4 border-b border-blue-200">
+          <h4 className="text-base font-extrabold text-blue-900 tracking-wide">
+            Norms &amp; Comparisons Table - Norm 2015
+          </h4>
+        </div>
+        
+        <div className="p-6 space-y-6">
+          {data.map((row) => {
+            const leftPct = (row.mean - 1.2) * 10;
+            const widthPct = 2.4 * 10;
+            const meanPct = row.mean * 10;
+            const scorePct = row.score * 10;
+
+            return (
+              <div key={row.name} className="flex items-center gap-4 py-1">
+                {/* Motivator Name */}
+                <div className="w-32 text-sm font-semibold text-gray-800 flex-shrink-0">
+                  {row.name}
+                </div>
+                
+                {/* Graph Visualization */}
+                <div className="flex-1 relative h-8 flex items-center bg-gray-50/50 border border-gray-100 rounded-lg">
+                  <div className="absolute left-4 right-4 top-0 bottom-0 flex items-center">
+                    {/* Background Track Line */}
+                    <div className="absolute left-0 right-0 h-[2px] bg-gray-200" />
+                    
+                    {/* Shading Area */}
+                    <div 
+                      className="absolute h-3 bg-gradient-to-r from-blue-900 to-blue-700 rounded-sm shadow-sm"
+                      style={{ left: `${leftPct}%`, width: `${widthPct}%` }}
+                    />
+                    
+                    {/* Mean line */}
+                    <div 
+                      className="absolute w-1 h-6 bg-slate-900 z-10"
+                      style={{ left: `${meanPct}%`, transform: 'translateX(-50%)' }}
+                    />
+                    
+                    {/* Score Star */}
+                    <div 
+                      className="absolute text-red-500 font-extrabold text-base select-none z-20"
+                      style={{ left: `${scorePct}%`, transform: 'translate(-50%, -1px)' }}
+                    >
+                      ★
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Label Classification */}
+                <div className="w-24 text-right text-xs font-bold text-gray-700 flex-shrink-0 uppercase tracking-wide">
+                  {row.label}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Legend block */}
+        <div className="bg-gray-50 px-6 py-4 border-t border-gray-100 flex flex-wrap gap-x-6 gap-y-2 text-[10px] text-gray-500 font-medium">
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-2.5 bg-blue-900 rounded-sm" />
+            <span>68 percent of the population</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-0.5 h-3 bg-slate-900" />
+            <span>national mean</span>
+          </div>
+          <div className="flex items-center gap-2 text-red-500">
+            <span>★</span>
+            <span className="text-gray-500">your score</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Explanatory definitions */}
+      <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-600">
+        <div>
+          <strong className="text-gray-800 font-extrabold">Mainstream</strong> - one standard deviation of the national mean
+        </div>
+        <div>
+          <strong className="text-gray-800 font-extrabold">Passionate</strong> - two standard deviations above the national mean
+        </div>
+        <div>
+          <strong className="text-gray-800 font-extrabold">Indifferent</strong> - two standard deviations below the national mean
+        </div>
+        <div>
+          <strong className="text-gray-800 font-extrabold">Extreme</strong> - three standard deviations from the national mean
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Motivators Hierarchy (Page 37)
 const MotivatorsHierarchy = () => {
   return (
@@ -444,6 +595,451 @@ const MotivatorsHierarchy = () => {
       <div className="border-t border-gray-100 pt-4 flex justify-between text-[10px] text-gray-400">
         <div>Shaded area represents 68% of the national average standard deviation.</div>
         <div>* 68% of the population falls within the shaded area.</div>
+      </div>
+    </div>
+  );
+};
+
+// Motivation Insights Graph (Page 38)
+const MotivationInsightsGraph = () => {
+  const chartData = [
+    { label: "THE.", name: "Theoretical", score: 45, mean: 48, rank: "3rd", color: "bg-rose-900", border: "border-rose-955" },
+    { label: "UTI.", name: "Utilitarian", score: 37, mean: 44, rank: "5th", color: "bg-amber-500", border: "border-amber-600" },
+    { label: "AES.", name: "Aesthetic", score: 47, mean: 38, rank: "2nd", color: "bg-indigo-700", border: "border-indigo-800" },
+    { label: "SOC.", name: "Social", score: 45, mean: 37, rank: "4th", color: "bg-teal-700", border: "border-teal-800" },
+    { label: "IND.", name: "Individualistic", score: 47, mean: 45, rank: "1st", color: "bg-slate-900", border: "border-slate-950" },
+    { label: "TRA.", name: "Traditional", score: 31, mean: 40, rank: "6th", color: "bg-stone-500", border: "border-stone-600" }
+  ];
+
+  const yMin = 10;
+  const yMax = 75;
+  const yTicks = [70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15];
+
+  return (
+    <div className="bg-white p-6 border border-gray-100 rounded-2xl shadow-sm print:shadow-none print:border-none print:p-0 my-6">
+      <div className="max-w-2xl mx-auto border border-gray-200 rounded-xl p-6 bg-slate-50/20">
+        
+        {/* Chart Area */}
+        <div className="relative h-72 flex gap-4">
+          
+          {/* Y Axis Labels (Left) */}
+          <div className="w-8 flex flex-col justify-between text-right text-[10px] text-gray-400 font-bold select-none pr-1">
+            {yTicks.map(t => {
+              const topPct = 100 - ((t - yMin) / (yMax - yMin) * 100);
+              return (
+                <div key={t} className="absolute left-0 right-0" style={{ top: `${topPct}%`, transform: 'translateY(-50%)' }}>
+                  {t}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Grid Area */}
+          <div className="flex-1 relative border-l border-b border-gray-300">
+            {/* Horizontal Gridlines */}
+            {yTicks.map(t => {
+              const bottomPct = (t - yMin) / (yMax - yMin) * 100;
+              return (
+                <div 
+                  key={t} 
+                  className="absolute left-0 right-0 border-t border-gray-200" 
+                  style={{ bottom: `${bottomPct}%` }}
+                />
+              );
+            })}
+
+            {/* Bars */}
+            <div className="absolute inset-0 flex justify-around items-end px-2 pt-4">
+              {chartData.map(bar => {
+                const barHeightPct = ((bar.score - yMin) / (yMax - yMin)) * 100;
+                const meanLinePct = ((bar.mean - yMin) / (yMax - yMin)) * 100;
+
+                return (
+                  <div key={bar.label} className="relative w-12 flex flex-col justify-end h-full group">
+                    {/* National Mean horizontal line overlay */}
+                    <div 
+                      className="absolute left-[-4px] right-[-4px] h-[3px] bg-blue-600/90 z-20 rounded-full shadow-sm"
+                      style={{ bottom: `${meanLinePct}%` }}
+                      title={`National Mean: ${bar.mean}`}
+                    />
+                    
+                    {/* The bar itself */}
+                    <div 
+                      className={`w-full ${bar.color} rounded-t-sm shadow-md transition-all duration-500`}
+                      style={{ height: `${barHeightPct}%` }}
+                      title={`${bar.name} Score: ${bar.score}`}
+                    >
+                      {/* Highlight overlay */}
+                      <div className="w-full h-full bg-white/5 hover:bg-transparent" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Y Axis Labels (Right) */}
+          <div className="w-8 flex flex-col justify-between text-left text-[10px] text-gray-400 font-bold select-none pl-1">
+            {yTicks.map(t => {
+              const topPct = 100 - ((t - yMin) / (yMax - yMin) * 100);
+              return (
+                <div key={t} className="absolute left-0 right-0" style={{ top: `${topPct}%`, transform: 'translateY(-50%)' }}>
+                  {t}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* X Axis Labels under the chart */}
+        <div className="max-w-2xl mx-auto flex mt-3 pl-8 pr-8 select-none">
+          <div className="flex-grow flex justify-around">
+            {chartData.map(bar => (
+              <div key={bar.label} className="w-12 text-center text-xs font-bold text-gray-500 uppercase tracking-wide">
+                {bar.label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Score & Rank Table row layout */}
+        <div className="max-w-2xl mx-auto flex flex-col mt-4 pl-8 pr-8 text-sm select-none border-t border-gray-100 pt-3">
+          {/* Scores */}
+          <div className="flex items-center">
+            <div className="w-16 font-extrabold text-gray-900 uppercase text-xs tracking-wider">Score</div>
+            <div className="flex-grow flex justify-around">
+              {chartData.map(bar => (
+                <div key={bar.label} className="w-12 text-center font-extrabold text-gray-900 text-base">
+                  {bar.score}
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Ranks */}
+          <div className="flex items-center mt-2">
+            <div className="w-16 font-extrabold text-blue-900 uppercase text-xs tracking-wider">Rank</div>
+            <div className="flex-grow flex justify-around">
+              {chartData.map(bar => (
+                <div key={bar.label} className="w-12 text-center font-bold text-blue-600/90 text-sm">
+                  {bar.rank}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div className="mt-6 pt-4 border-t border-gray-100 flex justify-center items-center gap-2 text-xs text-gray-500 select-none">
+          <span className="w-6 h-[3px] bg-blue-600 rounded-full" />
+          <span>national mean</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Motivators Wheel (Page 39)
+const MotivatorsWheel = () => {
+  const data = [
+    { name: "Theoretical", score: 45, rank: "3rd", startAngle: -90, endAngle: -30, color: "#881337", textClass: "fill-white", labelColor: "#881337" },
+    { name: "Utilitarian", score: 37, rank: "5th", startAngle: -30, endAngle: 30, color: "#f59e0b", textClass: "fill-gray-900", labelColor: "#f59e0b" },
+    { name: "Individualistic", score: 47, rank: "1st", startAngle: 30, endAngle: 90, color: "#111827", textClass: "fill-white", labelColor: "#111827" },
+    { name: "Aesthetic", score: 47, rank: "2nd", startAngle: 90, endAngle: 150, color: "#6d28d9", textClass: "fill-white", labelColor: "#6d28d9" },
+    { name: "Social", score: 45, rank: "4th", startAngle: 150, endAngle: 210, color: "#0d9488", textClass: "fill-gray-900", labelColor: "#0d9488" },
+    { name: "Traditional", score: 31, rank: "6th", startAngle: 210, endAngle: 270, color: "#78716c", textClass: "fill-white", labelColor: "#78716c" }
+  ];
+
+  const rad = Math.PI / 180;
+  const maxRadius = 155;
+
+  const getWedgePath = (start, end, radius) => {
+    const x1 = radius * Math.cos(start * rad);
+    const y1 = radius * Math.sin(start * rad);
+    const x2 = radius * Math.cos(end * rad);
+    const y2 = radius * Math.sin(end * rad);
+    return `M 0 0 L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`;
+  };
+
+  const getAnnularSectorPath = (start, end, r1, r2) => {
+    const x1_inner = r1 * Math.cos(start * rad);
+    const y1_inner = r1 * Math.sin(start * rad);
+    const x2_inner = r1 * Math.cos(end * rad);
+    const y2_inner = r1 * Math.sin(end * rad);
+    
+    const x1_outer = r2 * Math.cos(start * rad);
+    const y1_outer = r2 * Math.sin(start * rad);
+    const x2_outer = r2 * Math.cos(end * rad);
+    const y2_outer = r2 * Math.sin(end * rad);
+    
+    return `M ${x1_inner} ${y1_inner} L ${x1_outer} ${y1_outer} A ${r2} ${r2} 0 0 1 ${x2_outer} ${y2_outer} L ${x2_inner} ${y2_inner} A ${r1} ${r1} 0 0 0 ${x1_inner} ${y1_inner} Z`;
+  };
+
+  return (
+    <div className="bg-white p-6 border border-gray-100 rounded-2xl shadow-sm print:shadow-none print:border-none print:p-0 my-6 flex flex-col items-center">
+      <div className="relative w-full max-w-md mx-auto aspect-square flex items-center justify-center">
+        <svg 
+          viewBox="-200 -200 400 400" 
+          className="w-full h-full max-h-[380px]"
+        >
+          {/* Background grid circles */}
+          <circle cx="0" cy="0" r={maxRadius * 0.4} stroke="#f1f5f9" fill="none" strokeWidth="1" />
+          <circle cx="0" cy="0" r={maxRadius * 0.7} stroke="#f1f5f9" fill="none" strokeWidth="1" />
+          
+          {/* Inner score wedges */}
+          {data.map((w) => {
+            const wedgeRadius = (w.score / 70) * maxRadius;
+            return (
+              <path 
+                key={`inner-${w.name}`}
+                d={getWedgePath(w.startAngle, w.endAngle, wedgeRadius)}
+                fill={w.color}
+                opacity="0.85"
+                className="transition-all duration-500 hover:opacity-100"
+              />
+            );
+          })}
+
+          {/* Radial divider lines */}
+          {data.map((w) => {
+            const x = 180 * Math.cos(w.startAngle * rad);
+            const y = 180 * Math.sin(w.startAngle * rad);
+            return (
+              <line 
+                key={`line-${w.startAngle}`}
+                x1="0" y1="0" x2={x} y2={y}
+                stroke="#e2e8f0"
+                strokeWidth="1"
+              />
+            );
+          })}
+
+          {/* Outer rim sections */}
+          {data.map((w) => (
+            <path 
+              key={`rim-${w.name}`}
+              d={getAnnularSectorPath(w.startAngle, w.endAngle, 155, 180)}
+              fill={w.labelColor}
+              stroke="#e2e8f0"
+              strokeWidth="0.5"
+            />
+          ))}
+
+          {/* Circular boundaries */}
+          <circle cx="0" cy="0" r="180" stroke="#cbd5e1" fill="none" strokeWidth="1.5" />
+          <circle cx="0" cy="0" r="155" stroke="#cbd5e1" fill="none" strokeWidth="1.5" />
+
+          {/* Outer rim labels */}
+          {data.map((w) => {
+            const midAngle = (w.startAngle + w.endAngle) / 2;
+            const textRadius = 167;
+            const x = textRadius * Math.cos(midAngle * rad);
+            const y = textRadius * Math.sin(midAngle * rad);
+            
+            let rot = midAngle + 90;
+            if (rot > 90 && rot < 270) {
+              rot -= 180;
+            }
+
+            return (
+              <text 
+                key={`text-${w.name}`}
+                x={x}
+                y={y}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className={`${w.textClass} font-extrabold text-[9px] uppercase tracking-wide select-none`}
+                transform={`rotate(${rot}, ${x}, ${y})`}
+              >
+                {w.name}
+              </text>
+            );
+          })}
+
+          {/* Score & Rank labels inside sectors */}
+          {data.map((w) => {
+            const midAngle = (w.startAngle + w.endAngle) / 2;
+            const textRadius = 110;
+            const x = textRadius * Math.cos(midAngle * rad);
+            const y = textRadius * Math.sin(midAngle * rad);
+
+            return (
+              <g key={`labels-${w.name}`} className="select-none">
+                <circle cx={x} cy={y} r="18" fill="white" opacity="0.9" stroke="#f1f5f9" strokeWidth="0.5" />
+                <text 
+                  x={x} 
+                  y={y - 3} 
+                  textAnchor="middle" 
+                  className="fill-red-600 font-extrabold text-xs"
+                >
+                  {w.score}
+                </text>
+                <text 
+                  x={x} 
+                  y={y + 7} 
+                  textAnchor="middle" 
+                  className="fill-red-500 font-bold text-[9px]"
+                >
+                  {w.rank}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+// EQ Wheel (Page 55)
+const EQWheel = () => {
+  const data = [
+    { name: "Self-Awareness", score: 3.0, startAngle: -180, endAngle: -120, color: "#f97316" },
+    { name: "Self-Regulation", score: 5.5, startAngle: -120, endAngle: -60, color: "#ea580c" },
+    { name: "Motivation", score: 6.2, startAngle: -60, endAngle: 0, color: "#dc2626" },
+    { name: "Empathy", score: 4.7, startAngle: 0, endAngle: 90, color: "#c084fc" },
+    { name: "Social Skills", score: 3.6, startAngle: 90, endAngle: 180, color: "#7e22ce" }
+  ];
+
+  const rad = Math.PI / 180;
+  const maxRadius = 144;
+
+  const getWedgePath = (start, end, radius) => {
+    const x1 = radius * Math.cos(start * rad);
+    const y1 = radius * Math.sin(start * rad);
+    const x2 = radius * Math.cos(end * rad);
+    const y2 = radius * Math.sin(end * rad);
+    return `M 0 0 L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`;
+  };
+
+  const getAnnularSectorPath = (start, end, r1, r2) => {
+    const x1_inner = r1 * Math.cos(start * rad);
+    const y1_inner = r1 * Math.sin(start * rad);
+    const x2_inner = r1 * Math.cos(end * rad);
+    const y2_inner = r1 * Math.sin(end * rad);
+    
+    const x1_outer = r2 * Math.cos(start * rad);
+    const y1_outer = r2 * Math.sin(start * rad);
+    const x2_outer = r2 * Math.cos(end * rad);
+    const y2_outer = r2 * Math.sin(end * rad);
+    
+    return `M ${x1_inner} ${y1_inner} L ${x1_outer} ${y1_outer} A ${r2} ${r2} 0 0 1 ${x2_outer} ${y2_outer} L ${x2_inner} ${y2_inner} A ${r1} ${r1} 0 0 0 ${x1_inner} ${y1_inner} Z`;
+  };
+
+  return (
+    <div className="bg-white p-6 border border-gray-100 rounded-2xl shadow-sm print:shadow-none print:border-none print:p-0 my-6 flex flex-col items-center">
+      <div className="relative w-full max-w-md mx-auto aspect-square flex items-center justify-center">
+        <svg 
+          viewBox="-200 -200 400 400" 
+          className="w-full h-full max-h-[380px]"
+        >
+          {/* Definitions of Text Paths */}
+          <defs>
+            <path id="eqTopRimPath" d="M -173 0 A 173 173 0 0 1 173 0" fill="none" />
+            <path id="eqBottomRimPath" d="M -173 0 A 173 173 0 0 0 173 0" fill="none" />
+          </defs>
+
+          {/* Sector labels ring (gray background ring) */}
+          <circle cx="0" cy="0" r="168" fill="#78716c" opacity="0.15" />
+          <circle cx="0" cy="0" r="144" fill="white" />
+
+          {/* Background grid concentric circles inside wedges */}
+          <circle cx="0" cy="0" r={maxRadius * 0.4} stroke="#f1f5f9" fill="none" strokeWidth="1" />
+          <circle cx="0" cy="0" r={maxRadius * 0.7} stroke="#f1f5f9" fill="none" strokeWidth="1" />
+
+          {/* Inner score wedges */}
+          {data.map((w) => {
+            const wedgeRadius = (w.score / 10) * maxRadius;
+            return (
+              <path 
+                key={`inner-${w.name}`}
+                d={getWedgePath(w.startAngle, w.endAngle, wedgeRadius)}
+                fill={w.color}
+                opacity="0.85"
+                className="transition-all duration-500 hover:opacity-100"
+              />
+            );
+          })}
+
+          {/* Radial divider lines */}
+          {data.map((w) => {
+            const x = 180 * Math.cos(w.startAngle * rad);
+            const y = 180 * Math.sin(w.startAngle * rad);
+            return (
+              <line 
+                key={`line-${w.startAngle}`}
+                x1="0" y1="0" x2={x} y2={y}
+                stroke="#d1d5db"
+                strokeWidth="1.5"
+              />
+            );
+          })}
+
+          {/* Outer rim colored sectors */}
+          {/* Top half: Intrapersonal (Orange) */}
+          <path d={getAnnularSectorPath(-180, 0, 168, 180)} fill="#ea580c" />
+          
+          {/* Bottom half: Interpersonal (Purple) */}
+          <path d={getAnnularSectorPath(0, 180, 168, 180)} fill="#6b21a8" />
+
+          {/* Circular boundaries */}
+          <circle cx="0" cy="0" r="180" stroke="#cbd5e1" fill="none" strokeWidth="1.5" />
+          <circle cx="0" cy="0" r="168" stroke="#cbd5e1" fill="none" strokeWidth="1.5" />
+          <circle cx="0" cy="0" r="144" stroke="#cbd5e1" fill="none" strokeWidth="1.5" />
+
+          {/* Outer rim labels (INTRAPERSONAL & INTERPERSONAL) */}
+          <text className="font-extrabold text-[9px] fill-white tracking-[0.3em] select-none">
+            <textPath href="#eqTopRimPath" startOffset="50%" textAnchor="middle">INTRAPERSONAL</textPath>
+          </text>
+          <text className="font-extrabold text-[9px] fill-white tracking-[0.3em] select-none">
+            <textPath href="#eqBottomRimPath" startOffset="50%" textAnchor="middle">INTERPERSONAL</textPath>
+          </text>
+
+          {/* Sector labels and score values */}
+          {data.map((w) => {
+            const midAngle = (w.startAngle + w.endAngle) / 2;
+            const textRadius = 156;
+            const scoreRadius = 120;
+            
+            // Label rotation
+            let rot = midAngle + 90;
+            if (rot > 90 && rot < 270) {
+              rot -= 180;
+            }
+
+            const lx = textRadius * Math.cos(midAngle * rad);
+            const ly = textRadius * Math.sin(midAngle * rad);
+            
+            const sx = scoreRadius * Math.cos(midAngle * rad);
+            const sy = scoreRadius * Math.sin(midAngle * rad);
+
+            return (
+              <g key={`labels-${w.name}`} className="select-none">
+                {/* Sector Name */}
+                <text 
+                  x={lx}
+                  y={ly}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="fill-gray-700 font-extrabold text-[8px] uppercase tracking-wide"
+                  transform={`rotate(${rot}, ${lx}, ${ly})`}
+                >
+                  {w.name}
+                </text>
+                
+                {/* Score Number */}
+                <text 
+                  x={sx}
+                  y={sy}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="fill-gray-900 font-bold text-xs"
+                >
+                  {w.score.toFixed(1)}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
       </div>
     </div>
   );
@@ -1615,6 +2211,9 @@ const PageContent = ({ page }) => {
   if (pageNum === 26) {
     return <MotivatorsIntroduction />;
   }
+  if (pageNum === 35) {
+    return <MotivatorsNormsAndComparisons />;
+  }
   if (pageNum === 37) {
     const introText = "Your motivation to succeed in anything you do is determined by your underlying motivators. You will feel energized and successful at work when your job supports your personal motivators. They are listed below from the highest to the lowest.";
     return (
@@ -1623,6 +2222,12 @@ const PageContent = ({ page }) => {
         <MotivatorsHierarchy />
       </div>
     );
+  }
+  if (pageNum === 38) {
+    return <MotivationInsightsGraph />;
+  }
+  if (pageNum === 39) {
+    return <MotivatorsWheel />;
   }
   if (pageNum === 48 || pageNum === 49) {
     const introText = pageNum === 48
@@ -1634,6 +2239,9 @@ const PageContent = ({ page }) => {
         <EQGraphs pageNum={pageNum} />
       </div>
     );
+  }
+  if (pageNum === 55) {
+    return <EQWheel />;
   }
 
   return <DefaultPageRenderer content={page.content} />;
