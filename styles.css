@@ -1358,6 +1358,9 @@ video {
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+.scroll-mt-20 {
+  scroll-margin-top: 5rem;
+}
 .list-inside {
   list-style-position: inside;
 }
