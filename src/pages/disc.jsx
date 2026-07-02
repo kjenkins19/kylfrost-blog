@@ -1272,74 +1272,20 @@ const AreasForImprovement = () => {
 };
 
 // Page 25 - Success Insights Wheel Component
-const SuccessInsightsWheelSVG = () => {
+const SuccessInsightsWheelImage = () => {
   return (
     <div className="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-2xl shadow-sm my-6">
       <h3 className="text-md font-bold text-gray-800 mb-2">Success Insights® Wheel</h3>
       <p className="text-xs text-gray-400 mb-6 text-center max-w-sm">
-        Natural (Circle) and Adapted (Star) styles plotted at <strong>(20) Supporting Coordinator</strong>.
+        Natural (Circle) and Adapted (Star) styles plotted on the wheel.
       </p>
       
-      <div className="relative w-72 h-72">
-        <svg viewBox="0 0 200 200" className="w-full h-full">
-          {/* Wheel Background rings */}
-          <circle cx="100" cy="100" r="90" fill="none" stroke="#E5E7EB" strokeWidth="1" />
-          <circle cx="100" cy="100" r="70" fill="none" stroke="#E5E7EB" strokeWidth="1" />
-          <circle cx="100" cy="100" r="50" fill="none" stroke="#E5E7EB" strokeWidth="1" />
-          <circle cx="100" cy="100" r="30" fill="none" stroke="#E5E7EB" strokeWidth="1" />
-          
-          {/* 8 Sector Wedges representing combinations of D, I, S, C */}
-          {/* Segment 1: Conductor (Red) (247.5 - 292.5 deg) */}
-          <path d="M 100 100 L 100 10 A 90 90 0 0 1 163.6 36.4 Z" fill="#EF4444" opacity="0.15" />
-          {/* Segment 2: Persuader (Red-Yellow) (292.5 - 337.5 deg) */}
-          <path d="M 100 100 L 163.6 36.4 A 90 90 0 0 1 190 100 Z" fill="#F59E0B" opacity="0.15" />
-          {/* Segment 3: Promoter (Yellow) (337.5 - 22.5 deg) */}
-          <path d="M 100 100 L 190 100 A 90 90 0 0 1 163.6 163.6 Z" fill="#EAB308" opacity="0.15" />
-          {/* Segment 4: Relater (Yellow-Green) (22.5 - 67.5 deg) */}
-          <path d="M 100 100 L 163.6 163.6 A 90 90 0 0 1 100 190 Z" fill="#84CC16" opacity="0.15" />
-          {/* Segment 5: Supporter (Green) (67.5 - 112.5 deg) */}
-          <path d="M 100 100 L 100 190 A 90 90 0 0 1 36.4 163.6 Z" fill="#22C55E" opacity="0.15" />
-          {/* Segment 6: Coordinator (Green-Blue) (112.5 - 157.5 deg) */}
-          <path d="M 100 100 L 36.4 163.6 A 90 90 0 0 1 10 100 Z" fill="#06B6D4" opacity="0.15" />
-          {/* Segment 7: Analyzer (Blue) (157.5 - 202.5 deg) */}
-          <path d="M 100 100 L 10 100 A 90 90 0 0 1 36.4 36.4 Z" fill="#3B82F6" opacity="0.15" />
-          {/* Segment 8: Implementor (Blue-Red) (202.5 - 247.5 deg) */}
-          <path d="M 100 100 L 36.4 36.4 A 90 90 0 0 1 100 1 Z" fill="#6366F1" opacity="0.15" />
-
-          {/* Sector divider lines */}
-          <line x1="100" y1="10" x2="100" y2="190" stroke="#E5E7EB" strokeWidth="1" />
-          <line x1="10" y1="100" x2="190" y2="100" stroke="#E5E7EB" strokeWidth="1" />
-          <line x1="36.4" y1="36.4" x2="163.6" y2="163.6" stroke="#E5E7EB" strokeWidth="1" />
-          <line x1="36.4" y1="163.6" x2="163.6" y2="36.4" stroke="#E5E7EB" strokeWidth="1" />
-
-          {/* Sector Labels */}
-          <text x="100" y="25" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#B91C1C">CONDUCTOR</text>
-          <text x="145" y="45" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#D97706">PERSUADER</text>
-          <text x="165" y="100" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#CA8A04">PROMOTER</text>
-          <text x="145" y="150" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#65A30D">RELATER</text>
-          <text x="100" y="175" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#16A34A">SUPPORTER</text>
-          <text x="55" y="150" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#0891B2">COORDINATOR</text>
-          <text x="35" y="100" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#2563EB">ANALYZER</text>
-          <text x="55" y="45" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#4F46E5">IMPLEMENTOR</text>
-
-          {/* Plotted Natural (Circle) and Adapted (Star) dot in Coordinator/Supporter outer zone */}
-          <circle cx="72" cy="172" r="6" fill="#16A34A" stroke="#FFFFFF" strokeWidth="1.5" className="animate-pulse" />
-          <path d="M 72 167 L 73.5 170.5 L 77 170.5 L 74 172.5 L 75.5 176 L 72 174 L 68.5 176 L 70 172.5 L 67 170.5 L 70.5 170.5 Z" fill="#D97706" stroke="#FFFFFF" strokeWidth="1.0" />
-        </svg>
-
-        {/* Legend block */}
-        <div className="absolute bottom-2 left-2 flex flex-col gap-1 text-[10px] font-bold bg-white/95 border border-gray-150 p-2 rounded-lg shadow-sm">
-          <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#16A34A] border border-white shadow-sm" />
-            <span className="text-gray-600">Natural Style (20)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <svg viewBox="0 0 10 10" className="w-2.5 h-2.5 text-[#D97706]">
-              <path d="M 5 0.5 L 6.5 4 L 10 4 L 7 6 L 8.5 9.5 L 5 7.5 L 1.5 9.5 L 3 6 L 0 4 L 3.5 4 Z" fill="currentColor" stroke="white" strokeWidth="0.5" />
-            </svg>
-            <span className="text-gray-600">Adapted Style (20)</span>
-          </div>
-        </div>
+      <div className="w-full max-w-md overflow-hidden rounded-xl border border-gray-150 p-2 bg-gray-50/50">
+        <img 
+          src="/disc.png" 
+          alt="Success Insights® Wheel" 
+          className="w-full h-auto object-contain mx-auto block rounded-lg shadow-sm" 
+        />
       </div>
     </div>
   );
@@ -1502,7 +1448,7 @@ const PageContent = ({ page }) => {
         <p className="text-gray-700 leading-relaxed text-sm">
           Notice on the wheel that your Natural style (circle) and your Adapted style (star) are plotted on the Wheel. If they are plotted in different boxes, then you are adapting your behavior. The further the two plotting points are from each other, the more you are adapting your behavior.
         </p>
-        <SuccessInsightsWheelSVG />
+        <SuccessInsightsWheelImage />
       </div>
     );
   }
