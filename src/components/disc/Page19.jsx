@@ -3,9 +3,11 @@ import TimeWastersList from './TimeWastersList';
 
 const wasters = [
   {
-    title: "Failure To Anticipate (Continued)",
+    title: "Failure To Anticipate",
     desc: "Failure to anticipate is the lack of focusing on possible outcomes or requirements.",
     causes: [
+      "Expect only the best to happen",
+      "Expect everyone else to do their best",
       "Trust the system to run well",
       "Focus on the here and now rather than the future",
       "Resist change"

@@ -7,15 +7,8 @@ const Page21 = () => {
       <p className="text-gray-700 leading-relaxed text-sm">
         Your observable behavior and related emotions contribute to your success on the job. When matched to the job, they play a large role in enhancing your performance. The list below ranks your behavioral traits from the strongest to the weakest.
       </p>
-      
-      <div className="bg-white p-6 border border-gray-100 rounded-xl shadow-sm print:shadow-none print:border-none print:p-0 my-6 space-y-6">
-        <div className="border-b border-gray-100 pb-4">
-          <h2 className="text-2xl font-bold text-gray-800">Behavioral Hierarchy</h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Your observable behavior and related emotions rank-ordered from strongest to weakest.
-          </p>
-        </div>
 
+      <div className="bg-white p-6 border border-gray-100 rounded-xl shadow-sm print:shadow-none print:border-none print:p-0 my-6 space-y-6">
         <div className="space-y-6">
           {BEHAVIOR_TRAITS.map((t, idx) => (
             <div key={t.id} className="space-y-2">
@@ -38,22 +31,22 @@ const Page21 = () => {
               {/* Horizontal progress bar */}
               <div className="relative h-4 bg-gray-100 rounded-full overflow-hidden">
                 {/* Shaded 68% standard deviation range around population mean */}
-                <div 
+                <div
                   className="absolute top-0 bottom-0 bg-yellow-100 opacity-50"
-                  style={{ 
-                    left: `${Math.max(0, (t.mean - 1.2) * 10)}%`, 
-                    right: `${Math.max(0, 100 - (t.mean + 1.2) * 10)}%` 
+                  style={{
+                    left: `${Math.max(0, (t.mean - 1.2) * 10)}%`,
+                    right: `${Math.max(0, 100 - (t.mean + 1.2) * 10)}%`
                   }}
                 />
-                
+
                 {/* Kyle's Score Bar */}
-                <div 
-                  className={`absolute top-0 bottom-0 rounded-full ${t.score >= 7.0 ? 'bg-blue-500' : t.score >= 5.0 ? 'bg-cyan-500' : 'bg-gray-400'}`} 
+                <div
+                  className={`absolute top-0 bottom-0 rounded-full ${t.score >= 7.0 ? 'bg-blue-500' : t.score >= 5.0 ? 'bg-cyan-500' : 'bg-gray-400'}`}
                   style={{ width: `${t.score * 10}%` }}
                 />
 
                 {/* Population Mean Mark */}
-                <div 
+                <div
                   className="absolute top-0 bottom-0 w-1 bg-red-500 flex items-center justify-center z-10"
                   style={{ left: `${t.mean * 10}%` }}
                   title={`Population Mean: ${t.mean}`}

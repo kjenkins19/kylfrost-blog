@@ -3,8 +3,6 @@ import React from 'react';
 const Page33 = () => {
   return (
     <div className="space-y-4">
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">Navigating Situations Outside Your</h3>
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">Comfort Zone</h3>
       <p className="text-gray-700 leading-relaxed text-sm">The information on this page will highlight areas in which you may struggle relating to based on your lowest motivator. The information will teach you how to manage your way through discussions focusing on your number six motivator. Tips for Communicating with &quot;High Traditional&quot; utilizing your Individualistic. As you read through the communication tips, think about the following questions: How does the mindset of a high Traditional contribute to today's workforce? How do Traditionals contribute to the world, your professional life and your personal life? A high Traditional seeks a system for living and wants others to follow the system of his or her choice.</p>
       <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
         <li>Look at traditions as a way to take what's proven to accomplish goals and to enhance them. How can the way things are done be improved, without throwing out the foundational concepts?</li>

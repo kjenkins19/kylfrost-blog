@@ -3,7 +3,6 @@ import React from 'react';
 const Page29 = () => {
   return (
     <div className="space-y-4">
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">Theoretical</h3>
       <p className="text-gray-700 leading-relaxed text-sm">The primary drive with this motivator is the discovery of TRUTH. In pursuit of this drive, an individual takes a &quot;cognitive&quot; attitude. Such an individual is nonjudgmental regarding the beauty or utility of objects and seeks only to observe and to reason. Since the interests of the theoretical person are empirical, critical and rational, the person appears to be an intellectual. The chief aim in life is to order and systematize knowledge: knowledge for the sake of knowledge.</p>
       <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
         <li>If Kyle is truly interested in a specific subject, or if knowledge of specific subject matter is required for success, then he will take the initiative to learn about that subject in great depth.</li>
@@ -14,7 +13,6 @@ const Page29 = () => {
         <li>If knowledge of a specific subject is not of interest, or is not required for success, Kyle will have a tendency to rely on his intuition or practical information in this area.</li>
         <li>Kyle has the potential to become an expert in his chosen field.</li>
       </ul>
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">. 28</h3>
     </div>
   );
 };

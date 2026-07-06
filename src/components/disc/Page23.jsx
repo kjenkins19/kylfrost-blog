@@ -26,7 +26,6 @@ const Page23 = () => {
   return (
     <div className="space-y-8 bg-white p-6 border border-gray-100 rounded-xl shadow-sm print:shadow-none print:border-none print:p-0 my-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-800">Style Insights® Graphs</h2>
         <p className="text-sm text-gray-500 mt-1">Comparing Adapted vs. Natural behavioral styles</p>
       </div>
 

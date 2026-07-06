@@ -3,7 +3,6 @@ import React from 'react';
 const Page31 = () => {
   return (
     <div className="space-y-4">
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">Utilitarian</h3>
       <p className="text-gray-700 leading-relaxed text-sm">The Utilitarian score shows a characteristic interest in money and what is useful. This means that an individual wants to have the security that money brings not only for themselves, but for their present and future family. This motivator includes the practical affairs of the business world - the production, marketing and consumption of goods, the use of credit, and the accumulation of tangible wealth. This type of individual is thoroughly practical and conforms well to the stereotype of the average business person. A person with a high score is likely to have a high need to surpass others in wealth.</p>
       <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
         <li>Kyle will seek a comfort level in his standard of living and try to maintain that level.</li>

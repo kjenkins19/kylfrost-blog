@@ -3,7 +3,6 @@ import React from 'react';
 const Page27 = () => {
   return (
     <div className="space-y-4">
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">Individualistic</h3>
       <p className="text-gray-700 leading-relaxed text-sm">The primary interest for this motivator is POWER, not necessarily politics. Research studies indicate that leaders in most fields have a high power drive. Since competition and struggle play a large part in all areas of life, many philosophers have seen power as the most universal and most fundamental of motives. There are, however, certain personalities in whom the desire for direct expression of this motive is uppermost; who wish, above all, for personal power, influence and renown.</p>
       <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
         <li>Maintaining individuality is strived for in relationships.</li>
