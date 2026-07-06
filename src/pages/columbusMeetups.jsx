@@ -20,7 +20,7 @@ const ListItem = ({
   {subEvents.length ? (<div>
     <p>Including, but not limited to:</p>
     <ul className="list-disc list-inside ml-3">
-      {subEvents.map((event) => (<li>{event}</li>))}
+      {subEvents.map((event) => (<li key={event}>{event}</li>))}
     </ul>
   </div>) : (<></>)}
 </div>)

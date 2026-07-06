@@ -72,7 +72,7 @@ export const discPages = [
   },
   {
     "page": 15,
-    "title": "Kyle sees his present work environment requiring him to exhibit the behavior listed on",
+    "title": "Adapted Style",
     "content": "Kyle sees his present work environment requiring him to exhibit the behavior listed on\nthis page. If the following statements DO NOT sound job related, explore the reasons\nwhy he is adapting this behavior.\n• Task focus over people focus.\n• Sensitivity to existing rules and regulations.\n• Diplomatic cooperation in team interaction.\n• Adherence to established guidelines and procedures.\n• Precise, analytical approach to work tasks.\n• Logical solutions.\n• Consistency of task performance.\n• Traditional, quality-oriented work model to follow.\n• Exhibiting patience and good listening skills.\n• Disciplined, meticulous attention to order.\n• Compliance to high standards\n• Using a disciplined approach.\nsaunt\n• Limited contact with people.\nIMPLEMENTOR\nANALYZER\nCONDUCTOR\nCOORDINATOR\nPERSUADER\nSUPPORTER\nPROMOTER\nRELATER"
   },
   {

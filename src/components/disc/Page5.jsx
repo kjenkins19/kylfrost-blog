@@ -2,9 +2,6 @@ import React from 'react';
 
 const Page5 = () => {
   return (<div className="space-y-4">
-      <h3
-        className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">General
-        Characteristics Continued</h3>
       <p className="text-gray-700 leading-relaxed text-sm">Kyle may guard some information unless he is asked specific
         questions. He will not willingly share unless he is comfortable with the knowledge he possesses about the topic.
         Sometimes he will withdraw from a verbal battle. If he feels strong about an issue, he may retreat to gather his

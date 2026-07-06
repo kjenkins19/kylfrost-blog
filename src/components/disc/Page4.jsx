@@ -2,13 +2,12 @@ import React from 'react';
 
 const Page4 = () => {
   return (<div className="space-y-4">
-    <h3
-      className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">General
-      Characteristics</h3>
-    <p className="text-gray-700 leading-relaxed text-sm">Based on Kyle's responses, the report has selected general
+    <p className="text-gray-700 leading-relaxed text-sm italic">Based on Kyle's responses, the report has selected general
       statements to provide a broad understanding of his work style. These statements identify the basic natural
       behavior that he brings to the job. That is, if left on his own, these statements identify HOW HE WOULD CHOOSE
-      TO DO THE JOB. Use the general characteristics to gain a better understanding of Kyle's natural behavior. Kyle
+      TO DO THE JOB. Use the general characteristics to gain a better understanding of Kyle's natural behavior.
+    </p>
+    <p className="text-gray-700 leading-relaxed text-sm">Kyle
       is often seen as practical and objective. He doesn't resist change as much as he resists being changed. He needs
       to be an active participant in situations that will impact his work. He can be friendly with others in many
       situations, but primarily with groups of established friends and associates. He is sociable and enjoys the
