@@ -3,7 +3,6 @@ import React from 'react';
 const Page24 = () => {
   return (
     <div className="space-y-4">
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">The Success Insights® Wheel</h3>
       <p className="text-gray-700 leading-relaxed text-sm">The Success Insights® Wheel is a powerful tool popularized in Europe. In addition to the text you have received about your behavioral style, the Wheel adds a visual representation that allows you</p>
       <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
         <li>View your natural behavioral style (circle).</li>

@@ -1,12 +1,36 @@
 import React from 'react';
 
 const Page57 = () => {
-  return (
-    <div className="space-y-4">
-      <h3 className="text-md font-extrabold text-blue-900 border-l-4 border-blue-600 pl-3 uppercase tracking-wide mt-6 mb-2">Blending Behaviors, Motivators and EQ</h3>
-      <p className="text-gray-700 leading-relaxed text-sm">for Success People who understand and appreciate themselves as unique individuals and can apply that same understanding and appreciation to others are more successful. This page is designed to connect behavioral strengths, motivational drives and a person's level of Emotional Intelligence in order to propel his or her ability to navigate the day-to-day situations of the business landscape. Kyle has a low level of Self-Awareness. He doesn't tend to recognize mental and physical changes in how he is feeling. Coupled with his high &quot;Steadiness&quot; behavioral style, these feelings will be managed purely on a behavioral basis. People with a high &quot;Steadiness&quot; tend to be methodical, sincere and willing to accommodate the needs of others, and they may suppress their feelings when particular triggers are ignited without even realizing it. They can become overly possessive with information and even stubborn in emotionally charged situations, and they may be unaware of the increased intensity being displayed. Kyle has a low level of Self-Regulation. He may not be able to temper responses and reactions to emotionally charged events. Possessing a high &quot;Steadiness&quot; behavioral style indicates that Kyle would be non-demonstrative, possessive of information and will want to avoid conflict. However, with low Self-Regulation, the typical behavioral characteristics may be intensified slightly, and this can have a negative impact on communications with others. By understanding his steadiness behavior and how it impacts the communication flow with others, Kyle would benefit from understanding how to adapt this communication style for a more positive outcome. Be careful in instances where the topic at hand directly relates to Kyle's Individualistic and Aesthetic motivators in particular. The ability for him to utilize his knowledge of his behaviors will be hindered when a perceived threat to his drivers is present. Kyle has a low level of Motivation. He has a below average amount of motivation and passion to work for reasons that don't satisfy his Individualistic and Aesthetic drivers. This motivation is an internal drive to achieve the goal; however, with motivation being below average, it's imperative to utilize an external driver or &quot;carrot&quot; to chase. Engagement and superior performance can be achieved if and when his Individualistic and Aesthetic drivers have the potential to be satisfied through his career.</p>
-    </div>
-  );
+  return (<div className="space-y-4">
+    <p className="text-gray-700 leading-relaxed text-sm font-italic">for Success People who understand and appreciate themselves
+      as unique individuals and can apply that same understanding and appreciation to others are more successful. This
+      page is designed to connect behavioral strengths, motivational drives and a person's level of Emotional
+      Intelligence in order to propel his or her ability to navigate the day-to-day situations of the business
+      landscape.</p>
+    <p className="text-gray-700 leading-relaxed text-sm">Kyle has a low level of Self-Awareness. He doesn't tend to
+      recognize mental and physical changes in
+      how he is feeling. Coupled with his high &quot;Steadiness&quot; behavioral style, these feelings will be managed
+      purely on a behavioral basis. People with a high &quot;Steadiness&quot; tend to be methodical, sincere and
+      willing to accommodate the needs of others, and they may suppress their feelings when particular triggers are
+      ignited without even realizing it. They can become overly possessive with information and even stubborn in
+      emotionally charged situations, and they may be unaware of the increased intensity being displayed.</p>
+    <p className="text-gray-700 leading-relaxed text-sm">Kyle has a
+      low level of Self-Regulation. He may not be able to temper responses and reactions to emotionally charged
+      events. Possessing a high &quot;Steadiness&quot; behavioral style indicates that Kyle would be
+      non-demonstrative, possessive of information and will want to avoid conflict. However, with low Self-Regulation,
+      the typical behavioral characteristics may be intensified slightly, and this can have a negative impact on
+      communications with others. By understanding his steadiness behavior and how it impacts the communication flow
+      with others, Kyle would benefit from understanding how to adapt this communication style for a more positive
+      outcome. Be careful in instances where the topic at hand directly relates to Kyle's Individualistic and
+      Aesthetic motivators in particular. The ability for him to utilize his knowledge of his behaviors will be
+      hindered when a perceived threat to his drivers is present.</p>
+    <p className="text-gray-700 leading-relaxed text-sm">Kyle has a low level of Motivation. He has a below
+      average amount of motivation and passion to work for reasons that don't satisfy his Individualistic and
+      Aesthetic drivers. This motivation is an internal drive to achieve the goal; however, with motivation being
+      below average, it's imperative to utilize an external driver or &quot;carrot&quot; to chase. Engagement and
+      superior performance can be achieved if and when his Individualistic and Aesthetic drivers have the potential to
+      be satisfied through his career.</p>
+  </div>);
 };
 
 export default Page57;
