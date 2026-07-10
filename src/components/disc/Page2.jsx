@@ -1,3 +1,4 @@
+export const title = "Introduction Where Opportunity Meets Talent®";
 import React from 'react';
 
 const Page2 = () => {

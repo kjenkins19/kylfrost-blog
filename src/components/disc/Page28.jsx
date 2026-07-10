@@ -1,3 +1,4 @@
+export const title = "Aesthetic";
 import React from 'react';
 
 const Page28 = () => {

@@ -1,3 +1,4 @@
+export const title = "Blending Behaviors, Motivators and EQ for Success";
 import React from 'react';
 
 const Page58 = () => {

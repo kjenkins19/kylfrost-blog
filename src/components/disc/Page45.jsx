@@ -1,3 +1,4 @@
+export const title = "Keys to Managing";
 import React from 'react';
 
 const Page45 = () => {

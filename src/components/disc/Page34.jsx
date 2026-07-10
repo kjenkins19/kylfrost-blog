@@ -1,3 +1,4 @@
+export const title = "Navigating Situations Outside Your Comfort Zone";
 import React from 'react';
 
 const Page34 = () => {

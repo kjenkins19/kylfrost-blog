@@ -1,3 +1,4 @@
+export const title = "Theoretical";
 import React from 'react';
 
 const Page29 = () => {

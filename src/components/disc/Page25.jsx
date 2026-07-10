@@ -1,3 +1,4 @@
+export const title = "The Success Insights Wheel";
 import React from 'react';
 
 const Page25 = () => {

@@ -1,3 +1,4 @@
+export const title = "Interpersonal Social Skills";
 import React from 'react';
 
 const Page54 = () => {

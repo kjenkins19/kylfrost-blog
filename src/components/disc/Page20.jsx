@@ -1,3 +1,4 @@
+export const title = "Areas for Improvement";
 import React from 'react';
 
 const Page20 = () => {

@@ -1,3 +1,4 @@
+export const title = "Intrapersonal Self-Awareness";
 import React from 'react';
 
 const Page50 = () => {

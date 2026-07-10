@@ -1,3 +1,4 @@
+export const title = "Potential Behavioral and Motivational Strengths";
 import React from 'react';
 
 const Page41 = () => {

@@ -1,3 +1,4 @@
+export const title = "Motivators Hierarchy";
 import React from 'react';
 import { MOTIVATORS } from './discConfig';
 

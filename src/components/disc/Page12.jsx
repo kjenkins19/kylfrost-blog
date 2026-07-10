@@ -1,3 +1,4 @@
+export const title = "Descriptors";
 import React from 'react';
 
 const DESCRIPTORS_DATA = [

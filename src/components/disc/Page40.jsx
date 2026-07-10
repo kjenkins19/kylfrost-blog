@@ -1,3 +1,4 @@
+export const title = "Introduction Integrating Behaviors and Motivators Section";
 import React from 'react';
 
 const Page40 = () => {

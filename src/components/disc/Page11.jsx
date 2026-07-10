@@ -1,3 +1,4 @@
+export const title = "The Absence of a Behavioral Factor";
 import React from 'react';
 
 const Page11 = () => {

@@ -1,3 +1,4 @@
+export const title = "Traditional";
 import React from 'react';
 
 const Page32 = () => {

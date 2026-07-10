@@ -1,3 +1,4 @@
+export const title = "Checklist for Communicating";
 import React from 'react';
 
 const Page7 = () => {

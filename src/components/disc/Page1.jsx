@@ -1,3 +1,4 @@
+export const title = "TTI";
 import React from 'react';
 
 const Page1 = () => {

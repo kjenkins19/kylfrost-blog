@@ -1,3 +1,4 @@
+export const title = "Keys to Motivating";
 import React from 'react';
 
 const Page44 = () => {

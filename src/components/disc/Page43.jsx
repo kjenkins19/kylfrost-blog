@@ -1,3 +1,4 @@
+export const title = "Ideal Environment";
 import React from 'react';
 
 const Page43 = () => {

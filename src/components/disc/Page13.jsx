@@ -1,3 +1,4 @@
+export const title = "Natural and Adapted Style";
 import React from 'react';
 
 const NATURAL_ADAPTED_DATA = [

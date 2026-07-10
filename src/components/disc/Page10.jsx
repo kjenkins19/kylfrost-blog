@@ -1,3 +1,4 @@
+export const title = "Perceptions";
 import React from 'react';
 
 const PERCEPTIONS_DATA = [

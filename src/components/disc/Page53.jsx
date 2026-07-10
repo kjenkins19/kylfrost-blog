@@ -1,3 +1,4 @@
+export const title = "Interpersonal Empathy";
 import React from 'react';
 
 const Page53 = () => {

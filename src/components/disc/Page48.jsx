@@ -1,3 +1,4 @@
+export const title = "Emotional Quotient Assessment Results";
 import React from 'react';
 import { EQ_COMPONENTS } from './discConfig';
 

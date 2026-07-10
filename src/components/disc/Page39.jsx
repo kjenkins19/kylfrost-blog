@@ -1,3 +1,4 @@
+export const title = "Motivators Wheel™";
 import React from 'react';
 
 const Page39 = () => {

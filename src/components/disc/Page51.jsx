@@ -1,3 +1,4 @@
+export const title = "Intrapersonal Self-Regulation";
 import React from 'react';
 
 const Page51 = () => {

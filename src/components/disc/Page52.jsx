@@ -1,3 +1,4 @@
+export const title = "Intrapersonal Motivation";
 import React from 'react';
 
 const Page52 = () => {

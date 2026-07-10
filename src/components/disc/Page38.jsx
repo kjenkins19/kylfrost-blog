@@ -1,3 +1,4 @@
+export const title = "Motivation Insights® Graph";
 import React from 'react';
 
 const Page38 = () => {

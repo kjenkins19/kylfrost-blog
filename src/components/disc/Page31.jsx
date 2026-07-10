@@ -1,3 +1,4 @@
+export const title = "Utilitarian";
 import React from 'react';
 
 const Page31 = () => {

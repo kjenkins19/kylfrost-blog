@@ -1,3 +1,4 @@
+export const title = "Style Insights® Graphs";
 import React from 'react';
 import { DISC_COLORS } from './discConfig';
 

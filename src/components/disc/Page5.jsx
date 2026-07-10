@@ -1,3 +1,4 @@
+export const title = "General Characteristics Continued";
 import React from 'react';
 
 const Page5 = () => {

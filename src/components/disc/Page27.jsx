@@ -1,3 +1,4 @@
+export const title = "Individualistic";
 import React from 'react';
 
 const Page27 = () => {

@@ -1,3 +1,4 @@
+export const title = "Value to the Organization";
 import React from 'react';
 
 const Page6 = () => {

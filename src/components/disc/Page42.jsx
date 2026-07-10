@@ -1,3 +1,4 @@
+export const title = "Potential Behavioral and Motivational Conflict";
 import React from 'react';
 
 const Page42 = () => {

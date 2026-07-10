@@ -1,3 +1,4 @@
+export const title = "Introduction Behaviors Section";
 import React from 'react';
 
 const Page3 = () => {

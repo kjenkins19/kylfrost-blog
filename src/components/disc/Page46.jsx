@@ -1,3 +1,4 @@
+export const title = "Introduction Emotional Intelligence Section";
 import React from 'react';
 
 const Page46 = () => {

@@ -1,3 +1,4 @@
+export const title = "Communication Tips";
 import React from 'react';
 
 const COMMUNICATION_TIPS = [{

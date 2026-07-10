@@ -1,3 +1,4 @@
+export const title = "Behavioral Hierarchy";
 import React from 'react';
 
 const Page22 = () => {

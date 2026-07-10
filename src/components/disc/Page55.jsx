@@ -1,3 +1,4 @@
+export const title = "Emotional Quotient™ Wheel";
 import React from 'react';
 
 const Page55 = () => {

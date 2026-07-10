@@ -1,3 +1,4 @@
+export const title = "Introduction Motivators Section";
 import React from 'react';
 
 const Page26 = () => {

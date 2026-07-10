@@ -1,3 +1,4 @@
+export const title = "Emotional Quotient Scoring Information";
 import React from 'react';
 import { EQ_SCORING } from './discConfig';
 

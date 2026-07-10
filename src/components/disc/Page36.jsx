@@ -1,3 +1,4 @@
+export const title = "Motivators - Norms & Comparisons";
 import React from 'react';
 
 const Page36 = () => {

@@ -1,3 +1,4 @@
+export const title = "Social";
 import React from 'react';
 
 const Page30 = () => {

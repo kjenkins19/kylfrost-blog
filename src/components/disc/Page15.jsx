@@ -1,3 +1,4 @@
+export const title = "Adapted Style";
 import React from 'react';
 
 const Page15 = () => {

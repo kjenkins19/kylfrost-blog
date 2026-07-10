@@ -1,3 +1,4 @@
+export const title = "Time Wasters Continued";
 import React from 'react';
 import TimeWastersList from './TimeWastersList';
 
