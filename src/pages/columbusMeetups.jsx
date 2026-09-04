@@ -26,6 +26,10 @@ const ListItem = ({
 </div>)
 
 const meetupList = [{
+  name: 'Agile Coaching Circle',
+  url: 'https://www.meetup.com/techlifecolumbus/',
+  topics: 'Agile, Coaching'
+}, {
   name: 'AI Tinkerers Columbus',
   url: 'https://columbus.aitinkerers.org/',
   topics: 'AI Demos, Agentic Workflow'
@@ -103,22 +107,30 @@ const meetupList = [{
   topics: 'Web'
 }];
 
-const orgList = [
-  {
-    name: 'TechLife Columbus',
-    url: 'https://www.meetup.com/techlifecolumbus/',
-    topics: 'Helps Coordinate Lots of events',
-    subEvents: ['Agile Coaching Circle', 'Code Jam Columbus', 'NFT AI ART Columbus', 'Data & Analytics', 'Pair Programming & Mentoring'],
-  }, {
-    name: 'OhioX',
-    url: 'https://www.ohiox.org/events',
-    topics: 'Nonprofit membership organization that connects, promotes, and advocates for Ohio’s tech growth'
-  }, {
-    name: 'Tech Community Coalition (TCC)',
-    url: 'https://www.eventbrite.com/o/tech-community-coalition-55321084703',
-    topics: 'non-profit corporation whose mission is to enable the community, collaboration, and education of technology professionals, entrepreneurs, and innovators through charity and education including organizing and facilitating community events'
-  }
-];
+const orgList = [{
+  name: 'COHAA',
+  url: 'https://www.cohaa.org/',
+  topics: 'Agile Events, Path to Agility',
+  subEvents: ['Agile Coaching Circle', 'Path to Agility'],
+}, {
+  name: 'TechLife Columbus',
+  url: 'https://www.meetup.com/techlifecolumbus/',
+  topics: 'Helps Coordinate Lots of events',
+  subEvents: ['Agile Coaching Circle', 'Code Jam Columbus', 'NFT AI ART Columbus', 'Data & Analytics', 'Pair Programming & Mentoring'],
+}, {
+  name: 'GetWITit Columbus',
+  url: 'https://getwitit.org/chapters/columbus',
+  topics: 'Women in Technology',
+  subEvents: ['WITCon'],
+}, {
+  name: 'OhioX',
+  url: 'https://www.ohiox.org/events',
+  topics: 'Nonprofit membership organization that connects, promotes, and advocates for Ohio’s tech growth'
+}, {
+  name: 'Tech Community Coalition (TCC)',
+  url: 'https://www.eventbrite.com/o/tech-community-coalition-55321084703',
+  topics: 'non-profit corporation whose mission is to enable the community, collaboration, and education of technology professionals, entrepreneurs, and innovators through charity and education including organizing and facilitating community events'
+}];
 
 const ColumbusMeetups = () => {
   return (<Layout
@@ -132,7 +144,8 @@ const ColumbusMeetups = () => {
           Columbus Tech Meetups and Events
         </h1>
         <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-          This page is a simple list of meetups and organizations in hopes to connect the community with local meetups and events.
+          This page is a simple list of meetups and organizations in hopes to connect the community with local meetups
+          and events.
         </p>
       </section>
 
